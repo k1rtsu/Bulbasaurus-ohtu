@@ -1,2 +1,2 @@
-# NoFlask-ohtu24
+# Bulbasaurus ohtu
 ohjelmistotuotanto 2024 miniprojekti

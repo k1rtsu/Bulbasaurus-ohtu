@@ -34,5 +34,5 @@ poetry install
 Käynnistä sovellus
 
 ```bash
-poetry src/index.py
+python3 src/index.py
 ```

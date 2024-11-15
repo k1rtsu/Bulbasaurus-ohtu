@@ -46,6 +46,8 @@ Käynnistä sovellus
 python3 src/index.py
 ```
 
+## Testausohje
+
 Suorita yksikkötestit
 
 ```bash
@@ -53,6 +55,13 @@ pytest src/tests
 ```
 
 Suorita Robot-testit
+
+*Käynnistä sovellus virtuaaliympäristössä*
+
+```bash
+python3 src/index.py
+```
+*Suorita Robot-testit sovelluksen ollessa käynnissä*
 
 ```bash
 robot src/story_tests

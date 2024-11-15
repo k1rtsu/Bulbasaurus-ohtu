@@ -21,11 +21,6 @@ DATABASE_URL=postgresql://xxx
 TEST_ENV=true
 SECRET_KEY=""
 ```
-Avaa virtuaaliympäristö
-
-```bash
-poetry shell
-```
 
 Lataa riippuvuudet
 
@@ -33,8 +28,32 @@ Lataa riippuvuudet
 poetry install
 ```
 
+Avaa virtuaaliympäristö
+
+```bash
+poetry shell
+```
+
+Luo sovelluksen tarvitsemat tietokantataulut ennen kuin käynnistät sovelluksen ensimmäistä kertaa
+
+```bash
+python3 src/db_helper.py
+```
+
 Käynnistä sovellus
 
 ```bash
 python3 src/index.py
+```
+
+Suorita yksikkötestit
+
+```bash
+pytest src/tests
+```
+
+Suorita Robot-testit
+
+```bash
+robot src/story_tests
 ```

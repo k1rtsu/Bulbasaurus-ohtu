@@ -3,9 +3,9 @@
 echo "Running tests"
 
 # luodaan tietokanta
-poetry run python src/db_helper.py
+#poetry run python src/db_helper.py
 
-echo "DB setup done"
+#echo "DB setup done"
 
 # käynnistetään Flask-palvelin taustalle
 poetry run python3 src/index.py &

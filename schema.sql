@@ -1,29 +1,19 @@
 -- Users save references into this table. The column 'type' tells the type of the 
--- reference e.g. a book or an article.
+-- reference eg. a book or an article.
 CREATE TABLE reference
 (
     id SERIAL PRIMARY KEY,
-    type TEXT
+    type VARCHAR
 );
 
--- Authors are saved into this table. A separate table is needed, because the number of 
--- authors may vary.
-CREATE TABLE author
+-- Information about the reference is saved in this table. The column 'field' tells the
+-- type of the saved information (eg. author, title, year) and the information is saved 
+-- in the column 'value'. 
+CREATE TABLE info
 (
     id SERIAL PRIMARY KEY,
     reference_id INTEGER REFERENCES reference,
-    name TEXT
+    field VARCHAR,
+    value TEXT
 );
-
--- Information about books is saved here.
-CREATE TABLE book
-(
-    id SERIAL PRIMARY KEY,
-    reference_id INTEGER REFERENCES reference,
-    title TEXT,
-    year INTEGER,
-    publisher TEXT
-);
-
-
 

@@ -6,7 +6,7 @@ from sqlalchemy import text
 # SETUP_DB() VOISI LUODA KAIKKI MEIDÄN TARVITSEMAT TAULUT JA RESET_DB RESETOIDA NE KAIKKI
 
 # table_name = "testi"
-tables = ["reference", "author", "book"]
+tables = ["reference", "info"]
 
 
 def reset_db():
@@ -33,35 +33,21 @@ def setup_db():
         CREATE TABLE reference
         (
             id SERIAL PRIMARY KEY,
-            type TEXT
+            type VARCHAR
         );"""
     )
     db.session.execute(sql)
     db.session.commit()
 
-    print("Creating table author")
+    print("Creating table info")
     sql = text(
         """
-        CREATE TABLE author
+        CREATE TABLE info
         (
             id SERIAL PRIMARY KEY,
             reference_id INTEGER REFERENCES reference,
-            name TEXT
-        );"""
-    )
-    db.session.execute(sql)
-    db.session.commit()
-
-    print("Creating table book")
-    sql = text(
-        """
-        CREATE TABLE book
-        (
-            id SERIAL PRIMARY KEY,
-            reference_id INTEGER REFERENCES reference,
-            title TEXT,
-            year INTEGER,
-            publisher TEXT
+            field VARCHAR,
+            value TEXT
         );"""
     )
     db.session.execute(sql)

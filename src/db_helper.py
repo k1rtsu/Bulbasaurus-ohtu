@@ -5,47 +5,87 @@ from sqlalchemy import text
 # KOPIOITU ESIMERKISTÄ JA LUOTU ESIMERKIN MUKAAN TESTI -NIMINEN TAULU, TIETOKANNAN TOIMIVUUDEN TESTAAMISEKSI.
 # SETUP_DB() VOISI LUODA KAIKKI MEIDÄN TARVITSEMAT TAULUT JA RESET_DB RESETOIDA NE KAIKKI
 
-table_name = "testi"
+# table_name = "testi"
+tables = ["reference", "author", "book"]
 
 
-def table_exists(name):
+def reset_db():
+    """Delete the contents of all tables"""
+    for table in tables:
+        print(f"Clearing contents from table {table}")
+        sql = text(f"DELETE FROM {table}")
+        db.session.execute(sql)
+        db.session.commit()
+
+
+def setup_db():
+    """Deletes tables and creates them again"""
+
+    for table in tables:
+        print(f"Checking if table {table} exists")
+        if table_exists(table):
+            print(f"Table {table} exists, dropping")
+            delete_table(table)
+
+    print("Creating table reference")
+    sql = text(
+        """
+        CREATE TABLE reference
+        (
+            id SERIAL PRIMARY KEY,
+            type TEXT
+        );"""
+    )
+    db.session.execute(sql)
+    db.session.commit()
+
+    print("Creating table author")
+    sql = text(
+        """
+        CREATE TABLE author
+        (
+            id SERIAL PRIMARY KEY,
+            reference_id INTEGER REFERENCES reference,
+            name TEXT
+        );"""
+    )
+    db.session.execute(sql)
+    db.session.commit()
+
+    print("Creating table book")
+    sql = text(
+        """
+        CREATE TABLE book
+        (
+            id SERIAL PRIMARY KEY,
+            reference_id INTEGER REFERENCES reference,
+            title TEXT,
+            year INTEGER,
+            publisher TEXT
+        );"""
+    )
+    db.session.execute(sql)
+    db.session.commit()
+
+
+def table_exists(table):
+    """Check if table exists"""
     sql_table_existence = text(
         "SELECT EXISTS ("
         "  SELECT 1"
         "  FROM information_schema.tables"
-        f" WHERE table_name = '{name}'"
+        f" WHERE table_name = '{table}'"
         ")"
     )
-
-    print(f"Checking if table {name} exists")
-    print(sql_table_existence)
+    # print(sql_table_existence)
 
     result = db.session.execute(sql_table_existence)
     return result.fetchall()[0][0]
 
 
-def reset_db():
-    print(f"Clearing contents from table {table_name}")
-    sql = text(f"DELETE FROM {table_name}")
-    db.session.execute(sql)
-    db.session.commit()
-
-
-def setup_db():
-    if table_exists(table_name):
-        print(f"Table {table_name} exists, dropping")
-        sql = text(f"DROP TABLE {table_name}")
-        db.session.execute(sql)
-        db.session.commit()
-
-    print(f"Creating table {table_name}")
-    sql = text(
-        f"CREATE TABLE {table_name} ("
-        "  id SERIAL PRIMARY KEY, "
-        "  content TEXT NOT NULL"
-        ")"
-    )
-
+def delete_table(table):
+    """Delete table"""
+    sql = text(f"DROP TABLE {table} CASCADE")
     db.session.execute(sql)
     db.session.commit()
 

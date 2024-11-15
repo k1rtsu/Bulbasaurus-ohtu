@@ -6,26 +6,25 @@ Create a new reference
 
 {% block body %}
 
-<h2>Create a new reference</h2>
+<h2>Lisää kirja</h2>
 
-<!--  TÄÄ KOPIOITU ESIMERKIST VOIS VAAN VAIHTAA MEILLE SOPIVAKS?
-
-<form action="/create_todo" method="post">
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-  <label for="content">Todo:</label>
-  <input type="text" name="content">
-  <br>
+<form action="/add_book" method="post">
+  <p>
+  Kirjailija<br>
+  <input type="text" name="author">
+  <p>
+  Kirjan nimi<br>
+  <input type="text" name="title">
+  <p>
+  Vuosi<br>
+  <input type="text" name="year">
+  <p>
+  Julkaisija<br>
+  <input type="text" name="publisher">
+  <p>
   <button type="submit">
-    Create
+    Lisää kirja
   </button>
-</form> -->
+</form>
 
 {% endblock %}

@@ -14,7 +14,8 @@ def new():
 
 @app.route("/references")
 def references():
-    return render_template("references.html")
+    total = 0 # laitoin testauksen takii vaa 0, tää haettais tietokannast
+    return render_template("references.html", total = total)
 
 
 

@@ -1,16 +1,19 @@
-{% extends "layout.html" %}
-
-{% block title %}
-References
-{% endblock %}
-
-{% block body %}
+{% extends "layout.html" %} {% block title %} References {% endblock %} {% block
+body %}
 
 <h2>References</h2>
 
-<div>
-    Total references: {{ total }}
-</div>
+<div>Total references: {{ total }}</div>
 
+<p>Books</p>
+
+<div>
+  {% for data in books %}
+  <p>
+    {{data.book_info.author}}, ({{data.book_info.year}})
+    "{{data.book_info.title}}", {{data.book_info.publisher}}
+  </p>
+  {% endfor %}
+</div>
 
 {% endblock %}

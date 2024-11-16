@@ -25,10 +25,9 @@ def add():
 
 @app.route("/references")
 def references():
-    total = 0 # laitoin testauksen takii vaa 0, tää haettais tietokannast
-    return render_template("references.html", total = total)
-
-
+    books = refs.get_all_books()
+    total = len(books)
+    return render_template("references.html", total = total, books = books)
 
 if test_env:
     @app.route("/reset_db")

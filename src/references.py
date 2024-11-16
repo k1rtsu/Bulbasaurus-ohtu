@@ -1,8 +1,15 @@
+"""
+Functions to add and fetch data from the database.
+
+Functions:
+
+        add_book(author: str, title: str, year: str, publisher: str) -> None:
+"""
 from sqlalchemy import text
 from config import db
 
-def add_book(author, title, year, publisher):
-    """Add a book into the database"""
+def add_book(author: str, title: str, year: str, publisher: str) -> None:
+    """Add a book into the database."""
     sql = text(
             """
             INSERT INTO reference (type)
@@ -10,6 +17,7 @@ def add_book(author, title, year, publisher):
             """
     )
     db.session.execute(sql, {"book": "book"})
+
     sql = text(
             """
             SELECT id
@@ -18,7 +26,6 @@ def add_book(author, title, year, publisher):
             LIMIT 1;
             """
             )
-
     book_id = db.session.execute(sql)
     book_id = book_id.fetchone()[0]
 

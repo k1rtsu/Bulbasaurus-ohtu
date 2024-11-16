@@ -1,11 +1,7 @@
-from config import db, app
 from sqlalchemy import text
+from config import db, app
 
 
-# KOPIOITU ESIMERKISTÄ JA LUOTU ESIMERKIN MUKAAN TESTI -NIMINEN TAULU, TIETOKANNAN TOIMIVUUDEN TESTAAMISEKSI.
-# SETUP_DB() VOISI LUODA KAIKKI MEIDÄN TARVITSEMAT TAULUT JA RESET_DB RESETOIDA NE KAIKKI
-
-# table_name = "testi"
 tables = ["reference", "info"]
 
 
@@ -19,7 +15,7 @@ def reset_db():
 
 
 def setup_db():
-    """Deletes tables and creates them again"""
+    """Delete tables if they exists and recreate them"""
 
     for table in tables:
         print(f"Checking if table {table} exists")

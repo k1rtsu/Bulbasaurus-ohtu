@@ -21,3 +21,24 @@ After adding a book, there is one
     Click Button  Lisää kirja
     Title Should Be  References
     Page Should Contain  Total references: 1
+
+Trying to add book with no author and failing
+    Go To  ${HOME_URL}/new_reference
+    Title Should Be  Create a new reference
+    Input Text  title  testing
+    Input Text  year  2024
+    Input Text  publisher  test
+    Click Button  Lisää kirja
+    Title Should Be  Create a new reference
+    Page Should Contain  None of the fields can be empty
+
+Trying to add book with invalid year and failing
+    Go To  ${HOME_URL}/new_reference
+    Title Should Be  Create a new reference
+    Input Text  author  Testi
+    Input Text  title  testing
+    Input Text  year  20
+    Input Text  publisher  test
+    Click Button  Lisää kirja
+    Title Should Be  Create a new reference
+    Page Should Contain  Year length must be 4

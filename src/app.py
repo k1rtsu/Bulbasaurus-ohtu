@@ -1,17 +1,19 @@
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify, flash, url_for
 from db_helper import reset_db
-# from repositories.todo_repository import get_todos, create_todo, set_done
 from config import app, test_env
-# from util import validate_todo
+from util import validate_book
 import references as refs
+
+def redirect_to_new_reference():
+    return redirect(url_for("render_new"))
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
 @app.route("/new_reference")
-def new():
-    return render_template("new_reference.html")
+def new(error = None):
+    return render_template("new_reference.html", error = error)
 
 @app.route("/add_reference", methods=["POST"])
 def add():
@@ -20,8 +22,12 @@ def add():
         title = request.form["title"]
         year = request.form["year"]
         publisher = request.form["publisher"]
-        refs.add_book(author, title, year, publisher)
-    return redirect("/references")
+        try:
+            validate_book(author, title, year, publisher)
+            refs.add_book(author, title, year, publisher)
+            return redirect("/references")
+        except Exception as error:
+            return new(error)
 
 @app.route("/references")
 def references():

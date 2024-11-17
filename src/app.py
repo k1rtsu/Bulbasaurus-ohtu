@@ -21,7 +21,7 @@ def add():
         year = request.form["year"]
         publisher = request.form["publisher"]
         refs.add_book(author, title, year, publisher)
-    return redirect("/")
+    return redirect("/references")
 
 @app.route("/references")
 def references():

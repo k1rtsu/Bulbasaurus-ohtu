@@ -7,10 +7,11 @@ body %}
   <a href="/">Home page</a>
 </div>
 
-<br>
+<br />
 <div>Total references: {{ total }}</div>
 
-<p>Books</p>
+{% if books|length > 0 %}
+<p>Books:</p>
 
 <div>
   {% for data in books %}
@@ -21,4 +22,4 @@ body %}
   {% endfor %}
 </div>
 
-{% endblock %}
+{% endif %} {% endblock %}

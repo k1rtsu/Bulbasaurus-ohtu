@@ -2,7 +2,7 @@ import unittest
 from util import validate_book, UserInputError
 
 
-class TestReferenceValidation(unittest.TestCase):
+class TestBookReferenceValidation(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -16,5 +16,10 @@ class TestReferenceValidation(unittest.TestCase):
 
         with self.assertRaises(UserInputError):
             validate_book("Test Author", "Test Title", "2oo1", "Test Publisher")
+
+    def test_missing_fields_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_book("Test Author", "Test Title", "200", None)
+
 
 

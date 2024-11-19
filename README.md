@@ -68,7 +68,7 @@ _Suorita Robot-testit sovelluksen ollessa käynnissä_
 robot src/story_tests
 ```
 
-# Definition of Done
+## Definition of Done
 
 Sprintiin otettu tehtävä voidaan merkitä valmiiksi, kun seuraavat kriteerit täyttyvät.
 

@@ -28,10 +28,10 @@ def add():
         try:
             validate_book(author, title, year, publisher)
             refs.add_book(author, title, year, publisher)
-            return redirect("/references")
-        except Exception as error:
+            return redirect("/references") 
+        except Exception as error: ## pylint: disable=broad-exception-caught
             return new(error)
-        
+
 
 @app.route("/references")
 def references():

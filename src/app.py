@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, jsonify, flash, url_for
+from flask import redirect, render_template, request, jsonify, flash, url_for #pylint: disable=unused-import
 from db_helper import reset_db
 from config import app, test_env
 from util import validate_book
@@ -19,7 +19,7 @@ def new(error = None):
 
 
 @app.route("/add_reference", methods=["POST"])
-def add():
+def add(): #pylint: disable=inconsistent-return-statements
     if request.form.get("submit") == "book":
         author = request.form["author"]
         title = request.form["title"]
@@ -28,8 +28,8 @@ def add():
         try:
             validate_book(author, title, year, publisher)
             refs.add_book(author, title, year, publisher)
-            return redirect("/references") 
-        except Exception as error: ## pylint: disable=broad-exception-caught
+            return redirect("/references")
+        except Exception as error: #pylint: disable=broad-exception-caught
             return new(error)
 
 

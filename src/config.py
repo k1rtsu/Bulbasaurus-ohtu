@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-from os import getenv
+from os import getenv #pylint: disable=wrong-import-order
 
 load_dotenv()
 

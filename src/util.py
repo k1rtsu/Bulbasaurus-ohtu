@@ -3,7 +3,7 @@ import re
 class UserInputError(Exception):
     pass
 
-    
+
 def validate_book(author, title, year, publisher):
     if not author or not title or not year or not publisher:
         raise UserInputError("None of the fields can be empty")

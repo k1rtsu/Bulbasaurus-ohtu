@@ -6,8 +6,8 @@ tables = ["reference", "info"]
 
 
 def reset_db():
-    """Delete the contents of all tables"""
-    for table in tables:
+    """Delete the contents of all tables in dependency order"""
+    for table in reversed(tables):
         print(f"Clearing contents from table {table}")
         sql = text(f"DELETE FROM {table}")
         db.session.execute(sql)

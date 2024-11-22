@@ -73,6 +73,13 @@ def references():
     total = len(books)+len(articles)
     return render_template("references.html", total = total, books = books, articles = articles)
 
+@app.route("/remove_reference/<reference_id>", methods=["POST"])
+def remove_reference(reference_id):
+    refs.remove_reference(reference_id)
+    books = refs.get_all_books()
+    articles = refs.get_all_articles()
+    total = len(books)+len(articles)
+    return render_template("references.html", total = total, books = books, articles = articles)
 
 if test_env:
     @app.route("/reset_db")

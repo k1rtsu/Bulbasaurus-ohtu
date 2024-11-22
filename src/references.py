@@ -138,3 +138,27 @@ def get_all_articles() -> list[dict]:
     rows = query_result.fetchall()
     articles = [row[0] for row in rows]
     return articles
+
+def remove_reference(reference_id: int) -> None:
+    try:
+        sql = text(
+            """
+            DELETE FROM info
+            WHERE reference_id = :reference_id;
+            """
+        )
+        db.session.execute(sql, {"reference_id": reference_id})
+
+        sql = text(
+            """
+            DELETE FROM reference
+            WHERE id = :reference_id;
+            """
+        )
+        db.session.execute(sql, {"reference_id": reference_id})
+
+        db.session.commit()
+
+    except Exception as e:
+        db.session.rollback()
+        raise RuntimeError(f"Failed to remove reference with ID {reference_id}: {e}") from e

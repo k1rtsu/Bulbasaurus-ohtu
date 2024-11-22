@@ -60,7 +60,7 @@ def add(): #pylint: disable=inconsistent-return-statements
         }
         try:
             validate_article(article_data)
-            refs.add_article(article_data) pylint: disable=no-member
+            refs.add_article(article_data)
             return redirect("/references")
         except Exception as error: #pylint: disable=broad-exception-caught
             return new_article(error)

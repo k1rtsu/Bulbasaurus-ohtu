@@ -29,8 +29,22 @@ def validate_article(article_data):
 
     if not re.fullmatch("[0-9]+", article_data['year']):
         raise UserInputError("Year can only consist of numbers")
+
+    if not re.fullmatch("[0-9]+", article_data['volume']):
+        raise UserInputError("Volume can only consist of numbers")
+
     if article_data['pages_from'] and article_data['pages_to']:
         if article_data['pages_to']<article_data['pages_from']:
             raise UserInputError(
                 "The starting page number cannot be greater than the ending page number."
             )
+
+        if not re.fullmatch("[0-9]+", article_data['pages_from']):
+            raise UserInputError("Pages can only consist of numbers")
+
+        if not re.fullmatch("[0-9]+", article_data['pages_to']):
+            raise UserInputError("Pages can only consist of numbers")
+
+    if article_data['number']:
+        if not re.fullmatch("[0-9]+", article_data['number']):
+            raise UserInputError("Number can only consist of numbers")

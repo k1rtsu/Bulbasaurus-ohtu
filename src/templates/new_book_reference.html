@@ -6,7 +6,7 @@ Create a new book reference
 
 {% block body %}
 
-<h2>Lisää kirja</h2>
+<h2>Add a book</h2>
 
 <div>
   <a href="/">Home page</a>
@@ -19,20 +19,20 @@ Create a new book reference
 {% endif %}
 <form action="/add_reference" method="post">
   <p>
-  Kirjailija<br>
+  Author<br>
   <input type="text" name="author">
   <p>
-  Kirjan nimi<br>
+  Title<br>
   <input type="text" name="title">
   <p>
-  Vuosi<br>
+  Year<br>
   <input type="text" name="year">
   <p>
-  Julkaisija<br>
+  Publisher<br>
   <input type="text" name="publisher">
   <p>
   <button type="submit" name="submit" value="book">
-    Lisää kirja
+    Add a book
   </button>
 </form>
 

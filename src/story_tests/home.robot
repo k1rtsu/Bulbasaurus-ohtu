@@ -15,6 +15,11 @@ Click Create New Book Reference Link
     Click Link  Create a new book reference
     Title Should Be  Create a new book reference
 
+Click Create New Article Reference Link
+    Go To  ${HOME_URL}
+    Click Link  Create a new article reference
+    Title Should Be  Create a new article reference
+
 Click See All References Link
     Go To  ${HOME_URL}
     Click Link  See all references

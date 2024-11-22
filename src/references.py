@@ -75,8 +75,7 @@ def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
 
         db.session.execute(sql, {"reference_id": misc_id, "field": field, "value": value})
 
-    db.session.commit()    
-
+    db.session.commit()
 
 def get_all_books() -> list[dict]:
     """

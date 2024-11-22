@@ -10,10 +10,10 @@ Main page can be opened
     Go To  ${HOME_URL}
     Title Should Be  Reference app
 
-Click Create New Reference Link
+Click Create New Book Reference Link
     Go To  ${HOME_URL}
-    Click Link  Create new reference
-    Title Should Be  Create a new reference
+    Click Link  Create a new book reference
+    Title Should Be  Create a new book reference
 
 Click See All References Link
     Go To  ${HOME_URL}

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Create a new article reference
+{% endblock %}
+
+{% block body %}
+
+<h2>Add an article</h2>
+
+<div>
+  <a href="/">Home page</a>
+</div>
+
+{% if error %}
+<p>
+  {{error}}
+</p>
+{% endif %}
+<form action="/add_reference" method="post">
+  <p>
+    Author(s)*<br>
+    <input type="text" name="author">
+  <p>
+    Title*<br>
+    <input type="text" name="title">
+  <p>
+    Journal*<br>
+    <input type="text" name="journal">
+  <p>
+    Volume*<br>
+    <input type="number" min="1" name="volume">
+  <p>
+    Number<br>
+    <input type="number" min="1" name="number">
+  <p>
+    Year*<br>
+    <input type="text" name="year">
+  <p>
+    Pages<br>
+        <input type="number" min="1" name="pages_from" size="4" style="width: 70px;">
+        – 
+        <input type="number" min="1" name="pages_to" size="4" style="width: 70px;">
+  <p>
+    DOI<br>
+        <input type="text" name="doi">
+  <p>
+   URL<br>
+      <input type="text" name="url">
+  <p>
+    *reguired fields<br>
+  <p>
+  <button type="submit" name="submit" value="article">
+    Add an article
+  </button>
+</form>
+
+{% endblock %}

@@ -16,10 +16,33 @@ body %}
 <div>
   {% for data in books %}
   <p>
-    {{data.book_info.author}}, ({{data.book_info.year}})
-    "{{data.book_info.title}}", {{data.book_info.publisher}}
+    {{data.book_info.author}}. <i>{{data.book_info.title}}.</i> 
+    {{data.book_info.publisher}}, {{data.book_info.year}}.
   </p>
   {% endfor %}
 </div>
+{% endif %}
 
+{% if articles|length > 0 %}
+<p>Articles:</p>
+
+<div>
+  {% for data in articles %}
+  <p>
+    {{ data.article_info.author }}. "{{ data.article_info.title }}".
+    In <i>{{ data.article_info.journal }}&nbsp;</i>
+    {{ data.article_info.volume }}{% if data.article_info.number %}:{{ data.article_info.number }}{% endif %}
+    ({{ data.article_info.year }}).
+    {% if data.article_info.pages_from and data.article_info.pages_to %} 
+    Pp. {{ data.article_info.pages_from }}–{{ data.article_info.pages_to }}.
+    {% endif %}
+    {% if data.article_info.doi %} 
+    DOI: {{ data.article_info.doi }}.
+    {% endif %}
+    {% if data.article_info.url %} 
+    URL: {{ data.article_info.url }}.
+    {% endif %}
+  </p>
+  {% endfor %}
+</div>
 {% endif %} {% endblock %}

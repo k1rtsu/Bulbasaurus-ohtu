@@ -41,37 +41,44 @@ def add_book(author: str, title: str, year: str, publisher: str) -> None:
 
     db.session.commit()
 
-def add_article(article_data: dict) -> None:
-    """Add an article into the database."""
+def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
+    """Add misc into the database."""
     sql = text(
             """
             INSERT INTO reference (type)
-            VALUES (:article);
+            VALUES (:misc);
             """
     )
-    db.session.execute(sql, {"article": "article"})
+
+    db.session.execute(sql, {"type":"misc"})
 
     sql = text(
-            """
-            SELECT id
-            FROM reference
-            ORDER BY id DESC
-            LIMIT 1;
-            """
-            )
-    article_id = db.session.execute(sql)
-    article_id = article_id.fetchone()[0]
+        """
+        SELECT id 
+        FROM reference
+        ORDER BY id DESC
+        LIMIT 1;
+        """
+        )
+    
+    misc_id = db.session.execute(sql).fetchone()[0]
 
-    for field, value in article_data.items():
+    information = {"author": author, "title": title, "year": year, "month": month, "note": note}
+
+    for field, value in information.items():
         sql = text(
             """
             INSERT INTO info (reference_id, field, value)
             VALUES (:reference_id, :field, :value);
             """
         )
-        db.session.execute(sql, {"reference_id": article_id, "field": field, "value": value})
 
-    db.session.commit()
+        db.session.execute(sql, {"reference_id": misc_id, "field": field, "value": value})
+
+    db.session.commit()    
+
+
+    
 
 def get_all_books() -> list[dict]:
     """

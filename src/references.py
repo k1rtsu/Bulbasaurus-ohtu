@@ -77,6 +77,38 @@ def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
 
     db.session.commit()
 
+def add_article(article_data: dict) -> None:
+    """Add an article into the database."""
+    sql = text(
+            """
+            INSERT INTO reference (type)
+            VALUES (:article);
+            """
+    )
+    db.session.execute(sql, {"article": "article"})
+
+    sql = text(
+            """
+            SELECT id
+            FROM reference
+            ORDER BY id DESC
+            LIMIT 1;
+            """
+            )
+    article_id = db.session.execute(sql)
+    article_id = article_id.fetchone()[0]
+
+    for field, value in article_data.items():
+        sql = text(
+            """
+            INSERT INTO info (reference_id, field, value)
+            VALUES (:reference_id, :field, :value);
+            """
+        )
+        db.session.execute(sql, {"reference_id": article_id, "field": field, "value": value})
+
+    db.session.commit()
+
 def get_all_books() -> list[dict]:
     """
     Returns all books from the database.

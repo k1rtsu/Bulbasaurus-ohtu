@@ -41,6 +41,7 @@ def add_book(author: str, title: str, year: str, publisher: str) -> None:
 
     db.session.commit()
 
+
 def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
     """Add misc into the database."""
     sql = text(
@@ -58,9 +59,8 @@ def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
         FROM reference
         ORDER BY id DESC
         LIMIT 1;
-        """
-        )
-    
+        """)
+
     misc_id = db.session.execute(sql).fetchone()[0]
 
     information = {"author": author, "title": title, "year": year, "month": month, "note": note}
@@ -77,8 +77,6 @@ def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
 
     db.session.commit()    
 
-
-    
 
 def get_all_books() -> list[dict]:
     """

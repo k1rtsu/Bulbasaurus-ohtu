@@ -35,6 +35,11 @@ After adding an article, there is one reference
     Input Text  year  2024
     Input Text  journal  test
     Input Text  volume  3
+    Input Text  number  3
+    Input Text  pages_from  3
+    Input Text  pages_to  3
+    Input Text  doi  testDoi
+    Input Text  url  https://example.com
     Click Button  Add an article
     Title Should Be  References
     Page Should Contain  Total references: 1
@@ -121,3 +126,16 @@ Trying to add article with invalid year input
     Click Button  Add an article
     Title Should Be  Create a new article reference
     Page Should Contain  Year can only consist of numbers
+
+Trying to add article with invalid url input
+    Go To  ${HOME_URL}/new_article_reference
+    Title Should Be  Create a new article reference
+    Input Text  author  Test
+    Input Text  title  testing
+    Input Text  year  2001
+    Input Text  journal  test
+    Input Text  volume  3
+    Input Text  url  ww.test.fi
+    Click Button  Add an article
+    Title Should Be  Create a new article reference
+    Page Should Contain  Please enter a valid URL

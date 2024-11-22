@@ -17,7 +17,7 @@ class TestArticleReferenceValidation(unittest.TestCase):
                 "pages_from": "22",
                 "pages_to": "23",
                 "doi": "TestDoi",
-                "url": "www.test.fi"
+                "url": "https://www.example.com"
         }
         validate_article(article_data)
 
@@ -56,6 +56,18 @@ class TestArticleReferenceValidation(unittest.TestCase):
                 "pages_from": "23",
                 "pages_to": "22",
                 
+        }
+        with self.assertRaises(UserInputError):
+            validate_article(article_data)
+    
+    def test_invalid_url_input_raises_error(self):
+        article_data = {
+                "author": "TestAuthor",
+                "title": "TestTitle",
+                "journal": "TestJournal",
+                "volume": "33",
+                "year": "2oo4",
+                "url": "ww.test.fi",         
         }
         with self.assertRaises(UserInputError):
             validate_article(article_data)

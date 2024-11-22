@@ -1,7 +1,12 @@
 import re
+from urllib.parse import urlparse
 
 class UserInputError(Exception):
     pass
+
+def is_valid_url(url):
+    parsed = urlparse(url)
+    return all([parsed.scheme, parsed.netloc])
 
 
 def validate_book(author, title, year, publisher):
@@ -48,3 +53,7 @@ def validate_article(article_data):
     if article_data['number']:
         if not re.fullmatch("[0-9]+", article_data['number']):
             raise UserInputError("Number can only consist of numbers")
+
+    if article_data['url']:
+        if not is_valid_url(article_data['url']):
+            raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")

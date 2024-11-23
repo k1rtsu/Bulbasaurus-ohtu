@@ -55,4 +55,28 @@ body %}
   </ul>
   {% endfor %}
 </div>
-{% endif %} {% endblock %}
+{% endif %} 
+
+{% if misc|length > 0 %}
+<strong>Miscellaneous:</strong>
+
+<div>
+  {% for data in misc %}
+  <ul>
+    <li>
+      {{ data.misc_info.author }}. <i>{{ data.misc_info.title }}.</i>
+      {{ data.misc_info.year }}.
+      {% if data.misc_info.note %}
+      <strong>Note:</strong> {{ data.misc_info.note }}.
+      {% endif %}
+      <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
+        <button type="submit" id="delete_misc">Delete</button>
+      </form>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
+

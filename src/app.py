@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, jsonify, flash, url_for #pylint: disable=unused-import
 from db_helper import reset_db
 from config import app, test_env
-from util import validate_book, validate_article
+from util import validate_book, validate_article, validate_misc
 import references as refs
 
 def redirect_to_new_reference():
@@ -69,7 +69,17 @@ def add(): #pylint: disable=inconsistent-return-statements
             return redirect("/references")
         except Exception as error: #pylint: disable=broad-exception-caught
             return new_article(error)
-
+    if request.form.get("submit") == "misc":
+        author = request.form["author"]
+        title = request.form["title"]
+        year = request.form["year"]
+        note = request.form["note"]
+        try:
+            validate_misc(author, title, year, note)
+            refs.add_book(author, title, year, note)
+            return redirect("/references")
+        except Exception as error: #pylint: disable=broad-exception-caught
+            return new_misc(error)
 
 @app.route("/references")
 def references():

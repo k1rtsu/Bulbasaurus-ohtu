@@ -198,3 +198,30 @@ def remove_reference(reference_id: int) -> None:
     except Exception as e:
         db.session.rollback()
         raise RuntimeError(f"Failed to remove reference with ID {reference_id}: {e}") from e
+
+def get_all_misc() -> list[dict]:
+    
+    sql = text(
+        """
+        SELECT 
+        json_build_object (
+        'reference_id', reference_id,
+        'misc_info', json_object_agg(
+                field,
+                value
+        )
+        ) AS misc
+        FROM info
+        WHERE reference_id IN (
+            SELECT id 
+            FROM reference 
+            WHERE type = 'misc'
+        )
+        GROUP BY reference_id;
+        """
+    )
+
+    query_result = db.session.execute(sql)
+    rows = query_result.fetchall()
+    misc_references = [row[0] for row in rows]
+    return misc_references

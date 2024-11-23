@@ -21,6 +21,11 @@ def new_book(error = None):
 def new_article(error = None):
     return render_template("new_article_reference.html", error = error)
 
+@app.route("/new_misc_reference")
+def new_misc(error=None):
+    return render_template("new_misc_reference.html", error=error)
+
+
 
 @app.route("/add_reference", methods=["POST"])
 def add(): #pylint: disable=inconsistent-return-statements

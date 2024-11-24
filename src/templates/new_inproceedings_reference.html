@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Create new inproceedings reference
+{% endblock %}
+
+{% block body %}
+
+<h2>Add inproceedings</h2>
+
+<div>
+  <a href="/">Home page</a>
+</div>
+
+{% if error %}
+<p>
+  {{error}}
+</p>
+{% endif %}
+
+<form action="/add_reference" method="post">
+  <p>
+  Author<br>
+  <input type="text" name="author">
+  <p>
+  Title<br>
+  <input type="text" name="title">
+  <p>
+  Year<br>
+  <input type="text" name="year">
+  <p>
+  Booktitle<br>
+  <input type="text" name="booktitle">
+  <p>
+  <button type="submit" name="submit" value="inproceedings">
+    Add inproceedings
+  </button>
+</form>
+
+{% endblock %}

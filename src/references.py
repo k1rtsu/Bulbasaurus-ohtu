@@ -109,6 +109,39 @@ def add_article(article_data: dict) -> None:
 
     db.session.commit()
 
+def add_inproceedings(author, title, year, booktitle) -> None:
+    """Add inproceedings into the database."""
+    sql = text(
+            """
+            INSERT INTO reference (type)
+            VALUES (:inproceedings);
+            """
+    )
+    db.session.execute(sql, {"inproceedings": "inproceedings"})
+
+    sql = text(
+            """
+            SELECT id
+            FROM reference
+            ORDER BY id DESC
+            LIMIT 1;
+            """
+            )
+    inproceedings_id = db.session.execute(sql)
+    inproceedings_id = inproceedings_id.fetchone()[0]
+
+    information = {"author": author, "title": title, "year": year, "booktitle": booktitle}
+    for field, value in information.items():
+        sql = text(
+                """
+                INSERT INTO info (reference_id, field, value)
+                VALUES (:reference_id, :field, :value);
+                """
+        )
+        db.session.execute(sql, {"reference_id": inproceedings_id, "field": field, "value": value})
+
+    db.session.commit()
+
 def get_all_books() -> list[dict]:
     """
     Returns all books from the database.
@@ -225,3 +258,41 @@ def get_all_misc() -> list[dict]:
     rows = query_result.fetchall()
     misc_references = [row[0] for row in rows]
     return misc_references
+
+def get_all_inproceedings() -> list[dict]:
+    """
+    Returns all inproceedings from the database.
+    Each item in the return list is like: {
+        'reference_id': int,
+        'inproceedings_info: {
+                'author': str,
+                'title': str,
+                'year': str,
+                'booktitle': str
+        }
+    }
+    """
+    sql = text(
+        """
+        SELECT 
+        json_build_object (
+        'reference_id', reference_id,
+        'inproceedings_info', json_object_agg(
+                field,
+                value
+        )
+        ) AS inproceedings
+        FROM info
+        WHERE reference_id IN(
+        SELECT id 
+        FROM reference 
+        WHERE type = 'inproceedings'
+        )
+        GROUP BY reference_id;
+        """
+    )
+
+    query_result = db.session.execute(sql)
+    rows = query_result.fetchall()
+    inproceedings = [row[0] for row in rows]
+    return inproceedings

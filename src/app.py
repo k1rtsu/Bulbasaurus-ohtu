@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, jsonify, flash, url_for #pylint: disable=unused-import
 from db_helper import reset_db
 from config import app, test_env
-from util import validate_book, validate_article, validate_misc
+from util import validate_book, validate_article, validate_misc, validate_inproceedings
 import references as refs
 
 def redirect_to_new_reference():
@@ -25,7 +25,9 @@ def new_article(error = None):
 def new_misc(error=None):
     return render_template("new_misc_reference.html", error=error)
 
-
+@app.route("/new_inproceedings_reference")
+def new_inproceedings(error = None):
+    return render_template("new_inproceedings_reference.html", error = error)
 
 @app.route("/add_reference", methods=["POST"])
 def add(): #pylint: disable=inconsistent-return-statements
@@ -80,21 +82,46 @@ def add(): #pylint: disable=inconsistent-return-statements
             return redirect("/references")
         except Exception as error: #pylint: disable=broad-exception-caught
             return new_misc(error)
+    if request.form.get("submit") == "inproceedings":
+        author = request.form["author"]
+        title = request.form["title"]
+        year = request.form["year"]
+        booktitle = request.form["booktitle"]
+        try:
+            validate_inproceedings(author, title, year, booktitle)
+            refs.add_inproceedings(author, title, year, booktitle)
+            return redirect("/references")
+        except Exception as error: #pylint: disable=broad-exception-caught
+            return new_inproceedings(error)
 
 @app.route("/references")
 def references():
     books = refs.get_all_books()
     articles = refs.get_all_articles()
-    total = len(books)+len(articles)
-    return render_template("references.html", total = total, books = books, articles = articles)
+    miscs = refs.get_all_misc()
+    inproceedings = refs.get_all_inproceedings()
+    total = len(books)+len(articles)+len(miscs)+len(inproceedings)
+    return render_template("references.html", 
+                           total = total, 
+                           books = books, 
+                           articles = articles,
+                           miscs = miscs,
+                           inproceedings = inproceedings)
 
 @app.route("/remove_reference/<reference_id>", methods=["POST"])
 def remove_reference(reference_id):
     refs.remove_reference(reference_id)
     books = refs.get_all_books()
     articles = refs.get_all_articles()
-    total = len(books)+len(articles)
-    return render_template("references.html", total = total, books = books, articles = articles)
+    miscs = refs.get_all_misc()
+    inproceedings = refs.get_all_inproceedings()
+    total = len(books)+len(articles)+len(miscs)+len(inproceedings)
+    return render_template("references.html", 
+                           total = total, 
+                           books = books, 
+                           articles = articles,
+                           miscs = miscs,
+                           inproceedings = inproceedings)
 
 if test_env:
     @app.route("/reset_db")

@@ -78,5 +78,23 @@ body %}
 </div>
 {% endif %}
 
+{% if inproceedings|length > 0 %}
+  <strong>Inproceedings:</strong>
+
+  <div>
+    {% for data in inproceedings %}
+      <ul>
+        <li>
+          {{ data.inproceedings_info.author }}. <i>{{ data.inproceedings_info.title }}.</i>
+          {{ data.inproceedings_info.booktitle }}, {{ data.inproceedings_info.year }}.
+          <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
+            <button type="submit" id="delete_inproceedings">Delete</button>
+          </form>
+      </li>
+      </ul>
+    {% endfor %}
+  </div>
+{% endif %}
+
 {% endblock %}
 

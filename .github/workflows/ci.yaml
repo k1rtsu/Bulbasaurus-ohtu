@@ -7,9 +7,9 @@ env:
 
 on:
   push:
-    branches: [main, book]
+    branches: [main, edit-ref]
   pull_request:
-    branches: [main, book]
+    branches: [main, edit-ref]
 
 jobs:
   build:

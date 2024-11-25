@@ -1,4 +1,10 @@
-from flask import redirect, render_template, request, jsonify, flash, url_for #pylint: disable=unused-import
+from flask import (
+    redirect,
+    render_template,
+    request,
+    jsonify,
+    url_for,
+)
 from db_helper import reset_db
 from config import app, test_env
 from util import validate_book, validate_article, validate_misc, validate_inproceedings
@@ -16,23 +22,27 @@ def index():
 
 
 @app.route("/new_book_reference")
-def new_book(error = None):
-    return render_template("new_book_reference.html", error = error)
+def new_book(error=None):
+    return render_template("new_book_reference.html", error=error)
+
 
 @app.route("/new_article_reference")
-def new_article(error = None):
-    return render_template("new_article_reference.html", error = error)
+def new_article(error=None):
+    return render_template("new_article_reference.html", error=error)
+
 
 @app.route("/new_misc_reference")
 def new_misc(error=None):
     return render_template("new_misc_reference.html", error=error)
 
+
 @app.route("/new_inproceedings_reference")
-def new_inproceedings(error = None):
-    return render_template("new_inproceedings_reference.html", error = error)
+def new_inproceedings(error=None):
+    return render_template("new_inproceedings_reference.html", error=error)
+
 
 @app.route("/add_reference", methods=["POST"])
-def add(): #pylint: disable=inconsistent-return-statements
+def add():  # pylint: disable=inconsistent-return-statements
     if request.form.get("submit") == "book":
         author = request.form["author"]
         title = request.form["title"]
@@ -42,7 +52,7 @@ def add(): #pylint: disable=inconsistent-return-statements
             validate_book(author, title, year, publisher)
             refs.add_book(author, title, year, publisher)
             return redirect("/references")
-        except Exception as error: #pylint: disable=broad-exception-caught
+        except Exception as error:  # pylint: disable=broad-exception-caught
             return new_book(error)
     if request.form.get("submit") == "article":
         author = request.form["author"]
@@ -56,22 +66,22 @@ def add(): #pylint: disable=inconsistent-return-statements
         doi = request.form["doi"]
         url = request.form["url"]
         article_data = {
-                "author": author,
-                "title": title,
-                "journal": journal,
-                "volume": volume,
-                "number": number,
-                "year": year,
-                "pages_from": pages_from,
-                "pages_to": pages_to,
-                "doi": doi,
-                "url": url
+            "author": author,
+            "title": title,
+            "journal": journal,
+            "volume": volume,
+            "number": number,
+            "year": year,
+            "pages_from": pages_from,
+            "pages_to": pages_to,
+            "doi": doi,
+            "url": url,
         }
         try:
             validate_article(article_data)
             refs.add_article(article_data)
             return redirect("/references")
-        except Exception as error: #pylint: disable=broad-exception-caught
+        except Exception as error:  # pylint: disable=broad-exception-caught
             return new_article(error)
     if request.form.get("submit") == "misc":
         author = request.form["author"]
@@ -82,7 +92,7 @@ def add(): #pylint: disable=inconsistent-return-statements
             validate_misc(author, title, year, note)
             refs.add_misc(author, title, year, note)
             return redirect("/references")
-        except Exception as error: #pylint: disable=broad-exception-caught
+        except Exception as error:  # pylint: disable=broad-exception-caught
             return new_misc(error)
     if request.form.get("submit") == "inproceedings":
         author = request.form["author"]
@@ -93,8 +103,9 @@ def add(): #pylint: disable=inconsistent-return-statements
             validate_inproceedings(author, title, year, booktitle)
             refs.add_inproceedings(author, title, year, booktitle)
             return redirect("/references")
-        except Exception as error: #pylint: disable=broad-exception-caught
+        except Exception as error:  # pylint: disable=broad-exception-caught
             return new_inproceedings(error)
+
 
 @app.route("/references")
 def references():
@@ -102,13 +113,16 @@ def references():
     articles = refs.get_all_articles()
     miscs = refs.get_all_misc()
     inproceedings = refs.get_all_inproceedings()
-    total = len(books)+len(articles)+len(miscs)+len(inproceedings)
-    return render_template("references.html",
-                           total = total,
-                           books = books,
-                           articles = articles,
-                           miscs = miscs,
-                           inproceedings = inproceedings)
+    total = len(books) + len(articles) + len(miscs) + len(inproceedings)
+    return render_template(
+        "references.html",
+        total=total,
+        books=books,
+        articles=articles,
+        miscs=miscs,
+        inproceedings=inproceedings,
+    )
+
 
 @app.route("/remove_reference/<reference_id>", methods=["POST"])
 def remove_reference(reference_id):
@@ -117,13 +131,16 @@ def remove_reference(reference_id):
     articles = refs.get_all_articles()
     miscs = refs.get_all_misc()
     inproceedings = refs.get_all_inproceedings()
-    total = len(books)+len(articles)+len(miscs)+len(inproceedings)
-    return render_template("references.html", 
-                           total = total, 
-                           books = books, 
-                           articles = articles,
-                           miscs = miscs,
-                           inproceedings = inproceedings)
+    total = len(books) + len(articles) + len(miscs) + len(inproceedings)
+    return render_template(
+        "references.html",
+        total=total,
+        books=books,
+        articles=articles,
+        miscs=miscs,
+        inproceedings=inproceedings,
+    )
+
 
 @app.route("/edit_reference", methods=["POST"])
 def edit_reference():
@@ -143,7 +160,8 @@ def edit_reference():
                         reference_type=reference_type)
 
 if test_env:
+
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        return jsonify({ 'message': "db reset" })
+        return jsonify({"message": "db reset"})

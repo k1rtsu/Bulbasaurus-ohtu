@@ -6,3 +6,6 @@ Functions:
     edit_reference
 """
 
+
+def update_reference():
+    return True

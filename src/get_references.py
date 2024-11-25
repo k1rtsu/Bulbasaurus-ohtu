@@ -14,7 +14,7 @@ def get_reference_info_by_id(reference_id: int) -> tuple[dict, str]:
     Return all info of a reference.
     
     Arguments:
-        reference_id: id of the reference"""
+        reference_id: id of the reference we want to return"""
     reference_id = int(reference_id)
     sql = text(
         """
@@ -25,8 +25,6 @@ def get_reference_info_by_id(reference_id: int) -> tuple[dict, str]:
     )
     reference_type = db.session.execute(sql, {"reference_id": reference_id})
     reference_type = reference_type.fetchone()
-    print()
-    print(reference_type)
     reference_type = reference_type[0]
 
     sql = text(

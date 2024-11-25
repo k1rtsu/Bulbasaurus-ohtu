@@ -129,15 +129,14 @@ def remove_reference(reference_id):
 def edit_reference():
     button_value = request.form.get("button")
     reference_id = request.form.get("reference_id")
-    if button_value == "edit":
-        reference_info, reference_type = get_references.get_reference_info_by_id(reference_id)
-    else:
-        form_data = request.form.to_dict()
-        [print(d, form_data[d]) for d in form_data]
-        reference_type = request.form.get("reference_type")
-        #value = edit_references.update.reference()
-        reference_info = form_data
 
+    if button_value == "save_changes":
+        form_data = request.form.to_dict()
+        print(form_data)
+        #[print(d, form_data[d]) for d in form_data]
+        #value = edit_references.update_reference()
+
+    reference_info, reference_type = get_references.get_reference_info_by_id(reference_id)
     return render_template("edit_reference.html",
                         reference_id=reference_id,
                         reference_info=reference_info,

@@ -37,7 +37,7 @@
         <option value="new-inproceedings-form-container">Inproceedings</option>
         <option value="new-misc-form-container">Misc</option>
       </select>
-      <div id="new-reference-forms-container">
+      <div id="new-reference-forms-container" style="display: none">
         <div id="new-book-form-container" class="form-container">
           {% include 'new_book_reference.html' %}
         </div>
@@ -84,6 +84,18 @@
           const initialValue = "new-book-form-container";
           onSelectorValueChanged(initialValue);
           listenToReferenceSelectorChanges();
+
+          const formsContainerId = "new-reference-forms-container";
+          const formsContainer = document.getElementById(formsContainerId);
+
+          if (!formsContainer) {
+            console.error(
+              `${formsContainerId} element was not found. Can't display new reference forms.`
+            );
+            return;
+          }
+
+          formsContainer.style.display = "block";
         });
       </script>
     </div>

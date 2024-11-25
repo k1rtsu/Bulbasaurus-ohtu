@@ -20,7 +20,15 @@ body %}
           {{ data.book_info.author }}. <i>{{ data.book_info.title }}.</i>
           {{ data.book_info.publisher }}, {{ data.book_info.year }}.
           <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
-            <button type="submit" id="delete_book">Delete</button>
+            <button type="submit" id="delete_book">
+              Delete
+            </button>
+          </form>
+          <form action="/edit_reference" method="post" style="display:inline;">
+            <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
+            <button type="submit" name="button" value="edit">
+              Edit
+            </button>
           </form>
       </li>
       </ul>
@@ -51,6 +59,12 @@ body %}
       <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
         <button type="submit" id="delete_article">Delete</button>
       </form>
+      <form action="/edit_reference" method="post" style="display:inline;">
+        <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
+        <button type="submit" name="button" value="edit">
+          Edit
+        </button>
+      </form>
     </li>
   </ul>
   {% endfor %}
@@ -72,6 +86,12 @@ body %}
       <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
         <button type="submit" id="delete_misc">Delete</button>
       </form>
+      <form action="/edit_reference" method="post" style="display:inline;">
+        <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
+        <button type="submit" name="button" value="edit">
+          Edit
+        </button>
+      </form>
     </li>
   </ul>
   {% endfor %}
@@ -89,6 +109,12 @@ body %}
           {{ data.inproceedings_info.booktitle }}, {{ data.inproceedings_info.year }}.
           <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
             <button type="submit" id="delete_inproceedings">Delete</button>
+          </form>
+          <form action="/edit_reference" method="post" style="display:inline;">
+            <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
+            <button type="submit" name="button" value="edit">
+              Edit
+            </button>
           </form>
       </li>
       </ul>

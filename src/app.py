@@ -3,6 +3,8 @@ from db_helper import reset_db
 from config import app, test_env
 from util import validate_book, validate_article, validate_misc, validate_inproceedings
 import references as refs
+import get_references
+import edit_references
 
 def redirect_to_new_reference():
     return redirect(url_for("render_new"))
@@ -101,9 +103,9 @@ def references():
     miscs = refs.get_all_misc()
     inproceedings = refs.get_all_inproceedings()
     total = len(books)+len(articles)+len(miscs)+len(inproceedings)
-    return render_template("references.html", 
-                           total = total, 
-                           books = books, 
+    return render_template("references.html",
+                           total = total,
+                           books = books,
                            articles = articles,
                            miscs = miscs,
                            inproceedings = inproceedings)
@@ -122,6 +124,24 @@ def remove_reference(reference_id):
                            articles = articles,
                            miscs = miscs,
                            inproceedings = inproceedings)
+
+@app.route("/edit_reference", methods=["POST"])
+def edit_reference():
+    button_value = request.form.get("button")
+    reference_id = request.form.get("reference_id")
+    if button_value == "edit":
+        reference_info, reference_type = get_references.get_reference_info_by_id(reference_id)
+    else:
+        form_data = request.form.to_dict()
+        [print(d, form_data[d]) for d in form_data]
+        reference_type = request.form.get("reference_type")
+        #value = edit_references.update.reference()
+        reference_info = form_data
+
+    return render_template("edit_reference.html",
+                        reference_id=reference_id,
+                        reference_info=reference_info,
+                        reference_type=reference_type)
 
 if test_env:
     @app.route("/reset_db")

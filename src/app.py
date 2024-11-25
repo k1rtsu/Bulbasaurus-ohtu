@@ -32,6 +32,11 @@ def single_page_app(error = None):
 
     return render_template("single_page_app.html", error=error, books=books, articles=articles, miscs=miscs, inproceedings=inproceedings, total=total)
 
+@app.route("/remove_reference/<reference_id>", methods=["POST"])
+def remove_reference(reference_id):
+    refs.remove_reference(reference_id)
+    return redirect('/single_page_app')
+
 def handle_add_book():
     author = request.form["author"]
     title = request.form["title"]
@@ -94,21 +99,6 @@ def handle_add_inproceedings():
         refs.add_inproceedings(author, title, year, booktitle)
     except Exception as error: #pylint: disable=broad-exception-caught
         raise error
-
-@app.route("/remove_reference/<reference_id>", methods=["POST"])
-def remove_reference(reference_id):
-    refs.remove_reference(reference_id)
-    books = refs.get_all_books()
-    articles = refs.get_all_articles()
-    miscs = refs.get_all_misc()
-    inproceedings = refs.get_all_inproceedings()
-    total = len(books)+len(articles)+len(miscs)+len(inproceedings)
-    return render_template("references.html", 
-                           total = total, 
-                           books = books, 
-                           articles = articles,
-                           miscs = miscs,
-                           inproceedings = inproceedings)
 
 if test_env:
     @app.route("/reset_db")

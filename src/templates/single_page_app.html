@@ -1,0 +1,102 @@
+{% extends "layout.html" %} {% block title %} Single Page Example {% endblock %}
+{% block body %}
+
+<div style="display: flex; flex-direction: column; height: 100vh">
+  <!-- App Bar (Top) -->
+  <div
+    style="
+      background-color: rgb(255, 255, 255);
+      padding-left: 8px;
+      padding-right: 8px;
+      border-bottom: solid;
+      border-color: rgb(184, 184, 184);
+      border-width: 2px;
+    "
+  >
+    <p>App Bar</p>
+  </div>
+
+  <!-- Content (Below App Bar) -->
+  <div style="display: flex; flex-direction: row; flex: 1">
+    <!-- Content (Left Side) -->
+    <div
+      style="
+        background-color: rgb(255, 255, 255);
+        flex: 1;
+        padding: 8px;
+        padding-top: 16px;
+      "
+    >
+      <label for="new-reference-form-selector">Select Reference</label>
+      <select
+        name="new-reference-form-selector"
+        id="new-reference-form-selector"
+      >
+        <option value="new-book-form-container">Book</option>
+        <option value="new-article-form-container">Article</option>
+        <option value="new-inproceedings-form-container">Inproceedings</option>
+        <option value="new-misc-form-container">Misc</option>
+      </select>
+      <div id="new-reference-forms-container">
+        <div id="new-book-form-container" class="form-container">
+          {% include 'new_book_reference.html' %}
+        </div>
+        <div id="new-article-form-container" class="form-container">
+          {% include 'new_article_reference.html' %}
+        </div>
+        <div id="new-misc-form-container" class="form-container">
+          {% include 'new_misc_reference.html' %}
+        </div>
+        <div id="new-inproceedings-form-container" class="form-container">
+          {% include 'new_inproceedings_reference.html' %}
+        </div>
+      </div>
+      <script>
+        const onSelectorValueChanged = (selectedValue) => {
+          const formContainers = document.querySelectorAll(".form-container");
+
+          for (const element of formContainers) {
+            if (element.id === selectedValue) {
+              element.style.display = "block";
+            } else {
+              element.style.display = "none";
+            }
+          }
+        };
+
+        const listenToReferenceSelectorChanges = () => {
+          const id = "new-reference-form-selector";
+          const selector = document.getElementById(id);
+
+          if (!selector) {
+            console.error(
+              `${id} element was not found. Can't select which reference type form is visible.`
+            );
+            return;
+          }
+
+          selector.addEventListener("change", (event) =>
+            onSelectorValueChanged(event.target.value)
+          );
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const initialValue = "new-book-form-container";
+          onSelectorValueChanged(initialValue);
+          listenToReferenceSelectorChanges();
+        });
+      </script>
+    </div>
+    <!-- Divider in Between -->
+    <div
+      style="border: solid; border-color: rgb(184, 184, 184); border-width: 1px"
+    ></div>
+    <!-- Content (Right Side) -->
+    <div style="background-color: rgb(255, 255, 255); flex: 1; padding: 8px">
+      <p>Haku ja lisättyjen listaus</p>
+      <input />
+    </div>
+  </div>
+</div>
+
+{% endblock %}

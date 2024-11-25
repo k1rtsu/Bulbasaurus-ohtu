@@ -1,10 +1,5 @@
-{% extends "layout.html" %}
-
-{% block title %}
-Reference app
-{% endblock %}
-
-{% block body %}
+{% extends "layout.html" %} {% block title %} Reference app {% endblock %} {%
+block body %}
 
 <h2>Reference app</h2>
 
@@ -14,9 +9,18 @@ Reference app
 <div>
   <a href="/new_article_reference">Create a new article reference</a>
 </div>
-<br>
 <div>
-    <a href="/references">See all references</a>
+  <a href="/new_misc_reference">Create a new misc reference</a>
 </div>
-  
+<div>
+  <a href="/new_inproceedings_reference">Create new inproceedings reference</a>
+</div>
+<br />
+<div>
+  <a href="/references">See all references</a>
+</div>
+<div>
+  <a href="/single_page_app">Single page app</a>
+</div>
+
 {% endblock %}

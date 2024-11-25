@@ -12,6 +12,9 @@ def redirect_to_new_reference():
 def index():
     return render_template("index.html")
 
+@app.route("/single_page_app")
+def single_page_app(error = None):
+    return render_template("single_page_app.html", error = error)
 
 @app.route("/new_book_reference")
 def new_book(error = None):

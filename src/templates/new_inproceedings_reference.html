@@ -1,9 +1,10 @@
-<h2>Add a book</h2>
+<h2>Add inproceedings</h2>
 
 {% if error %}
 <p>{{error}}</p>
 {% endif %}
-<form id="new-book-reference-form" action="/add_reference" method="post">
+
+<form id="new-inproceedings-form" action="/add_reference" method="post">
   <p>
     Author<br />
     <input type="text" name="author" />
@@ -20,11 +21,13 @@
   </p>
 
   <p>
-    Publisher<br />
-    <input type="text" name="publisher" />
+    Booktitle<br />
+    <input type="text" name="booktitle" />
   </p>
 
   <p>
-    <button type="submit" name="submit" value="book">Add a book</button>
+    <button type="submit" name="submit" value="inproceedings">
+      Add inproceedings
+    </button>
   </p>
 </form>

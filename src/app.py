@@ -80,7 +80,7 @@ def add(): #pylint: disable=inconsistent-return-statements
         note = request.form["note"]
         try:
             validate_misc(author, title, year, note)
-            refs.add_book(author, title, year, note)
+            refs.add_misc(author, title, year, note)
             return redirect("/references")
         except Exception as error: #pylint: disable=broad-exception-caught
             return new_misc(error)

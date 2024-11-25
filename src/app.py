@@ -12,9 +12,13 @@ def redirect_to_new_reference():
 def index():
     return render_template("index.html")
 
-@app.route("/single_page_app")
+@app.route("/single_page_app", methods=['GET', 'POST'])
 def single_page_app(error = None):
-    return render_template("single_page_app.html", error = error)
+    books = refs.get_all_books()
+    articles = refs.get_all_articles()
+    total = len(books)+len(articles)
+
+    return render_template("single_page_app.html", error = error, books=books, articles=articles, total=total)
 
 @app.route("/new_book_reference")
 def new_book(error = None):

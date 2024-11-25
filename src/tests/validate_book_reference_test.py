@@ -19,7 +19,7 @@ class TestBookReferenceValidation(unittest.TestCase):
 
     def test_missing_fields_raises_error(self):
         with self.assertRaises(UserInputError):
-            validate_book("Test Author", "Test Title", "200", None)
+            validate_book("Test Author", "Test Title", "2001", None)
 
 
 

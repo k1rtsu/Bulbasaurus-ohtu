@@ -149,16 +149,18 @@ def edit_reference():
 
     if button_value == "save_changes":
         form_data = request.form.to_dict()
+        del form_data["button"]
+        del form_data["reference_id"]
         print(form_data)
         [print(d, form_data[d]) for d in form_data]
-        #value = edit_references.update_reference()
+        edit_references.update_reference(form_data, reference_id)
 
     reference_info, reference_type = get_references.get_reference_info_by_id(reference_id)
-
     return render_template("edit_reference.html",
                         reference_id=reference_id,
                         reference_info=reference_info,
-                        reference_type=reference_type)
+                        reference_type=reference_type,
+                        )
 
 if test_env:
 

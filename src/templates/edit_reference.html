@@ -28,21 +28,13 @@ Edit reference
 
 <form action="/edit_reference" method="post">
     <input type="hidden" name="reference_id" value="{{ reference_id }}">
-<<<<<<< HEAD
-=======
-    <input type="hidden" name="type" value="{{ reference_type }}">
->>>>>>> 5410b82 (Add form for editing references)
     {% for key, info in reference_info.items() %}
         <p>
         {{ key }}<br>
         <input type="text" name="{{ key }}" value="{{ info.field }}">
     {% endfor %}
     <p>
-<<<<<<< HEAD
     <button type="submit" name="button" value="save_changes">
-=======
-    <button type="submit" name="button" value="save">
->>>>>>> 5410b82 (Add form for editing references)
         Save changes
     </button>
 </form>

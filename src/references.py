@@ -233,7 +233,7 @@ def remove_reference(reference_id: int) -> None:
         raise RuntimeError(f"Failed to remove reference with ID {reference_id}: {e}") from e
 
 def get_all_misc() -> list[dict]:
-    
+
     sql = text(
         """
         SELECT 

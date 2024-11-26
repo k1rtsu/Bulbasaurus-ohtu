@@ -118,7 +118,7 @@ def references():
         total=total,
         books=books,
         articles=articles,
-        miscs=miscs,
+        misc=miscs,
         inproceedings=inproceedings,
     )
 
@@ -126,19 +126,7 @@ def references():
 @app.route("/remove_reference/<reference_id>", methods=["POST"])
 def remove_reference(reference_id):
     refs.remove_reference(reference_id)
-    books = refs.get_all_books()
-    articles = refs.get_all_articles()
-    miscs = refs.get_all_misc()
-    inproceedings = refs.get_all_inproceedings()
-    total = len(books) + len(articles) + len(miscs) + len(inproceedings)
-    return render_template(
-        "references.html",
-        total=total,
-        books=books,
-        articles=articles,
-        miscs=miscs,
-        inproceedings=inproceedings,
-    )
+    return redirect("/references")
 
 
 if test_env:

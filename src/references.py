@@ -42,7 +42,7 @@ def add_book(author: str, title: str, year: str, publisher: str) -> None:
     db.session.commit()
 
 
-def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
+def add_misc(author: str, title: str, year: str, note: str) -> None:
     """Add misc into the database."""
     sql = text(
             """
@@ -51,7 +51,7 @@ def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
             """
     )
 
-    db.session.execute(sql, {"type":"misc"})
+    db.session.execute(sql, {"misc":"misc"})
 
     sql = text(
         """
@@ -63,7 +63,7 @@ def add_misc(author: str, title: str, year: str, month: str, note: str) -> None:
 
     misc_id = db.session.execute(sql).fetchone()[0]
 
-    information = {"author": author, "title": title, "year": year, "month": month, "note": note}
+    information = {"author": author, "title": title, "year": year, "note": note}
 
     for field, value in information.items():
         sql = text(
@@ -233,7 +233,7 @@ def remove_reference(reference_id: int) -> None:
         raise RuntimeError(f"Failed to remove reference with ID {reference_id}: {e}") from e
 
 def get_all_misc() -> list[dict]:
-    
+
     sql = text(
         """
         SELECT 

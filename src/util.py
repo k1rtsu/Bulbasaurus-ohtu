@@ -57,7 +57,7 @@ def validate_article(article_data):
     if article_data['url']:
         if not is_valid_url(article_data['url']):
             raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
-    
+
 
 def validate_misc(author, title, year, note):
     """
@@ -87,7 +87,7 @@ def validate_misc(author, title, year, note):
 def validate_inproceedings(author, title, year, booktitle):
     if not author or not title or not year or not booktitle:
         raise UserInputError("Missing required fields")
-    
+
     if len(year) != 4:
         raise UserInputError("Year length must be 4")
 

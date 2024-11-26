@@ -1,8 +1,15 @@
-from flask import redirect, render_template, request, jsonify, flash, url_for #pylint: disable=unused-import
+from flask import (
+    redirect,
+    render_template,
+    request,
+    jsonify,
+    url_for,
+)
 from db_helper import reset_db
 from config import app, test_env
 from util import validate_book, validate_article, validate_misc, validate_inproceedings
 import references as refs
+
 
 @app.route("/", methods=['GET', 'POST'])
 def index(error = None):
@@ -97,7 +104,8 @@ def handle_add_inproceedings():
         raise error
 
 if test_env:
+
     @app.route("/reset_db")
     def reset_database():
         reset_db()
-        return jsonify({ 'message': "db reset" })
+        return jsonify({"message": "db reset"})

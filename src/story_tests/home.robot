@@ -20,6 +20,11 @@ Click Create New Article Reference Link
     Click Link  Create a new article reference
     Title Should Be  Create a new article reference
 
+Click Create New inproceedings Reference Link
+    Go To  ${HOME_URL}
+    Click Link  Create new inproceedings reference
+    Title Should Be  Create new inproceedings reference
+
 Click See All References Link
     Go To  ${HOME_URL}
     Click Link  See all references

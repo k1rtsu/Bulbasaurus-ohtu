@@ -6,49 +6,51 @@
   <div
     style="
       background-color: rgb(255, 255, 255);
-      padding-left: 8px;
-      padding-right: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
       border-bottom: solid;
       border-color: rgb(184, 184, 184);
       border-width: 2px;
     "
   >
-    <p>App Bar</p>
+    <h3>References app</h3>
   </div>
-
   <!-- Content (Below App Bar) -->
   <div style="display: flex; flex-direction: row; flex: 1">
     <!-- Content (Left Side) -->
-    <div
-      style="
-        background-color: rgb(255, 255, 255);
-        flex: 1;
-        padding: 8px;
-        padding-top: 16px;
-      "
-    >
-      <label for="new-reference-form-selector">Select Reference</label>
-      <select
-        name="new-reference-form-selector"
-        id="new-reference-form-selector"
+    <div class="primary-container">
+      <h3 style="text-align: center">Create new references</h3>
+      <div
+        id="new-reference-forms-container"
+        style="display: none; flex-direction: column; gap: 20px"
       >
-        <option value="new-book-form-container">Book</option>
-        <option value="new-article-form-container">Article</option>
-        <option value="new-inproceedings-form-container">Inproceedings</option>
-        <option value="new-misc-form-container">Misc</option>
-      </select>
-      <div id="new-reference-forms-container" style="display: none">
-        <div id="new-book-form-container" class="form-container">
-          {% include 'new_book_reference.html' %}
+        <div style="display: flex; flex-direction: column" class="paper-div">
+          <select
+            name="new-reference-form-selector"
+            id="new-reference-form-selector"
+          >
+            <option value="new-book-form-container">Book</option>
+            <option value="new-article-form-container">Article</option>
+            <option value="new-inproceedings-form-container">
+              Inproceedings
+            </option>
+            <option value="new-misc-form-container">Misc</option>
+          </select>
+          <label for="new-reference-form-selector">Select Reference Type</label>
         </div>
-        <div id="new-article-form-container" class="form-container">
-          {% include 'new_article_reference.html' %}
-        </div>
-        <div id="new-misc-form-container" class="form-container">
-          {% include 'new_misc_reference.html' %}
-        </div>
-        <div id="new-inproceedings-form-container" class="form-container">
-          {% include 'new_inproceedings_reference.html' %}
+        <div class="paper-div">
+          <div id="new-book-form-container" class="form-container">
+            {% include 'new_book_reference.html' %}
+          </div>
+          <div id="new-article-form-container" class="form-container">
+            {% include 'new_article_reference.html' %}
+          </div>
+          <div id="new-misc-form-container" class="form-container">
+            {% include 'new_misc_reference.html' %}
+          </div>
+          <div id="new-inproceedings-form-container" class="form-container">
+            {% include 'new_inproceedings_reference.html' %}
+          </div>
         </div>
       </div>
       <script>
@@ -95,7 +97,7 @@
             return;
           }
 
-          formsContainer.style.display = "block";
+          formsContainer.style.display = "flex";
         });
       </script>
     </div>
@@ -104,8 +106,11 @@
       style="border: solid; border-color: rgb(184, 184, 184); border-width: 1px"
     ></div>
     <!-- Content (Right Side) -->
-    <div style="background-color: rgb(255, 255, 255); flex: 1; padding: 8px">
-      <div id="references-list-container">{% include 'references.html' %}</div>
+    <div class="primary-container">
+      <h3 style="text-align: center">References you have created</h3>
+      <div id="references-list-container" class="paper-div">
+        {% include 'references.html' %}
+      </div>
     </div>
   </div>
 </div>

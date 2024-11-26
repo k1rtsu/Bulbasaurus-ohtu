@@ -13,7 +13,7 @@ After a misc is added, it will appear in the list of references.
     Input Text  title  TestTitleMisc
     Input Text  year  2024
     Input Text  note  This is a test misc note.
-    Click Button  Add a misc
+    Click Button  Add a misc reference
     Title Should Be  References
     Page Should Contain  TestAuthorMisc
     Page Should Contain  TestTitleMisc

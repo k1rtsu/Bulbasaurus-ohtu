@@ -57,37 +57,25 @@ def validate_article(article_data):
     if article_data['url']:
         if not is_valid_url(article_data['url']):
             raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
+    
 
+def validate_misc(author, title, year, note):
+    if not author or not title or not year:
+        raise UserInputError("None of the fields can be empty")
 
-def validate_misc(year, note):
-    """
-    Validates a 'misc' reference's data.
-    Required fields: title, author, year.
-    Optional field: note (max 500 characters).
-    """
-    # Tarkistetaan, että pakolliset kentät eivät ole tyhjiä
-    required_fields = ['title', 'author', 'year']
-    missing_fields = [field for field in required_fields if not locals()[field].strip()]
-
-    if missing_fields:
-        raise UserInputError(f"Missing required fields: {', '.join(missing_fields)}")
-
-    # Tarkistetaan, että vuosi on neljään merkkiin rajoittuva
     if len(year) != 4:
         raise UserInputError("Year length must be 4")
 
-    # Tarkistetaan, että vuosi on numeerinen
     if not re.fullmatch("[0-9]+", year):
         raise UserInputError("Year can only consist of numbers")
-
-    # Tarkistetaan, että note ei ylitä 500 merkkiä
-    if note and len(note.strip()) > 500:
-        raise UserInputError("Note must not exceed 500 characters")
+    
+    if len(note) > 500:
+        raise UserInputError("Note length must be less than 500 words")
 
 def validate_inproceedings(author, title, year, booktitle):
     if not author or not title or not year or not booktitle:
         raise UserInputError("Missing required fields")
-
+    
     if len(year) != 4:
         raise UserInputError("Year length must be 4")
 

@@ -10,6 +10,9 @@ from config import app, test_env
 from util import validate_book, validate_article, validate_misc, validate_inproceedings
 import references as refs
 
+# TODO: Get the current ref type being added
+# that the client has selected and pass it
+# to the render template as the select option.
 
 @app.route("/", methods=['GET', 'POST'])
 def index(error = None):

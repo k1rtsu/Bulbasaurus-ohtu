@@ -59,7 +59,7 @@ def validate_article(article_data):
             raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
 
 
-def validate_misc(author, title, year, note):
+def validate_misc(year, note):
     """
     Validates a 'misc' reference's data.
     Required fields: title, author, year.

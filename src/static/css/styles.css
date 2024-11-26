@@ -63,3 +63,9 @@ select option {
   background-color: #ffffff;
   color: #555;
 }
+
+.primary-container {
+  background-color: rgb(255, 255, 255);
+  flex: 1;
+  padding: 16px;
+}

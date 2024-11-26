@@ -20,7 +20,7 @@ Edit reference
     reference_info <br>
     {{ reference_info }}
 
-    {% if error %}
+{% if error %}
 <p>
     {{error}}
 </p>
@@ -28,6 +28,7 @@ Edit reference
 
 <form action="/edit_reference" method="post">
     <input type="hidden" name="reference_id" value="{{ reference_id }}">
+    <input type="hidden" name="reference_type" value="{{ reference_type }}">
     {% for key, info in reference_info.items() %}
         <p>
         {{ key }}<br>

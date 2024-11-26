@@ -93,3 +93,25 @@ def validate_inproceedings(author, title, year, booktitle):
 
     if not re.fullmatch("[0-9]+", year):
         raise UserInputError("Year can only consist of numbers")
+
+def validate_edit(edited_info:dict, reference_type):
+    if reference_type == "book":
+        validate_book(
+            edited_info["author"],
+            edited_info["title"],
+            edited_info["year"],
+            edited_info["publisher"])
+    if reference_type == "article":
+        validate_article(edited_info)
+    if reference_type == "misc":
+        validate_misc(
+            edited_info["author"],
+            edited_info["title"],
+            edited_info["year"],
+            edited_info["note"])
+    if reference_type == "inproceedings":
+        validate_inproceedings(
+            edited_info["author"],
+            edited_info["title"],
+            edited_info["year"],
+            edited_info["booktitle"])

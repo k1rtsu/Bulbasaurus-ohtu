@@ -12,20 +12,21 @@ from config import db
 def get_reference_info_by_id(reference_id: int) -> tuple[dict, str]:
     """
     Return all info of a reference.
-    
+
     Arguments:
+
         reference_id: id of the reference we want to return"""
     reference_id = int(reference_id)
     sql = text(
         """
-        SELECT type
+        SELECT id, type
         FROM reference
         WHERE id=:reference_id
         """
     )
-    reference_type = db.session.execute(sql, {"reference_id": reference_id})
-    reference_type = reference_type.fetchone()
-    reference_type = reference_type[0]
+    reference = db.session.execute(sql, {"reference_id": reference_id})
+    reference = reference.fetchone()
+    info = {"id": reference[0], "type": reference[1]}
 
     sql = text(
         """
@@ -37,8 +38,7 @@ def get_reference_info_by_id(reference_id: int) -> tuple[dict, str]:
     reference_info = db.session.execute(sql, {"reference_id": reference_id})
     reference_info = reference_info.fetchall()
 
-    info = {}
     for row in reference_info:
         info[row[2]] = {"info_id": row[0], "field": row[3]}
 
-    return info, reference_type
+    return info

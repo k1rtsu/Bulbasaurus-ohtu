@@ -88,7 +88,7 @@ def add():  # pylint: disable=inconsistent-return-statements
         year = request.form["year"]
         note = request.form["note"]
         try:
-            validate_misc(year, note)
+            validate_misc(author, title, year, note)
             refs.add_misc(author, title, year, note)
             return redirect("/references")
         except Exception as error:  # pylint: disable=broad-exception-caught

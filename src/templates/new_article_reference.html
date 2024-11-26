@@ -1,40 +1,40 @@
-<h3>Add an article</h3>
+<p class="form-heading">Add an article</p>
 
 {% if error %}
 <p>{{error}}</p>
 {% endif %}
 <form id="new-article-reference-form" action="/single_page_app" method="post">
-  <p>
+  <p class="input-helper-text">
     Author(s)*<br />
     <input type="text" name="author" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Title*<br />
     <input type="text" name="title" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Journal*<br />
     <input type="text" name="journal" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Volume*<br />
     <input type="number" min="1" name="volume" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Number<br />
     <input type="number" min="1" name="number" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Year*<br />
     <input type="text" name="year" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Pages<br />
     <input
       type="number"
@@ -47,17 +47,17 @@
     <input type="number" min="1" name="pages_to" size="4" style="width: 70px" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     DOI<br />
     <input type="text" name="doi" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     URL<br />
     <input type="text" name="url" />
   </p>
 
-  <p>*reguired fields<br /></p>
+  <p class="input-helper-text">*required fields<br /></p>
 
   <p>
     <button type="submit" name="submit" value="article">Add an article</button>

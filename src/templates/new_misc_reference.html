@@ -1,31 +1,26 @@
-<h3>Add a misc reference</h3>
+<p class="form-heading">Add a misc reference</p>
 
 {% if error %}
 <p>{{error}}</p>
 {% endif %}
 <form action="/single_page_app" method="post">
-  <p>
+  <p class="input-helper-text">
     Author(s)*<br />
     <input type="text" name="author" />
   </p>
-  <p>
+  <p class="input-helper-text">
     Title*<br />
     <input type="text" name="title" />
   </p>
-  <p>
+  <p class="input-helper-text">
     Year*<br />
     <input type="text" name="year" />
   </p>
-  <p>
+  <p class="input-helper-text">
     Note<br />
-    <textarea
-      name="note"
-      rows="4"
-      cols="50"
-      placeholder="Optional notes"
-    ></textarea>
+    <textarea name="note" rows="4" placeholder="Optional notes"></textarea>
   </p>
-  <p>*required fields<br /></p>
+  <p class="input-helper-text">*required fields<br /></p>
   <p>
     <button type="submit" name="submit" value="misc">
       Add a misc reference

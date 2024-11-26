@@ -1,25 +1,25 @@
-<h3>Add a book</h3>
+<p class="form-heading">Add a book</p>
 
 {% if error %}
 <p>{{error}}</p>
 {% endif %}
 <form id="new-book-reference-form" action="/single_page_app" method="post">
-  <p>
+  <p class="input-helper-text">
     Author<br />
     <input type="text" name="author" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Title<br />
     <input type="text" name="title" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Year<br />
     <input type="text" name="year" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Publisher<br />
     <input type="text" name="publisher" />
   </p>

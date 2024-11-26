@@ -1,31 +1,31 @@
-<h3>Add inproceedings</h3>
+<p class="form-heading">Add inproceedings</p>
 
 {% if error %}
 <p>{{error}}</p>
 {% endif %}
 
 <form id="new-inproceedings-form" action="/single_page_app" method="post">
-  <p>
+  <p class="input-helper-text">
     Author<br />
     <input type="text" name="author" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Title<br />
     <input type="text" name="title" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     Year<br />
     <input type="text" name="year" />
   </p>
 
-  <p>
-    Booktitle<br />
+  <p class="input-helper-text">
+    Book title<br />
     <input type="text" name="booktitle" />
   </p>
 
-  <p>
+  <p class="input-helper-text">
     <button type="submit" name="submit" value="inproceedings">
       Add inproceedings
     </button>

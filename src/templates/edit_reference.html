@@ -20,7 +20,7 @@ Edit reference
     reference_info <br>
     {{ reference_info }}
 
-{% if error %}
+    {% if error %}
 <p>
     {{error}}
 </p>
@@ -30,14 +30,14 @@ Edit reference
     <input type="hidden" name="reference_id" value="{{ reference_id }}">
     <input type="hidden" name="reference_type" value="{{ reference_type }}">
     {% for key, info in reference_info.items() %}
-        <p>
+    <p>
         {{ key }}<br>
         <input type="text" name="{{ key }}" value="{{ info.field }}">
-    {% endfor %}
+        {% endfor %}
     <p>
-    <button type="submit" name="button" value="save_changes">
-        Save changes
-    </button>
+        <button type="submit" name="button" value="save_changes">
+            Save changes
+        </button>
 </form>
 
 {% endblock %}

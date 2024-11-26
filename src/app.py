@@ -7,8 +7,7 @@ from flask import (
 )
 from db_helper import reset_db
 from config import app, test_env
-from util import validate_book, validate_article, validate_misc, validate_inproceedings, validate_edit
-from util import UserInputError
+from util import validate_book, validate_article, validate_misc, validate_inproceedings, validate_edit, UserInputError
 import references as refs
 import get_references
 import edit_references

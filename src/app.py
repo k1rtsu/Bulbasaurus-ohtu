@@ -57,7 +57,6 @@ def handle_add_misc():
     year = request.form["year"]
     note = request.form["note"]
     try:
-        # a bug in here, check the function parameters
         validate_misc(author, title, year, note)
         refs.add_misc(author, title, year, note)
     except Exception as error: #pylint: disable=broad-exception-caught

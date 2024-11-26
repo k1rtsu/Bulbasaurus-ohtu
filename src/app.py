@@ -4,12 +4,8 @@ from config import app, test_env
 from util import validate_book, validate_article, validate_misc, validate_inproceedings
 import references as refs
 
-@app.route("/")
-def index():
-    return redirect("/single_page_app")
-
-@app.route("/single_page_app", methods=['GET', 'POST'])
-def single_page_app(error = None):
+@app.route("/", methods=['GET', 'POST'])
+def index(error = None):
     if request.method == 'POST':
         try:
             reference_type = request.form.get('submit')
@@ -26,16 +22,16 @@ def single_page_app(error = None):
 
     books = refs.get_all_books()
     articles = refs.get_all_articles()
-    miscs = refs.get_all_misc()
+    misc = refs.get_all_misc()
     inproceedings = refs.get_all_inproceedings()
-    total = len(books)+len(articles)+len(miscs)+len(inproceedings)
+    total = len(books)+len(articles)+len(misc)+len(inproceedings)
 
-    return render_template("single_page_app.html", error=error, books=books, articles=articles, miscs=miscs, inproceedings=inproceedings, total=total)
+    return render_template("single_page_app.html", error=error, books=books, articles=articles, misc=misc, inproceedings=inproceedings, total=total)
 
 @app.route("/remove_reference/<reference_id>", methods=["POST"])
 def remove_reference(reference_id):
     refs.remove_reference(reference_id)
-    return redirect('/single_page_app')
+    return redirect('/')
 
 def handle_add_book():
     author = request.form["author"]

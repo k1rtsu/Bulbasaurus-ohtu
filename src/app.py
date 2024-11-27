@@ -153,6 +153,7 @@ def edit_reference():
         try:
             validate_edit(form_data, reference_type)
             edit_references.update_reference(form_data, reference_id)
+            return redirect("/references")
         except UserInputError as err:
             error = err
 

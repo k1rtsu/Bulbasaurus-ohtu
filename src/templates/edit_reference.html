@@ -12,15 +12,7 @@ Edit reference
     <a href="/">Home page</a>
 </div>
 
-<p>
-    reference_id {{ reference_id }}
-<p>
-    reference_type {{ reference_type }}
-<p>
-    reference_info <br>
-    {{ reference_info }}
-
-    {% if error %}
+{% if error %}
 <p>
     {{error}}
 </p>

@@ -7,9 +7,10 @@ from flask import (
 )
 from db_helper import reset_db
 from config import app, test_env
-from util import validate_book, validate_article, validate_misc, validate_inproceedings
+from util import validate_book, validate_article, validate_misc, validate_inproceedings, validate_edit, UserInputError
 import references as refs
-
+import get_references
+import edit_references
 
 def redirect_to_new_reference():
     return redirect(url_for("render_new"))
@@ -128,6 +129,39 @@ def remove_reference(reference_id):
     refs.remove_reference(reference_id)
     return redirect("/references")
 
+
+@app.route("/edit_reference", methods=["POST"])
+def edit_reference():
+    button_value = request.form.get("button")
+    reference_id = request.form.get("reference_id")
+    error = None
+
+    if button_value == "save_changes":
+        form_data = request.form.to_dict()
+        reference_type = form_data["reference_type"]
+        del form_data["button"]
+        del form_data["reference_id"]
+        del form_data["reference_type"]
+        # print()
+        # print(form_data)
+        # [print(d, form_data[d]) for d in form_data]
+        # print()
+        try:
+            validate_edit(form_data, reference_type)
+            edit_references.update_reference(form_data, reference_id)
+        except UserInputError as err:
+            error = err
+
+    reference_info = get_references.get_reference_info_by_id(reference_id)
+    reference_type = reference_info["type"]
+    del reference_info["id"]
+    del reference_info["type"]
+    return render_template("edit_reference.html",
+                        reference_info=reference_info,
+                        reference_id=reference_id,
+                        reference_type=reference_type,
+                        error=error
+                        )
 
 if test_env:
 

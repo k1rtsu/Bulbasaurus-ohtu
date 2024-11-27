@@ -59,7 +59,6 @@ def table_exists(table):
         f" WHERE table_name = '{table}'"
         ")"
     )
-    # print(sql_table_existence)
 
     result = db.session.execute(sql_table_existence)
     return result.fetchall()[0][0]

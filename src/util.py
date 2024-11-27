@@ -1,8 +1,10 @@
 import re
 from urllib.parse import urlparse
 
+
 class UserInputError(Exception):
     pass
+
 
 def is_valid_url(url):
     parsed = urlparse(url)
@@ -19,44 +21,48 @@ def validate_book(author, title, year, publisher):
     if not re.fullmatch("[0-9]+", year):
         raise UserInputError("Year can only consist of numbers")
 
+
 def validate_article(article_data):
-    required_article_data = ['author', 'title', 'year', 'journal', 'volume']
+    required_article_data = ["author", "title", "year", "journal", "volume"]
     missing_fields = [
-        field for field in required_article_data if not article_data
-        .get(field, "")
-        .strip()
+        field
+        for field in required_article_data
+        if not article_data.get(field, "").strip()
     ]
     if missing_fields:
         raise UserInputError(f"Missing required fields: {', '.join(missing_fields)}")
 
-    if len(article_data['year']) != 4:
+    if len(article_data["year"]) != 4:
         raise UserInputError("Year length must be 4")
 
-    if not re.fullmatch("[0-9]+", article_data['year']):
+    if not re.fullmatch("[0-9]+", article_data["year"]):
         raise UserInputError("Year can only consist of numbers")
 
-    if not re.fullmatch("[0-9]+", article_data['volume']):
+    if not re.fullmatch("[0-9]+", article_data["volume"]):
         raise UserInputError("Volume can only consist of numbers")
 
-    if article_data['pages_from'] and article_data['pages_to']:
-        if article_data['pages_to']<article_data['pages_from']:
+    if article_data["pages_from"] and article_data["pages_to"]:
+        if article_data["pages_to"] < article_data["pages_from"]:
             raise UserInputError(
                 "The starting page number cannot be greater than the ending page number."
             )
 
-        if not re.fullmatch("[0-9]+", article_data['pages_from']):
+        if not re.fullmatch("[0-9]+", article_data["pages_from"]):
             raise UserInputError("Pages can only consist of numbers")
 
-        if not re.fullmatch("[0-9]+", article_data['pages_to']):
+        if not re.fullmatch("[0-9]+", article_data["pages_to"]):
             raise UserInputError("Pages can only consist of numbers")
 
-    if article_data['number']:
-        if not re.fullmatch("[0-9]+", article_data['number']):
+    if article_data["number"]:
+        if not re.fullmatch("[0-9]+", article_data["number"]):
             raise UserInputError("Number can only consist of numbers")
 
-    if article_data['url']:
-        if not is_valid_url(article_data['url']):
-            raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
+    if article_data["url"]:
+        if not is_valid_url(article_data["url"]):
+            raise UserInputError(
+                "Please enter a valid URL (e.g., 'https://example.com')"
+            )
+
 
 def validate_misc(author, title, year, note):
     if not author or not title or not year:
@@ -71,6 +77,7 @@ def validate_misc(author, title, year, note):
     if len(note) > 500:
         raise UserInputError("Note length must be less than 500 words")
 
+
 def validate_inproceedings(author, title, year, booktitle):
     if not author or not title or not year or not booktitle:
         raise UserInputError("Missing required fields")
@@ -81,6 +88,7 @@ def validate_inproceedings(author, title, year, booktitle):
     if not re.fullmatch("[0-9]+", year):
         raise UserInputError("Year can only consist of numbers")
 
+
 def validate_edit(edited_info: dict, reference_type: str):
     """Validate the edits made by user."""
     if reference_type == "book":
@@ -88,7 +96,8 @@ def validate_edit(edited_info: dict, reference_type: str):
             edited_info["author"],
             edited_info["title"],
             edited_info["year"],
-            edited_info["publisher"])
+            edited_info["publisher"],
+        )
     elif reference_type == "article":
         validate_article(edited_info)
     elif reference_type == "misc":
@@ -96,14 +105,16 @@ def validate_edit(edited_info: dict, reference_type: str):
             edited_info["author"],
             edited_info["title"],
             edited_info["year"],
-            edited_info["note"])
+            edited_info["note"],
+        )
     elif reference_type == "inproceedings":
         validate_inproceedings(
             edited_info["author"],
             edited_info["title"],
             edited_info["year"],
-            edited_info["booktitle"])
+            edited_info["booktitle"],
+        )
     else:
         raise ValueError(
             f"The given reference type could not be validated: {reference_type}"
-            )
+        )

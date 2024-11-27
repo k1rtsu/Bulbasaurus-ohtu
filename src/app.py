@@ -13,10 +13,12 @@ from util import (
     validate_misc,
     validate_inproceedings,
     validate_edit,
-    UserInputError)
+    UserInputError,
+)
 import references as refs
 import get_references
 import edit_references
+
 
 def redirect_to_new_reference():
     return redirect(url_for("render_new"))
@@ -58,7 +60,7 @@ def add():  # pylint: disable=inconsistent-return-statements
             validate_book(author, title, year, publisher)
             refs.add_book(author, title, year, publisher)
             return redirect("/references")
-        except Exception as error:  # pylint: disable=broad-exception-caught
+        except UserInputError as error:
             return new_book(error)
     if request.form.get("submit") == "article":
         author = request.form["author"]
@@ -87,7 +89,7 @@ def add():  # pylint: disable=inconsistent-return-statements
             validate_article(article_data)
             refs.add_article(article_data)
             return redirect("/references")
-        except Exception as error:  # pylint: disable=broad-exception-caught
+        except UserInputError as error:
             return new_article(error)
     if request.form.get("submit") == "misc":
         author = request.form["author"]
@@ -98,7 +100,7 @@ def add():  # pylint: disable=inconsistent-return-statements
             validate_misc(author, title, year, note)
             refs.add_misc(author, title, year, note)
             return redirect("/references")
-        except Exception as error:  # pylint: disable=broad-exception-caught
+        except UserInputError as error:
             return new_misc(error)
     if request.form.get("submit") == "inproceedings":
         author = request.form["author"]
@@ -109,7 +111,7 @@ def add():  # pylint: disable=inconsistent-return-statements
             validate_inproceedings(author, title, year, booktitle)
             refs.add_inproceedings(author, title, year, booktitle)
             return redirect("/references")
-        except Exception as error:  # pylint: disable=broad-exception-caught
+        except UserInputError as error:
             return new_inproceedings(error)
 
 
@@ -148,10 +150,6 @@ def edit_reference():
         del form_data["button"]
         del form_data["reference_id"]
         del form_data["reference_type"]
-        # print()
-        # print(form_data)
-        # [print(d, form_data[d]) for d in form_data]
-        # print()
         try:
             validate_edit(form_data, reference_type)
             edit_references.update_reference(form_data, reference_id)
@@ -162,12 +160,14 @@ def edit_reference():
     reference_type = reference_info["type"]
     del reference_info["id"]
     del reference_info["type"]
-    return render_template("edit_reference.html",
-                        reference_info=reference_info,
-                        reference_id=reference_id,
-                        reference_type=reference_type,
-                        error=error
-                        )
+    return render_template(
+        "edit_reference.html",
+        reference_info=reference_info,
+        reference_id=reference_id,
+        reference_type=reference_type,
+        error=error,
+    )
+
 
 if test_env:
 

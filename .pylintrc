@@ -21,3 +21,4 @@ disable=raw-checker-failed,
 [REFACTORING]
 
 [DESIGN]
+max-returns = 8

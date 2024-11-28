@@ -7,8 +7,17 @@ from flask import (
 )
 from db_helper import reset_db
 from config import app, test_env
-from util import validate_book, validate_article, validate_misc, validate_inproceedings
+from util import (
+    validate_book,
+    validate_article,
+    validate_misc,
+    validate_inproceedings,
+    validate_edit,
+    UserInputError,
+)
 import references as refs
+import get_references
+import edit_references
 
 # TODO: Get the current ref type being added
 # that the client has selected and pass it
@@ -37,6 +46,37 @@ def index(error = None):
     total = len(books)+len(articles)+len(misc)+len(inproceedings)
 
     return render_template("single_page_app.html", error=error, books=books, articles=articles, misc=misc, inproceedings=inproceedings, total=total)
+
+@app.route("/edit_reference", methods=["POST"])
+def edit_reference():
+    button_value = request.form.get("button")
+    reference_id = request.form.get("reference_id")
+    error = None
+
+    if button_value == "save_changes":
+        form_data = request.form.to_dict()
+        reference_type = form_data["reference_type"]
+        del form_data["button"]
+        del form_data["reference_id"]
+        del form_data["reference_type"]
+        try:
+            validate_edit(form_data, reference_type)
+            edit_references.update_reference(form_data, reference_id)
+            return redirect("/references")
+        except UserInputError as err:
+            error = err
+
+    reference_info = get_references.get_reference_info_by_id(reference_id)
+    reference_type = reference_info["type"]
+    del reference_info["id"]
+    del reference_info["type"]
+    return render_template(
+        "edit_reference.html",
+        reference_info=reference_info,
+        reference_id=reference_id,
+        reference_type=reference_type,
+        error=error,
+    )
 
 @app.route("/remove_reference/<reference_id>", methods=["POST"])
 def remove_reference(reference_id):
@@ -104,6 +144,7 @@ def handle_add_inproceedings():
         refs.add_inproceedings(author, title, year, booktitle)
     except Exception as error: #pylint: disable=broad-exception-caught
         raise error
+
 
 if test_env:
 

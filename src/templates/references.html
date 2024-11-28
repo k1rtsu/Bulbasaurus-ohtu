@@ -16,6 +16,14 @@
       >
         <button type="submit" id="delete_book">Delete</button>
       </form>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
+      </form>
     </li>
   </ul>
   {% endfor %}
@@ -42,6 +50,14 @@
       >
         <button type="submit" id="delete_article">Delete</button>
       </form>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
+      </form>
     </li>
   </ul>
   {% endfor %}
@@ -62,6 +78,14 @@
         style="display: inline"
       >
         <button type="submit" id="delete_misc">Delete</button>
+      </form>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
       </form>
     </li>
   </ul>
@@ -84,6 +108,14 @@
         style="display: inline"
       >
         <button type="submit" id="delete_inproceedings">Delete</button>
+      </form>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
       </form>
     </li>
   </ul>

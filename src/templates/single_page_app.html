@@ -34,9 +34,7 @@ from server.
           >
             <option value="new-book-form-container">Book</option>
             <option value="new-article-form-container">Article</option>
-            <option value="new-inproceedings-form-container">
-              Inproceedings
-            </option>
+            <option value="new-inproceedings-form-container">Inproceedings</option>
             <option value="new-misc-form-container">Misc</option>
           </select>
           <label for="new-reference-form-selector">Select reference type</label>
@@ -57,6 +55,13 @@ from server.
         </div>
       </div>
       <script>
+        const typeToValueMap = {
+          'book': 'new-book-form-container',
+          'article': 'new-article-form-container',
+          'misc': 'new-misc-form-container',
+          'inproceedings': 'new-inproceedings-form-container',
+        }
+
         const onSelectorValueChanged = (selectedValue) => {
           const formContainers = document.querySelectorAll(".form-container");
 
@@ -86,10 +91,15 @@ from server.
         };
 
         document.addEventListener("DOMContentLoaded", () => {
-          const initialValue = "new-book-form-container";
+          const initialType = '{{ selected_option }}';
+          const initialValue = typeToValueMap[initialType]
+
+          document.getElementById('new-reference-form-selector').value = initialValue;
+
           onSelectorValueChanged(initialValue);
           listenToReferenceSelectorChanges();
 
+          // The div is initially hidden
           const formsContainerId = "new-reference-forms-container";
           const formsContainer = document.getElementById(formsContainerId);
 

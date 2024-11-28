@@ -36,7 +36,7 @@ def index(error = None):
                 handle_add_misc()
             elif reference_type == 'article':
                 handle_add_article()
-        except Exception as e:
+        except UserInputError as e:
             error = e
 
     books = refs.get_all_books()
@@ -91,7 +91,7 @@ def handle_add_book():
     try:
         validate_book(author, title, year, publisher)
         refs.add_book(author, title, year, publisher)
-    except Exception as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
         
 def handle_add_misc():
@@ -102,7 +102,7 @@ def handle_add_misc():
     try:
         validate_misc(author, title, year, note)
         refs.add_misc(author, title, year, note)
-    except Exception as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
         
 def handle_add_article():
@@ -131,7 +131,7 @@ def handle_add_article():
     try:
         validate_article(article_data)
         refs.add_article(article_data)
-    except Exception as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
         
 def handle_add_inproceedings():
@@ -142,12 +142,10 @@ def handle_add_inproceedings():
     try:
         validate_inproceedings(author, title, year, booktitle)
         refs.add_inproceedings(author, title, year, booktitle)
-    except Exception as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
 
-
 if test_env:
-
     @app.route("/reset_db")
     def reset_database():
         reset_db()

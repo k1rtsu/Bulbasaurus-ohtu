@@ -40,7 +40,7 @@ class TestArticleReferenceValidation(unittest.TestCase):
                 "title": "TestTitle",
                 "journal": "TestJournal",
                 "volume": "33",
-                "year": "2oo4",
+                "year": "2004",
                 
         }
         with self.assertRaises(UserInputError):
@@ -52,7 +52,7 @@ class TestArticleReferenceValidation(unittest.TestCase):
                 "title": "TestTitle",
                 "journal": "TestJournal",
                 "volume": "33",
-                "year": "2oo4",
+                "year": "2004",
                 "pages_from": "23",
                 "pages_to": "22",
                 
@@ -66,7 +66,7 @@ class TestArticleReferenceValidation(unittest.TestCase):
                 "title": "TestTitle",
                 "journal": "TestJournal",
                 "volume": "33",
-                "year": "2oo4",
+                "year": "2004",
                 "url": "ww.test.fi",         
         }
         with self.assertRaises(UserInputError):

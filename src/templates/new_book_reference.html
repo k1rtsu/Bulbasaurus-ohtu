@@ -1,39 +1,32 @@
-{% extends "layout.html" %}
-
-{% block title %}
-Create a new book reference
-{% endblock %}
-
-{% block body %}
-
-<h2>Add a book</h2>
-
-<div>
-  <a href="/">Home page</a>
-</div>
+<p class="form-heading">Add a book</p>
 
 {% if error %}
-<p>
-  {{error}}
-</p>
+<p>{{error}}</p>
 {% endif %}
-<form action="/add_reference" method="post">
-  <p>
-  Author<br>
-  <input type="text" name="author">
-  <p>
-  Title<br>
-  <input type="text" name="title">
-  <p>
-  Year<br>
-  <input type="text" name="year">
-  <p>
-  Publisher<br>
-  <input type="text" name="publisher">
-  <p>
-  <button type="submit" name="submit" value="book">
-    Add a book
-  </button>
-</form>
+<form id="new-book-reference-form" action="/" method="post">
+  <input type="hidden" name="selected-option" value="book" />
+  
+  <p class="input-helper-text">
+    Author<br />
+    <input type="text" name="author" />
+  </p>
 
-{% endblock %}
+  <p class="input-helper-text">
+    Title<br />
+    <input type="text" name="title" />
+  </p>
+
+  <p class="input-helper-text">
+    Year<br />
+    <input type="text" name="year" />
+  </p>
+
+  <p class="input-helper-text">
+    Publisher<br />
+    <input type="text" name="publisher" />
+  </p>
+
+  <p>
+    <button type="submit" name="submit" value="book">Add a book</button>
+  </p>
+</form>

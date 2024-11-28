@@ -1,40 +1,35 @@
-{% extends "layout.html" %}
-
-{% block title %}
-Create new inproceedings reference
-{% endblock %}
-
-{% block body %}
-
-<h2>Add inproceedings</h2>
-
-<div>
-  <a href="/">Home page</a>
-</div>
+<p class="form-heading">Add inproceedings</p>
 
 {% if error %}
-<p>
-  {{error}}
-</p>
+<p>{{error}}</p>
 {% endif %}
 
-<form action="/add_reference" method="post">
-  <p>
-  Author<br>
-  <input type="text" name="author">
-  <p>
-  Title<br>
-  <input type="text" name="title">
-  <p>
-  Year<br>
-  <input type="text" name="year">
-  <p>
-  Booktitle<br>
-  <input type="text" name="booktitle">
-  <p>
-  <button type="submit" name="submit" value="inproceedings">
-    Add inproceedings
-  </button>
-</form>
+<form id="new-inproceedings-form" action="/" method="post">
+  <input type="hidden" name="selected-option" value="inproceedings" />
 
-{% endblock %}
+  <p class="input-helper-text">
+    Author<br />
+    <input type="text" name="author" />
+  </p>
+
+  <p class="input-helper-text">
+    Title<br />
+    <input type="text" name="title" />
+  </p>
+
+  <p class="input-helper-text">
+    Year<br />
+    <input type="text" name="year" />
+  </p>
+
+  <p class="input-helper-text">
+    Book title<br />
+    <input type="text" name="booktitle" />
+  </p>
+
+  <p class="input-helper-text">
+    <button type="submit" name="submit" value="inproceedings">
+      Add inproceedings
+    </button>
+  </p>
+</form>

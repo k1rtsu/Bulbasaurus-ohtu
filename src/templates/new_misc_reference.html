@@ -1,47 +1,31 @@
-{% extends "layout.html" %}
-
-{% block title %}
-Create a new misc reference
-{% endblock %}
-
-{% block body %}
-
-<h2>Add a misc reference</h2>
-
-<div>
-  <a href="/">Home page</a>
-</div>
+<p class="form-heading">Add a misc reference</p>
 
 {% if error %}
-<p>
-  {{error}}
-</p>
+<p>{{error}}</p>
 {% endif %}
-<form action="/add_reference" method="post">
-  <p>
-    Author(s)*<br>
-    <input type="text" name="author">
+<form action="/" method="post">
+  <input type="hidden" name="selected-option" value="misc" />
+
+  <p class="input-helper-text">
+    Author(s)*<br />
+    <input type="text" name="author" />
   </p>
-  <p>
-    Title*<br>
-    <input type="text" name="title">
+  <p class="input-helper-text">
+    Title*<br />
+    <input type="text" name="title" />
   </p>
-  <p>
-    Year*<br>
-    <input type="text" name="year">
+  <p class="input-helper-text">
+    Year*<br />
+    <input type="text" name="year" />
   </p>
-  <p>
-    Note<br>
-    <textarea name="note" rows="4" cols="50" placeholder="Optional notes"></textarea>
+  <p class="input-helper-text">
+    Note<br />
+    <textarea name="note" rows="4" placeholder="Optional notes"></textarea>
   </p>
-  <p>
-    *required fields<br>
-  </p>
+  <p class="input-helper-text">*required fields<br /></p>
   <p>
     <button type="submit" name="submit" value="misc">
       Add a misc reference
     </button>
   </p>
 </form>
-
-{% endblock %}

@@ -1,77 +1,68 @@
-{% extends "layout.html" %} {% block title %} References {% endblock %} {% block
-body %}
-
-<h2>References</h2>
-
-<div>
-  <a href="/">Home page</a>
-</div>
-
-<br />
 <div>Total references: {{ total }}</div>
 <br />
 {% if books|length > 0 %}
-  <strong>Books:</strong>
-
-  <div>
-    {% for data in books %}
-      <ul>
-        <li>
-          {{ data.book_info.author }}. <i>{{ data.book_info.title }}.</i>
-          {{ data.book_info.publisher }}, {{ data.book_info.year }}.
-          <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
-            <button type="submit" id="delete_book">
-              Delete
-            </button>
-          </form>
-          <form action="/edit_reference" method="post" style="display:inline;">
-            <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
-            <button type="submit" name="button" value="edit">
-              Edit
-            </button>
-          </form>
-      </li>
-      </ul>
-    {% endfor %}
-  </div>
-{% endif %}
-
-{% if articles|length > 0 %}
-<strong>Articles:</strong>
+<strong>Books:</strong>
 
 <div>
-  {% for data in articles %}
+  {% for data in books %}
   <ul>
     <li>
-      {{ data.article_info.author }}. "{{ data.article_info.title }}".
-      In <i>{{ data.article_info.journal }}&nbsp;</i>
-      {{ data.article_info.volume }}{% if data.article_info.number %}:{{ data.article_info.number }}{% endif %}
-      ({{ data.article_info.year }}).
-      {% if data.article_info.pages_from and data.article_info.pages_to %} 
-      Pp. {{ data.article_info.pages_from }}–{{ data.article_info.pages_to }}.
-      {% endif %}
-      {% if data.article_info.doi %} 
-      DOI: {{ data.article_info.doi }}.
-      {% endif %}
-      {% if data.article_info.url %} 
-      URL: {{ data.article_info.url }}.
-      {% endif %} 
-      <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
-        <button type="submit" id="delete_article">Delete</button>
+      {{ data.book_info.author }}. <i>{{ data.book_info.title }}.</i>
+      {{ data.book_info.publisher }}, {{ data.book_info.year }}.
+      <form
+        action="/remove_reference/{{ data.reference_id }}"
+        method="post"
+        style="display: inline"
+      >
+        <button type="submit" id="delete_book">Delete</button>
       </form>
-      <form action="/edit_reference" method="post" style="display:inline;">
-        <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
-        <button type="submit" name="button" value="edit">
-          Edit
-        </button>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
       </form>
     </li>
   </ul>
   {% endfor %}
 </div>
-{% endif %} 
-
-{% if misc|length > 0 %}
+{% endif %} {% if articles|length > 0 %}
+<strong>Articles:</strong>
+<div>
+  {% for data in articles %}
+  <ul>
+    <li>
+      {{ data.article_info.author }}. "{{ data.article_info.title }}". In
+      <i>{{ data.article_info.journal }}&nbsp;</i>
+      {{ data.article_info.volume }}{% if data.article_info.number %}:{{
+      data.article_info.number }}{% endif %} ({{ data.article_info.year }}). {%
+      if data.article_info.pages_from and data.article_info.pages_to %} Pp. {{
+      data.article_info.pages_from }}–{{ data.article_info.pages_to }}. {% endif
+      %} {% if data.article_info.doi %} DOI: {{ data.article_info.doi }}. {%
+      endif %} {% if data.article_info.url %} URL: {{ data.article_info.url }}.
+      {% endif %}
+      <form
+        action="/remove_reference/{{ data.reference_id }}"
+        method="post"
+        style="display: inline"
+      >
+        <button type="submit" id="delete_article">Delete</button>
+      </form>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
+      </form>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+{% endif %} {% if misc|length > 0 %}
 <strong>Miscellaneous:</strong>
 
 <div>
@@ -79,48 +70,55 @@ body %}
   <ul>
     <li>
       {{ data.misc_info.author }}. <i>{{ data.misc_info.title }}.</i>
-      {{ data.misc_info.year }}.
-      {% if data.misc_info.note %}
-      <strong>Note:</strong> {{ data.misc_info.note }}.
-      {% endif %}
-      <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
+      {{ data.misc_info.year }}. {% if data.misc_info.note %}
+      <strong>Note:</strong> {{ data.misc_info.note }}. {% endif %}
+      <form
+        action="/remove_reference/{{ data.reference_id }}"
+        method="post"
+        style="display: inline"
+      >
         <button type="submit" id="delete_misc">Delete</button>
       </form>
-      <form action="/edit_reference" method="post" style="display:inline;">
-        <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
-        <button type="submit" name="button" value="edit">
-          Edit
-        </button>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
+      </form>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+{% endif %} {% if inproceedings|length > 0 %}
+<strong>Inproceedings:</strong>
+
+<div>
+  {% for data in inproceedings %}
+  <ul>
+    <li>
+      {{ data.inproceedings_info.author }}.
+      <i>{{ data.inproceedings_info.title }}.</i>
+      {{ data.inproceedings_info.booktitle }}, {{ data.inproceedings_info.year
+      }}.
+      <form
+        action="/remove_reference/{{ data.reference_id }}"
+        method="post"
+        style="display: inline"
+      >
+        <button type="submit" id="delete_inproceedings">Delete</button>
+      </form>
+      <form action="/edit_reference" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="edit">Edit</button>
       </form>
     </li>
   </ul>
   {% endfor %}
 </div>
 {% endif %}
-
-{% if inproceedings|length > 0 %}
-  <strong>Inproceedings:</strong>
-
-  <div>
-    {% for data in inproceedings %}
-      <ul>
-        <li>
-          {{ data.inproceedings_info.author }}. <i>{{ data.inproceedings_info.title }}.</i>
-          {{ data.inproceedings_info.booktitle }}, {{ data.inproceedings_info.year }}.
-          <form action="/remove_reference/{{ data.reference_id }}" method="post" style="display:inline;">
-            <button type="submit" id="delete_inproceedings">Delete</button>
-          </form>
-          <form action="/edit_reference" method="post" style="display:inline;">
-            <input type="hidden" name="reference_id" value="{{ data.reference_id }}">
-            <button type="submit" name="button" value="edit">
-              Edit
-            </button>
-          </form>
-      </li>
-      </ul>
-    {% endfor %}
-  </div>
-{% endif %}
-
-{% endblock %}
-

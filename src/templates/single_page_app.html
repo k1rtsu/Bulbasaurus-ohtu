@@ -1,0 +1,124 @@
+{% extends "layout.html" %} {% block title %} App {% endblock %} {% block body
+%}
+
+<div style="display: flex; flex-direction: column; height: 100vh">
+  <!-- App Bar (Top) -->
+  <div
+    style="
+      background-color: rgb(255, 255, 255);
+      padding-left: 16px;
+      padding-right: 16px;
+    "
+  >
+    <p class="caption">References app</p>
+  </div>
+  <div class="divider"></div>
+  <!-- Content (Below App Bar) -->
+  <div style="display: flex; flex-direction: row; flex: 1">
+    <!-- Content (Left Side) -->
+    <div class="primary-container">
+      <h3 style="text-align: center">Create new references</h3>
+      <div
+        id="new-reference-forms-container"
+        style="display: none; flex-direction: column; gap: 20px"
+      >
+        <div style="display: flex; flex-direction: column" class="paper-div">
+          <select
+            name="new-reference-form-selector"
+            id="new-reference-form-selector"
+          >
+            <option value="new-book-form-container">Book</option>
+            <option value="new-article-form-container">Article</option>
+            <option value="new-inproceedings-form-container">Inproceedings</option>
+            <option value="new-misc-form-container">Misc</option>
+          </select>
+          <label for="new-reference-form-selector">Select reference type</label>
+        </div>
+        <div class="paper-div">
+          <div id="new-book-form-container" class="form-container">
+            {% include 'new_book_reference.html' %}
+          </div>
+          <div id="new-article-form-container" class="form-container">
+            {% include 'new_article_reference.html' %}
+          </div>
+          <div id="new-misc-form-container" class="form-container">
+            {% include 'new_misc_reference.html' %}
+          </div>
+          <div id="new-inproceedings-form-container" class="form-container">
+            {% include 'new_inproceedings_reference.html' %}
+          </div>
+        </div>
+      </div>
+      <script>
+        const typeToValueMap = {
+          'book': 'new-book-form-container',
+          'article': 'new-article-form-container',
+          'misc': 'new-misc-form-container',
+          'inproceedings': 'new-inproceedings-form-container',
+        }
+
+        const onSelectorValueChanged = (selectedValue) => {
+          const formContainers = document.querySelectorAll(".form-container");
+
+          for (const element of formContainers) {
+            if (element.id === selectedValue) {
+              element.style.display = "block";
+            } else {
+              element.style.display = "none";
+            }
+          }
+        };
+
+        const listenToReferenceSelectorChanges = () => {
+          const id = "new-reference-form-selector";
+          const selector = document.getElementById(id);
+
+          if (!selector) {
+            console.error(
+              `${id} element was not found. Can't select which reference type form is visible.`
+            );
+            return;
+          }
+
+          selector.addEventListener("change", (event) =>
+            onSelectorValueChanged(event.target.value)
+          );
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const initialType = '{{ selected_option }}';
+          const initialValue = typeToValueMap[initialType]
+
+          document.getElementById('new-reference-form-selector').value = initialValue;
+
+          onSelectorValueChanged(initialValue);
+          listenToReferenceSelectorChanges();
+
+          // The div is initially hidden
+          const formsContainerId = "new-reference-forms-container";
+          const formsContainer = document.getElementById(formsContainerId);
+
+          if (!formsContainer) {
+            console.error(
+              `${formsContainerId} element was not found. Can't display new reference forms.`
+            );
+            return;
+          }
+
+          formsContainer.style.display = "flex";
+        });
+      </script>
+    </div>
+    <!-- Divider in Between -->
+    <div class="divider"></div>
+    <!-- Content (Right Side) -->
+    <div class="primary-container">
+      <h3 style="text-align: center">References you have created</h3>
+      <div id="references-list-container" class="paper-div">
+        {% include 'references.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

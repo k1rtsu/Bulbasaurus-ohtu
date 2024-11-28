@@ -1,58 +1,67 @@
-{% extends "layout.html" %}
-
-{% block title %}
-Create a new article reference
-{% endblock %}
-
-{% block body %}
-
-<h2>Add an article</h2>
-
-<div>
-  <a href="/">Home page</a>
-</div>
+<p class="form-heading">Add an article</p>
 
 {% if error %}
-<p>
-  {{error}}
-</p>
+<p>{{error}}</p>
 {% endif %}
-<form action="/add_reference" method="post">
-  <p>
-    Author(s)*<br>
-    <input type="text" name="author">
-  <p>
-    Title*<br>
-    <input type="text" name="title">
-  <p>
-    Journal*<br>
-    <input type="text" name="journal">
-  <p>
-    Volume*<br>
-    <input type="number" min="1" name="volume">
-  <p>
-    Number<br>
-    <input type="number" min="1" name="number">
-  <p>
-    Year*<br>
-    <input type="text" name="year">
-  <p>
-    Pages<br>
-        <input type="number" min="1" name="pages_from" size="4" style="width: 70px;">
-        – 
-        <input type="number" min="1" name="pages_to" size="4" style="width: 70px;">
-  <p>
-    DOI<br>
-        <input type="text" name="doi">
-  <p>
-   URL<br>
-      <input type="text" name="url">
-  <p>
-    *reguired fields<br>
-  <p>
-  <button type="submit" name="submit" value="article">
-    Add an article
-  </button>
-</form>
+<form id="new-article-reference-form" action="/" method="post">
+  <input type="hidden" name="selected-option" value="article" />
 
-{% endblock %}
+  <p class="input-helper-text">
+    Author(s)*<br />
+    <input type="text" name="author" />
+  </p>
+
+  <p class="input-helper-text">
+    Title*<br />
+    <input type="text" name="title" />
+  </p>
+
+  <p class="input-helper-text">
+    Journal*<br />
+    <input type="text" name="journal" />
+  </p>
+
+  <p class="input-helper-text">
+    Volume*<br />
+    <input type="number" min="1" name="volume" />
+  </p>
+
+  <p class="input-helper-text">
+    Number<br />
+    <input type="number" min="1" name="number" />
+  </p>
+
+  <p class="input-helper-text">
+    Year*<br />
+    <input type="text" name="year" />
+  </p>
+
+  <p class="input-helper-text">
+    Pages<br />
+    <input
+      type="number"
+      min="1"
+      name="pages_from"
+      size="4"
+      style="width: 70px"
+    />
+    –
+    <input type="number" min="1" name="pages_to" size="4" style="width: 70px" />
+  </p>
+
+  <p class="input-helper-text">
+    DOI<br />
+    <input type="text" name="doi" />
+  </p>
+
+  <p class="input-helper-text">
+    URL<br />
+    <input type="text" name="url" />
+  </p>
+
+  <p class="input-helper-text">*required fields<br /></p>
+
+  <p>
+    <button type="submit" name="submit" value="article">Add an article</button>
+  </p>
+</form>

@@ -10,13 +10,27 @@
       padding-right: 16px;
     "
   >
-    <p class="caption">References app</p>
+    <p class="caption" style="display: inline-block;">References app</p>
+    <button id="hamburger-button">
+      Menu
+    </button>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('hamburger-button');
+        const drawer = document.getElementById('hamburger-drawer');
+  
+        button.addEventListener('click', () => {
+          drawer.classList.toggle('open');
+        })
+      })
+    </script>
   </div>
   <div class="divider"></div>
   <!-- Content (Below App Bar) -->
-  <div style="display: flex; flex-direction: row; flex: 1">
+  <div style="display: flex; flex-direction: row; flex: 1;">
     <!-- Content (Left Side) -->
-    <div class="primary-container">
+    <!-- Tänne hampparin sisään tuleva contentti -->
+    <div id="hamburger-drawer" class="drawer" style="padding-top: 16px;">
       <h3 style="text-align: center">Create new references</h3>
       <div
         id="new-reference-forms-container"

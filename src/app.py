@@ -19,10 +19,6 @@ import references as refs
 import get_references
 import edit_references
 
-# TODO: Get the current ref type being added
-# that the client has selected and pass it
-# to the render template as the select option.
-
 @app.route("/", methods=['GET', 'POST'])
 def index(error = None):
     selected_option = 'book' # default value

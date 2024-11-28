@@ -25,8 +25,11 @@ import edit_references
 
 @app.route("/", methods=['GET', 'POST'])
 def index(error = None):
+    selected_option = 'book' # default value
+
     if request.method == 'POST':
         try:
+            selected_option = request.form.get('selected-option')
             reference_type = request.form.get('submit')
             if reference_type == "inproceedings":
                 handle_add_inproceedings()
@@ -45,7 +48,14 @@ def index(error = None):
     inproceedings = refs.get_all_inproceedings()
     total = len(books)+len(articles)+len(misc)+len(inproceedings)
 
-    return render_template("single_page_app.html", error=error, books=books, articles=articles, misc=misc, inproceedings=inproceedings, total=total)
+    return render_template("single_page_app.html", 
+                           error=error, 
+                           books=books, 
+                           articles=articles, 
+                           misc=misc, 
+                           inproceedings=inproceedings, 
+                           total=total, 
+                           selected_option=selected_option)
 
 @app.route("/edit_reference", methods=["POST"])
 def edit_reference():

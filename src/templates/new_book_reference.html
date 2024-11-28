@@ -4,6 +4,8 @@
 <p>{{error}}</p>
 {% endif %}
 <form id="new-book-reference-form" action="/" method="post">
+  <input type="hidden" name="selected-option" value="book" />
+  
   <p class="input-helper-text">
     Author<br />
     <input type="text" name="author" />

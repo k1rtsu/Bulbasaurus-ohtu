@@ -4,6 +4,8 @@
 <p>{{error}}</p>
 {% endif %}
 <form id="new-article-reference-form" action="/" method="post">
+  <input type="hidden" name="selected-option" value="article" />
+
   <p class="input-helper-text">
     Author(s)*<br />
     <input type="text" name="author" />

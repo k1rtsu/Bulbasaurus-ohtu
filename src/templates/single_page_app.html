@@ -30,13 +30,13 @@
   <div style="display: flex; flex-direction: row; flex: 1;">
     <!-- Content (Left Side) -->
     <!-- Tänne hampparin sisään tuleva contentti -->
-    <div id="hamburger-drawer" class="drawer" style="padding-top: 16px;">
+    <div id="hamburger-drawer" class="drawer" style="padding-top: 16px; padding-bottom: 16px;">
       <h3 style="text-align: center">Create new references</h3>
       <div
         id="new-reference-forms-container"
         style="display: none; flex-direction: column; gap: 20px"
       >
-        <div style="display: flex; flex-direction: column" class="paper-div">
+        <div style="display: flex; flex-direction: column; margin-left: 16px; margin-right: 16px;" class="paper-div">
           <select
             name="new-reference-form-selector"
             id="new-reference-form-selector"
@@ -48,7 +48,7 @@
           </select>
           <label for="new-reference-form-selector">Select reference type</label>
         </div>
-        <div class="paper-div">
+        <div class="paper-div" style="margin-left: 16px; margin-right: 16px;">
           <div id="new-book-form-container" class="form-container">
             {% include 'new_book_reference.html' %}
           </div>

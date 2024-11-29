@@ -26,9 +26,8 @@ def validate_book(author, title, year, publisher):
 def validate_article(article_data):
     required_article_data = ["author", "title", "year", "journal", "volume"]
     missing_fields = [
-        field
-        for field in required_article_data
-        if not article_data.get(field, "").strip()
+        field for field in required_article_data if not article_data
+        .get(field, "").strip()
     ]
     if missing_fields:
         raise UserInputError(f"Missing required fields: {', '.join(missing_fields)}")
@@ -167,14 +166,12 @@ def filter_items(items, reference_type, info_key, search_data):
 
     if search_data["author"]:
         items = [
-            item
-            for item in items
+            item for item in items
             if search_data["author"].lower() in item[info_key]["author"].lower()
         ]
     if search_data["title"]:
         items = [
-            item
-            for item in items
+            item for item in items
             if search_data["title"].lower() in item[info_key]["title"].lower()
         ]
     if search_data["year"]:
@@ -183,8 +180,7 @@ def filter_items(items, reference_type, info_key, search_data):
         ]
     if search_data["year_from"] and search_data["year_to"]:
         items = [
-            item
-            for item in items
+            item for item in items
             if int(search_data["year_from"])
             <= int(item[info_key]["year"])
             <= int(search_data["year_to"])

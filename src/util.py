@@ -43,6 +43,7 @@ def validate_article(article_data):
 
     pages_from = article_data.get('pages_from')
     pages_to = article_data.get('pages_to')
+
     if pages_from and pages_to:
         if pages_to < pages_from:
             raise UserInputError(
@@ -120,3 +121,60 @@ def validate_edit(edited_info: dict, reference_type: str):
         raise ValueError(
             f"The given reference type could not be validated: {reference_type}"
         )
+
+def validate_search(search_data):
+    if not any(value.strip() for value in search_data.values()):
+        raise UserInputError("No search term added")
+    year_from = search_data.get('year_from')
+    year_to = search_data.get('year_to')
+
+    if (year_from and not year_to) or (year_to and not year_from):
+        raise UserInputError(
+                "Please enter the whole year range."
+            )
+    if year_from and year_to:
+        if int(year_to) < int(year_from):
+            raise UserInputError(
+            "The starting year cannot be greater than the ending year."
+            )
+        if year_from and not re.fullmatch("[0-9]+", year_from):
+            raise UserInputError("Year can only consist of numbers")
+
+        if year_to and not re.fullmatch("[0-9]+", year_to):
+            raise UserInputError("Year can only consist of numbers")
+        if len(year_from) != 4 or len(year_to) != 4:
+            raise UserInputError("Year length must be 4")
+
+    year = search_data.get('year')
+
+    if year:
+        if not re.fullmatch("[0-9]+", year):
+            raise UserInputError("Year can only consist of numbers")
+        if len(year) != 4:
+            raise UserInputError("Year length must be 4")
+
+def filter_items(items, info_key, search_data):
+
+    if search_data['author']:
+        items = [
+            item for item in items
+            if search_data['author'].lower() in item[info_key]['author'].lower()
+        ]
+    if search_data['title']:
+        items = [
+            item for item in items
+            if search_data['title'].lower() in item[info_key]['title'].lower()
+        ]
+    if search_data['year']:
+        items = [
+            item for item in items
+            if search_data['year'] == str(item[info_key]['year'])
+        ]
+    if search_data['year_from'] and search_data['year_to']:
+        items = [
+            item for item in items
+            if int(search_data['year_from'])
+                <= int(item[info_key]['year'])
+                <= int(search_data['year_to'])
+        ]
+    return items

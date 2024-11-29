@@ -123,11 +123,19 @@
         });
       </script>
     </div>
+    <div class="divider"></div>
+    <!-- Content (In the middle) -->
+    <div class="primary-container">
+      <h3 style="text-align: center">Search references</h3>
+      <div id="search-references-container" class="paper-div">
+        {% include 'search.html' %}
+      </div>
+    </div>
     <!-- Divider in Between -->
     <div class="divider"></div>
     <!-- Content (Right Side) -->
     <div class="primary-container">
-      <h3 style="text-align: center">References you have created</h3>
+      <h3 style="text-align: center">References</h3>
       <div id="references-list-container" class="paper-div">
         {% include 'references.html' %}
       </div>

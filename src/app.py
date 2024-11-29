@@ -3,7 +3,6 @@ from flask import (
     render_template,
     request,
     jsonify,
-    url_for,
 )
 from db_helper import reset_db
 from config import app, test_env
@@ -13,7 +12,9 @@ from util import (
     validate_misc,
     validate_inproceedings,
     validate_edit,
-    UserInputError,
+    validate_search,
+    filter_items,
+    UserInputError
 )
 import references as refs
 import get_references
@@ -38,19 +39,16 @@ def index(error = None):
         except UserInputError as e:
             error = e
 
-    books = refs.get_all_books()
-    articles = refs.get_all_articles()
-    misc = refs.get_all_misc()
-    inproceedings = refs.get_all_inproceedings()
+    books, articles, misc, inproceedings = get_all_references()
     total = len(books)+len(articles)+len(misc)+len(inproceedings)
 
-    return render_template("single_page_app.html", 
-                           error=error, 
-                           books=books, 
-                           articles=articles, 
-                           misc=misc, 
-                           inproceedings=inproceedings, 
-                           total=total, 
+    return render_template("single_page_app.html",
+                           error=error,
+                           books=books,
+                           articles=articles,
+                           misc=misc,
+                           inproceedings=inproceedings,
+                           total=total,
                            selected_option=selected_option)
 
 @app.route("/edit_reference", methods=["POST"])
@@ -89,6 +87,44 @@ def remove_reference(reference_id):
     refs.remove_reference(reference_id)
     return redirect('/')
 
+@app.route("/search", methods=['POST'])
+def basic_search(error = None):
+    submit_type = request.form.get('submit')
+
+    if submit_type == "clear":
+        return redirect('/')
+
+    author = request.form["author"]
+    title = request.form["title"]
+    year = request.form["year"]
+    year_from = request.form["year_from"]
+    year_to = request.form["year_to"]
+    search_data = {
+        "author": author,
+        "title": title,
+        "year": year,
+        "year_from": year_from,
+        "year_to": year_to,
+    }
+    try:
+        validate_search(search_data)
+    except UserInputError as e:
+        error = e
+    books, articles, misc, inproceedings = get_all_references()
+
+    books = filter_items(books, 'book_info', search_data)
+    articles = filter_items(articles, 'article_info', search_data)
+    misc = filter_items(misc, 'misc_info', search_data)
+    inproceedings = filter_items(inproceedings, 'inproceedings_info', search_data)
+    total = len(books) + len(articles) + len(misc) + len(inproceedings)
+    return render_template("single_page_app.html",
+                            error=error,
+                            books=books,
+                            articles=articles,
+                            misc=misc,
+                            inproceedings=inproceedings,
+                            total=total)
+
 def handle_add_book():
     author = request.form["author"]
     title = request.form["title"]
@@ -99,7 +135,14 @@ def handle_add_book():
         refs.add_book(author, title, year, publisher)
     except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
-        
+
+def get_all_references():
+    books = refs.get_all_books()
+    articles = refs.get_all_articles()
+    misc = refs.get_all_misc()
+    inproceedings = refs.get_all_inproceedings()
+    return books, articles, misc, inproceedings
+
 def handle_add_misc():
     author = request.form["author"]
     title = request.form["title"]
@@ -110,7 +153,7 @@ def handle_add_misc():
         refs.add_misc(author, title, year, note)
     except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
-        
+
 def handle_add_article():
     author = request.form["author"]
     title = request.form["title"]
@@ -139,7 +182,7 @@ def handle_add_article():
         refs.add_article(article_data)
     except UserInputError as error: #pylint: disable=broad-exception-caught
         raise error
-        
+
 def handle_add_inproceedings():
     author = request.form["author"]
     title = request.form["title"]

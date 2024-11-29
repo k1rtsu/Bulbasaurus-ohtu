@@ -1,0 +1,59 @@
+<p class="form-heading">Enter at least one search term </p>
+
+    {% if error %}
+    <p>{{error}}</p>
+    {% endif %}
+
+<form id="search-references-form" action="/search" method="post">
+    <p class="input-helper-text">
+      Author<br />
+      <input type="text" name="author" class="form-field" />
+    </p>
+  
+    <p class="input-helper-text">
+      Title<br />
+      <input type="text" name="title" class="form-field" />
+    </p>
+  
+    <p class="input-helper-text">
+      Year<br />
+      <input type="number" min="1000" name="year" class="form-field" />
+    </p>
+  
+    <p class="input-helper-text">
+      Year range (e.g., 2000–2020)<br />
+      <input
+        type="number"
+        min="1000"
+        name="year_from"
+        class="form-field"
+        style="width: calc(35% - 8px); display: inline-block;" />
+      –
+      <input 
+        type="number" 
+        min="1000" 
+        name="year_to"
+        class="form-field"
+        style="width: calc(35% - 8px); display: inline-block;" />
+    </p>
+    <select
+        name="reference_type"
+        id="search-references-by-type-selector"
+        class="form-field"
+    >
+        <option value="any" selected disabled>Select reference type</option>
+        <option value="books">Book</option>
+        <option value="articles">Article</option>
+        <option value="inproceedings">Inproceedings</option>
+        <option value="miscs">Misc</option>
+    </select><br />
+    <br />
+    <p class="input-helper-text">
+      <button type="submit" name="submit" value="search">
+        Search
+      </button>
+      <button type="submit" name="submit" value="clear">
+        Clear
+        </button>
+    </p>
+  </form>

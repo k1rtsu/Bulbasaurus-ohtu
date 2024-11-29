@@ -6,7 +6,7 @@ class TestArticleReferenceValidation(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_valid_book_reference_does_not_raise_error(self):
+    def test_valid_article_reference_does_not_raise_error(self):
         article_data = {
                 "author": "TestAuthor",
                 "title": "TestTitle",

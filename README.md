@@ -78,3 +78,4 @@ Sprintiin otettu tehtävä voidaan merkitä valmiiksi, kun seuraavat kriteerit t
 4. Koodi läpäisee CI prosessin.
 5. Koodin katselmointi on valmis.
 6. Sprintin tehtävälista ja tuotteen backlogi on päivitetty.
+

@@ -23,26 +23,26 @@ def validate_book(author, title, year, publisher):
 
 
 def validate_article(article_data):
-    required_article_data = ['author', 'title', 'year', 'journal', 'volume']
+    required_article_data = ["author", "title", "year", "journal", "volume"]
     missing_fields = [
-        field for field in required_article_data if not article_data
-        .get(field, "")
-        .strip()
+        field
+        for field in required_article_data
+        if not article_data.get(field, "").strip()
     ]
     if missing_fields:
         raise UserInputError(f"Missing required fields: {', '.join(missing_fields)}")
 
-    if len(article_data['year']) != 4:
+    if len(article_data["year"]) != 4:
         raise UserInputError("Year length must be 4")
 
-    if not re.fullmatch("[0-9]+", article_data['year']):
+    if not re.fullmatch("[0-9]+", article_data["year"]):
         raise UserInputError("Year can only consist of numbers")
 
-    if not re.fullmatch("[0-9]+", article_data['volume']):
+    if not re.fullmatch("[0-9]+", article_data["volume"]):
         raise UserInputError("Volume can only consist of numbers")
 
-    pages_from = article_data.get('pages_from')
-    pages_to = article_data.get('pages_to')
+    pages_from = article_data.get("pages_from")
+    pages_to = article_data.get("pages_to")
 
     if pages_from and pages_to:
         if pages_to < pages_from:
@@ -56,15 +56,17 @@ def validate_article(article_data):
         if not re.fullmatch("[0-9]+", pages_to):
             raise UserInputError("Pages can only consist of numbers")
 
-    number = article_data.get('number')
+    number = article_data.get("number")
     if number:
         if not re.fullmatch("[0-9]+", number):
             raise UserInputError("Number can only consist of numbers")
 
-    url = article_data.get('url')
+    url = article_data.get("url")
     if url:
         if not is_valid_url(url):
-            raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
+            raise UserInputError(
+                "Please enter a valid URL (e.g., 'https://example.com')"
+            )
 
 
 def validate_misc(author, title, year, note):
@@ -122,20 +124,19 @@ def validate_edit(edited_info: dict, reference_type: str):
             f"The given reference type could not be validated: {reference_type}"
         )
 
+
 def validate_search(search_data):
     if not any(value.strip() for value in search_data.values()):
         raise UserInputError("No search term added")
-    year_from = search_data.get('year_from')
-    year_to = search_data.get('year_to')
+    year_from = search_data.get("year_from")
+    year_to = search_data.get("year_to")
 
     if (year_from and not year_to) or (year_to and not year_from):
-        raise UserInputError(
-                "Please enter the whole year range."
-            )
+        raise UserInputError("Please enter the whole year range.")
     if year_from and year_to:
         if int(year_to) < int(year_from):
             raise UserInputError(
-            "The starting year cannot be greater than the ending year."
+                "The starting year cannot be greater than the ending year."
             )
         if year_from and not re.fullmatch("[0-9]+", year_from):
             raise UserInputError("Year can only consist of numbers")
@@ -145,7 +146,7 @@ def validate_search(search_data):
         if len(year_from) != 4 or len(year_to) != 4:
             raise UserInputError("Year length must be 4")
 
-    year = search_data.get('year')
+    year = search_data.get("year")
 
     if year:
         if not re.fullmatch("[0-9]+", year):
@@ -153,30 +154,36 @@ def validate_search(search_data):
         if len(year) != 4:
             raise UserInputError("Year length must be 4")
 
+
 def filter_items(items, reference_type, info_key, search_data):
-    if search_data['reference_type'] != "any" and search_data['reference_type'] != reference_type:
+    if (
+        search_data["reference_type"] != "any"
+        and search_data["reference_type"] != reference_type
+    ):
         return []
 
-    if search_data['author']:
+    if search_data["author"]:
         items = [
-            item for item in items
-            if search_data['author'].lower() in item[info_key]['author'].lower()
+            item
+            for item in items
+            if search_data["author"].lower() in item[info_key]["author"].lower()
         ]
-    if search_data['title']:
+    if search_data["title"]:
         items = [
-            item for item in items
-            if search_data['title'].lower() in item[info_key]['title'].lower()
+            item
+            for item in items
+            if search_data["title"].lower() in item[info_key]["title"].lower()
         ]
-    if search_data['year']:
+    if search_data["year"]:
         items = [
-            item for item in items
-            if search_data['year'] == str(item[info_key]['year'])
+            item for item in items if search_data["year"] == str(item[info_key]["year"])
         ]
-    if search_data['year_from'] and search_data['year_to']:
+    if search_data["year_from"] and search_data["year_to"]:
         items = [
-            item for item in items
-            if int(search_data['year_from'])
-                <= int(item[info_key]['year'])
-                <= int(search_data['year_to'])
+            item
+            for item in items
+            if int(search_data["year_from"])
+            <= int(item[info_key]["year"])
+            <= int(search_data["year_to"])
         ]
     return items

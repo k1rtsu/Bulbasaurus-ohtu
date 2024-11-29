@@ -12,7 +12,8 @@ def is_valid_url(url):
 
 
 def validate_book(author, title, year, publisher):
-    if not author or not title or not year or not publisher:
+    some_field_is_empty = not author or not title or not year or not publisher
+    if some_field_is_empty:
         raise UserInputError("None of the fields can be empty")
 
     if len(year) != 4:
@@ -70,7 +71,8 @@ def validate_article(article_data):
 
 
 def validate_misc(author, title, year, note):
-    if not author or not title or not year:
+    some_field_is_empty = not author or not title or not year
+    if some_field_is_empty:
         raise UserInputError("None of the fields can be empty")
 
     if len(year) != 4:
@@ -84,7 +86,8 @@ def validate_misc(author, title, year, note):
 
 
 def validate_inproceedings(author, title, year, booktitle):
-    if not author or not title or not year or not booktitle:
+    some_field_is_empty = not author or not title or not year or not booktitle
+    if some_field_is_empty:
         raise UserInputError("Missing required fields")
 
     if len(year) != 4:

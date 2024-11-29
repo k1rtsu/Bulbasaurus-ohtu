@@ -153,7 +153,9 @@ def validate_search(search_data):
         if len(year) != 4:
             raise UserInputError("Year length must be 4")
 
-def filter_items(items, info_key, search_data):
+def filter_items(items, reference_type, info_key, search_data):
+    if search_data['reference_type'] != "any" and search_data['reference_type'] != reference_type:
+        return []
 
     if search_data['author']:
         items = [

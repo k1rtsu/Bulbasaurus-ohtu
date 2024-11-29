@@ -99,12 +99,14 @@ def basic_search(error = None):
     year = request.form["year"]
     year_from = request.form["year_from"]
     year_to = request.form["year_to"]
+    reference_type = request.form["reference_type"]
     search_data = {
         "author": author,
         "title": title,
         "year": year,
         "year_from": year_from,
         "year_to": year_to,
+        "reference_type": reference_type,
     }
     try:
         validate_search(search_data)
@@ -112,10 +114,10 @@ def basic_search(error = None):
         error = e
     books, articles, misc, inproceedings = get_all_references()
 
-    books = filter_items(books, 'book_info', search_data)
-    articles = filter_items(articles, 'article_info', search_data)
-    misc = filter_items(misc, 'misc_info', search_data)
-    inproceedings = filter_items(inproceedings, 'inproceedings_info', search_data)
+    books = filter_items(books, 'books', 'book_info', search_data)
+    articles = filter_items(articles, 'articles', 'article_info', search_data)
+    misc = filter_items(misc, 'misc', 'misc_info', search_data)
+    inproceedings = filter_items(inproceedings, 'inproceedings', 'inproceedings_info', search_data)
     total = len(books) + len(articles) + len(misc) + len(inproceedings)
     return render_template("single_page_app.html",
                             error=error,

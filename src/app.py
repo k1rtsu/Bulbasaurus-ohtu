@@ -55,6 +55,8 @@ def index(error = None):
 def edit_reference():
     button_value = request.form.get("button")
     reference_id = request.form.get("reference_id")
+    if not get_references.reference_exists(reference_id):
+        return redirect("/")
     error = None
 
     if button_value == "save_changes":

@@ -199,15 +199,42 @@ button:disabled {
 }
 
 .drawer {
-  position: relative;
-  left: 0px;
+  left: 0;
   width: 400px;
-  background-color: #333;
-  transition: left 0.2s ease, width 0.2s ease;
   background-color: rgb(249, 247, 240);
+  transition: transform 0.2s ease, width 0.2s ease;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 .drawer.open {
-  left: -400px;
-  width: 0px;
+  transform: translateX(-400px);
+  width: 0;
+  padding: 0;
+}
+
+.drawer-content-container {
+  height: calc(100% - 78px);
+  overflow-y: scroll;
+  padding: 8px;
+}
+
+.sticky-container {
+  top: 72px;
+  position: sticky;
+  height: calc(100dvh - 90px);
+}
+
+.app-bar {
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding-left: 16px;
+  padding-right: 16px;
+  position: sticky;
+  top: 0px;
+  height: 56px;
+  align-content: center;
 }

@@ -1,19 +1,15 @@
 {% extends "layout.html" %} {% block title %} App {% endblock %} {% block body
 %}
 
-<div style="display: flex; flex-direction: column; height: 100vh">
+<div style="display: flex; flex-direction: column;">
   <!-- App Bar (Top) -->
   <div
-    style="
-      background-color: rgb(255, 255, 255);
-      padding-left: 16px;
-      padding-right: 16px;
-    "
+  class="app-bar"
   >
-    <p class="caption" style="display: inline-block;">References app</p>
     <button id="hamburger-button">
-      Menu
+        <i class="fa fa-bars"></i>
     </button>
+    <p class="caption" style="display: inline-block;">References app</p>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const button = document.getElementById('hamburger-button');
@@ -25,105 +21,106 @@
       })
     </script>
   </div>
-  <div class="divider"></div>
   <!-- Content (Below App Bar) -->
   <div style="display: flex; flex-direction: row; flex: 1;">
     <!-- Content (Left Side) -->
-    <!-- Tänne hampparin sisään tuleva contentti -->
-    <div id="hamburger-drawer" class="drawer" style="padding-top: 16px; padding-bottom: 16px;">
-      <h3 style="text-align: center">Create new references</h3>
-      <div
-        id="new-reference-forms-container"
-        style="display: none; flex-direction: column; gap: 20px"
-      >
-        <div style="display: flex; flex-direction: column; margin-left: 16px; margin-right: 16px;" class="paper-div">
-          <select
-            name="new-reference-form-selector"
-            id="new-reference-form-selector"
-          >
-            <option value="new-book-form-container">Book</option>
-            <option value="new-article-form-container">Article</option>
-            <option value="new-inproceedings-form-container">Inproceedings</option>
-            <option value="new-misc-form-container">Misc</option>
-          </select>
-          <label for="new-reference-form-selector">Select reference type</label>
+    <!-- Hamburger menu content -->
+    <div id="hamburger-drawer" class="drawer sticky-container" style="padding-top: 0px; padding-bottom: 16px; border-radius: 16px; margin: 16px; margin-right: 0px">
+      <h3 style="text-align: center;">Create new references</h3>
+        <div
+          id="new-reference-forms-container"
+          class="drawer-content-container"
+          style="display: none; flex-direction: column; gap: 20px;"
+        >
+          <!-- Reference type selection -->
+          <div style="display: flex; flex-direction: column; margin-left: 16px; margin-right: 16px;" class="paper-div">
+            <select
+              name="new-reference-form-selector"
+              id="new-reference-form-selector"
+            >
+              <option value="new-book-form-container">Book</option>
+              <option value="new-article-form-container">Article</option>
+              <option value="new-inproceedings-form-container">Inproceedings</option>
+              <option value="new-misc-form-container">Misc</option>
+            </select>
+            <label for="new-reference-form-selector">Select reference type</label>
+          </div>
+          <!-- Add new reference forms -->
+          <div class="paper-div" style="margin: 16px; margin-bottom: 8px; margin-top: 0px; overflow-y: scroll;">
+            <div id="new-book-form-container" class="form-container">
+              {% include 'new_book_reference.html' %}
+            </div>
+            <div id="new-article-form-container" class="form-container">
+              {% include 'new_article_reference.html' %}
+            </div>
+            <div id="new-misc-form-container" class="form-container">
+              {% include 'new_misc_reference.html' %}
+            </div>
+            <div id="new-inproceedings-form-container" class="form-container">
+              {% include 'new_inproceedings_reference.html' %}
+            </div>
         </div>
-        <div class="paper-div" style="margin-left: 16px; margin-right: 16px;">
-          <div id="new-book-form-container" class="form-container">
-            {% include 'new_book_reference.html' %}
-          </div>
-          <div id="new-article-form-container" class="form-container">
-            {% include 'new_article_reference.html' %}
-          </div>
-          <div id="new-misc-form-container" class="form-container">
-            {% include 'new_misc_reference.html' %}
-          </div>
-          <div id="new-inproceedings-form-container" class="form-container">
-            {% include 'new_inproceedings_reference.html' %}
-          </div>
-        </div>
-      </div>
-      <script>
-        const typeToValueMap = {
-          'book': 'new-book-form-container',
-          'article': 'new-article-form-container',
-          'misc': 'new-misc-form-container',
-          'inproceedings': 'new-inproceedings-form-container',
-        }
+        <script>
+          const typeToValueMap = {
+            'book': 'new-book-form-container',
+            'article': 'new-article-form-container',
+            'misc': 'new-misc-form-container',
+            'inproceedings': 'new-inproceedings-form-container',
+          }
 
-        const onSelectorValueChanged = (selectedValue) => {
-          const formContainers = document.querySelectorAll(".form-container");
+          const onSelectorValueChanged = (selectedValue) => {
+            const formContainers = document.querySelectorAll(".form-container");
 
-          for (const element of formContainers) {
-            if (element.id === selectedValue) {
-              element.style.display = "block";
-            } else {
-              element.style.display = "none";
+            for (const element of formContainers) {
+              if (element.id === selectedValue) {
+                element.style.display = "block";
+              } else {
+                element.style.display = "none";
+              }
             }
-          }
-        };
+          };
 
-        const listenToReferenceSelectorChanges = () => {
-          const id = "new-reference-form-selector";
-          const selector = document.getElementById(id);
+          const listenToReferenceSelectorChanges = () => {
+            const id = "new-reference-form-selector";
+            const selector = document.getElementById(id);
 
-          if (!selector) {
-            console.error(
-              `${id} element was not found. Can't select which reference type form is visible.`
+            if (!selector) {
+              console.error(
+                `${id} element was not found. Can't select which reference type form is visible.`
+              );
+              return;
+            }
+
+            selector.addEventListener("change", (event) =>
+              onSelectorValueChanged(event.target.value)
             );
-            return;
-          }
+          };
 
-          selector.addEventListener("change", (event) =>
-            onSelectorValueChanged(event.target.value)
-          );
-        };
+          document.addEventListener("DOMContentLoaded", () => {
+            const initialType = '{{ selected_option }}';
+            const initialValue = typeToValueMap[initialType]
 
-        document.addEventListener("DOMContentLoaded", () => {
-          const initialType = '{{ selected_option }}';
-          const initialValue = typeToValueMap[initialType]
+            document.getElementById('new-reference-form-selector').value = initialValue;
 
-          document.getElementById('new-reference-form-selector').value = initialValue;
+            onSelectorValueChanged(initialValue);
+            listenToReferenceSelectorChanges();
 
-          onSelectorValueChanged(initialValue);
-          listenToReferenceSelectorChanges();
+            // The div is initially hidden
+            const formsContainerId = "new-reference-forms-container";
+            const formsContainer = document.getElementById(formsContainerId);
 
-          // The div is initially hidden
-          const formsContainerId = "new-reference-forms-container";
-          const formsContainer = document.getElementById(formsContainerId);
+            if (!formsContainer) {
+              console.error(
+                `${formsContainerId} element was not found. Can't display new reference forms.`
+              );
+              return;
+            }
 
-          if (!formsContainer) {
-            console.error(
-              `${formsContainerId} element was not found. Can't display new reference forms.`
-            );
-            return;
-          }
-
-          formsContainer.style.display = "flex";
-        });
-      </script>
+            formsContainer.style.display = "flex";
+          });
+        </script>
+      </div>
     </div>
-    <div class="divider"></div>
     <!-- Content (In the middle) -->
     <div class="primary-container">
       <h3 style="text-align: center">Search references</h3>
@@ -132,10 +129,15 @@
       </div>
     </div>
     <!-- Divider in Between -->
-    <div class="divider"></div>
     <!-- Content (Right Side) -->
     <div class="primary-container">
       <h3 style="text-align: center">References</h3>
+      <div id="references-list-container" class="paper-div">
+        {% include 'references.html' %}
+      </div>
+      <div id="references-list-container" class="paper-div">
+        {% include 'references.html' %}
+      </div>
       <div id="references-list-container" class="paper-div">
         {% include 'references.html' %}
       </div>

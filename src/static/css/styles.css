@@ -223,6 +223,25 @@ button:disabled {
   padding: 8px;
 }
 
+.hamburger-icon {
+  transform: scale(0, 0);
+  transition: transform 0.2s ease;
+}
+
+.hamburger-icon.visible {
+  transform: scale(1, 1);
+}
+
+.hamburger-x-icon {
+  position: absolute;
+  transform: scale(1, 1);
+  transition: transform 0.2s ease;
+}
+
+.hamburger-x-icon.hidden {
+  transform: scale(0, 0);
+}
+
 .sticky-container {
   top: 72px;
   position: sticky;

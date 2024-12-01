@@ -7,16 +7,23 @@
   class="app-bar"
   >
     <button id="hamburger-button">
-        <i class="fa fa-bars"></i>
+      <div style="display: flex; justify-content: center; align-items: center; position: relative;">
+        <i id="hamburger-icon" class="fa fa-bars hamburger-icon"></i>
+        <i id="hamburger-x-icon" class="fa fa-close hamburger-x-icon"></i>
+      </div>
     </button>
     <p class="caption" style="display: inline-block;">References app</p>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const button = document.getElementById('hamburger-button');
         const drawer = document.getElementById('hamburger-drawer');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const hamburgerXIcon = document.getElementById('hamburger-x-icon');
   
         button.addEventListener('click', () => {
           drawer.classList.toggle('close');
+          hamburgerIcon.classList.toggle('visible');
+          hamburgerXIcon.classList.toggle('hidden');
         })
       })
     </script>

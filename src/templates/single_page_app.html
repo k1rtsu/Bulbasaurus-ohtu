@@ -1,6 +1,106 @@
 {% extends "layout.html" %} {% block title %} App {% endblock %} {% block body
 %}
 
+<style>
+  /* Yleiset tyylit viitelistalle */
+  .reference-box {
+    border: 1px solid black;  /* Musta reunus */
+    padding: 10px;            /* Sisäiset värit */
+    margin: 10px 0;           /* Ylä- ja alareunan väli */
+    border-radius: 5px;       /* Pyöristetyt kulmat */
+    position: relative;
+    font-family: Arial, sans-serif; /* Fontti */
+  }
+
+  .reference-box .year {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+  }
+
+  .reference-box .content {
+    margin-top: 10px;
+  }
+
+  /* Kirjakohteet (Book) */
+  .reference-box.book {
+    background-color: #f0f8ff;  /* Vaaleansininen tausta */
+    border-color: #4a90e2;       /* Sininen reunus */
+  }
+
+/* Inproceedings-viitteiden ulkoasu */
+  .reference-box.inproceedings {
+    background-color: #fffbea;  /* Vaaleankeltainen tausta */
+    border-color: #f7c843;     /* Keltainen reunus */
+  }
+
+  .reference-box.inproceedings .content strong {
+    font-size: 16px; /* Korostaa tekijää isommalla fontilla */
+  }
+
+  .reference-box.misc {
+  border: 2px solid #ffab00;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff3e0;
+}
+
+.reference-box.misc .year {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff6f00;
+  text-align: right;
+}
+
+.reference-box.misc .content {
+  margin-top: 8px;
+  word-wrap: break-word; /* Tämä varmistaa, että teksti rivittyy eikä ylitä boksin rajoja */
+}
+
+.reference-box.misc p {
+  font-size: 14px;
+  color: #333;
+  margin-top: 4px;
+}
+
+.reference-box.article {
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: #e3f2fd;
+}
+
+.reference-box.article .year {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1565c0;
+  text-align: right;
+}
+
+.reference-box.article .content {
+  margin-top: 8px;
+  word-wrap: break-word; /* Varmistaa pitkien tekstien rivityksen */
+}
+
+.reference-box.article a {
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.reference-box.article a:hover {
+  text-decoration: underline;
+}
+
+</style>
+
+
 <div style="display: flex; flex-direction: column;">
   <!-- App Bar (Top) -->
   <div

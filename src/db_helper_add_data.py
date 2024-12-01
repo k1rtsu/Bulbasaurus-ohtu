@@ -56,6 +56,15 @@ def add_data():
         inproceedings["booktitle"],
     )
 
+    misc = {
+        "author": "Kaija Sukanen",
+        "title": "Olioperustainen ohjelmointi",
+        "year": "1986",
+        "note": "Laudaturtyö : Helsingin yliopisto, Tietojenkäsittelyopin laitos, 1986.",
+    }
+    util.validate_misc(misc["author"], misc["title"], misc["year"], misc["note"])
+    references.add_misc(misc["author"], misc["title"], misc["year"], misc["note"])
+
 
 if __name__ == "__main__":
     with app.app_context():

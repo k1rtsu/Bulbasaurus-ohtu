@@ -209,7 +209,7 @@ button:disabled {
   margin: 16px; 
 }
 
-.drawer.open {
+.drawer.close {
   transform: translateX(-400px);
   width: 0px;
   padding: 0px;

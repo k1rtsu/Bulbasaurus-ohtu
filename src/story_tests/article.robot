@@ -23,7 +23,7 @@ After an article is added, it will appear in the list of references.
     Set Url  https://example.com
     Click Button  Add an article
     Title Should Be  App
-    Page Should Contain  Articles:
+    Page Should Contain  Total references: 1
     Page Should Contain  First-name Last-name
     Page Should Contain  Test title
 

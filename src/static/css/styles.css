@@ -203,14 +203,18 @@ button:disabled {
   width: 400px;
   background-color: rgb(249, 247, 240);
   transition: transform 0.2s ease, width 0.2s ease;
-  padding: 0px;
   box-sizing: border-box;
+  padding-bottom: 16px; 
+  border-radius: 16px; 
+  margin: 16px; 
 }
 
 .drawer.open {
   transform: translateX(-400px);
-  width: 0;
-  padding: 0;
+  width: 0px;
+  padding: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 .drawer-content-container {

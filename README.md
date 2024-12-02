@@ -21,6 +21,8 @@ DATABASE_URL=postgresql://xxx
 TEST_ENV=true
 SECRET_KEY=""
 ```
+Konfiguraatiosta riippuen, DATABASE_URL voisi esimerkiksi olla  
+`DATABASE_URL=postgresql:///bulbasaurus`
 
 Lataa riippuvuudet
 

@@ -143,11 +143,11 @@ def validate_search(search_data):
             )
 
     year = search_data.get('year')
-
-    if not re.fullmatch("[0-9]+", year):
-        raise UserInputError("Year can only consist of numbers")
-    if len(year) != 4:
-        raise UserInputError("Year length must be 4")
+    if year:
+        if not re.fullmatch("[0-9]+", year):
+            raise UserInputError("Year can only consist of numbers")
+        if len(year) != 4:
+            raise UserInputError("Year length must be 4")
 
 def filter_items(items, reference_type, info_key, search_data):
     if search_data['reference_type'] != "any" and search_data['reference_type'] != reference_type:

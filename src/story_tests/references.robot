@@ -7,201 +7,173 @@ Test Setup       Reset References
 
 *** Test Cases ***
 At Start There Are No References
-    Go To  ${HOME_URL}/references
-    Title Should Be  References
+    Go To  ${HOME_URL}
+    Title Should Be  App
     Page Should Contain  Total references: 0
     Page Should Not Contain  Articles:
     Page Should Not Contain  Books:
 
 After adding a book, there is one reference
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Book From The Dropdown Menu
     Input Text  author  Testi
     Input Text  title  testing
     Input Text  year  2024
     Input Text  publisher  test
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 1
-    Page Should Contain  Books:
-    Page Should Not Contain  Articles:
-
-
-After adding an article, there is one reference
-    Go To  ${HOME_URL}/new_article_reference
-    Title Should Be  Create a new article reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  journal  test
-    Input Text  volume  3
-    Input Text  number  3
-    Input Text  pages_from  3
-    Input Text  pages_to  3
-    Input Text  doi  testDoi
-    Input Text  url  https://example.com
-    Click Button  Add an article
-    Title Should Be  References
-    Page Should Contain  Total references: 1
-    Page Should Contain  Articles:
-
-After adding inproceedings, there is one reference
-    Go To  ${HOME_URL}/new_inproceedings_reference
-    Title Should Be  Create new inproceedings reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  booktitle  test
-    Click Button  Add inproceedings
-    Title Should Be  References
-    Page Should Contain  Total references: 1
-    Page Should Contain  Inproceedings:
+    Page Should Contain  Testi
+    Page Should Contain  testing
 
 After adding an article and a book, there is two references
-    Go To  ${HOME_URL}/new_article_reference
-    Title Should Be  Create a new article reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  journal  test
-    Input Text  volume  3
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Article From The Dropdown Menu
+    Input Text  article-author  First-name Last-name
+    Input Text  article-title  Test title
+    Input Text  article-journal  Test journal
+    Input Text  article-volume  3
+    Input Text  article-year  2024
     Click Button  Add an article
-    Title Should Be  References
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
     Input Text  year  2024
-    Input Text  publisher  test
+    Input Text  publisher  test publisher
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 2
-    Page Should Contain  Books:
-    Page Should Contain  Articles:
+    Page Should Contain  First-name Last-name
+    Page Should Contain  Test author
 
 After adding an article and inproceedings, there is two references
-    Go To  ${HOME_URL}/new_article_reference
-    Title Should Be  Create a new article reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  journal  test
-    Input Text  volume  3
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Article From The Dropdown Menu
+    Input Text  article-author  First-name Last-name
+    Input Text  article-title  Test title
+    Input Text  article-journal  Test journal
+    Input Text  article-volume  3
+    Input Text  article-year  2024
     Click Button  Add an article
-    Title Should Be  References
-    Go To  ${HOME_URL}/new_inproceedings_reference
-    Title Should Be  Create new inproceedings reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  booktitle  test
+    Title Should Be  App
+    Select Inproceedings From The Dropdown Menu
+    Input Text  inproceedings-author  Test author
+    Input Text  inproceedings-title  testing title
+    Input Text  inproceedings-year  2024
+    Input Text   inproceedings-booktitle  test booktitle
     Click Button  Add inproceedings
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 2
-    Page Should Contain  Articles:
-    Page Should Contain  Inproceedings:
-
-After deleting a book, it no longer appears in the references list
-    Go To  ${HOME_URL}/new_article_reference
-    Title Should Be  Create a new article reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  journal  test
-    Input Text  volume  3
-    Click Button  Add an article
-    Title Should Be  References
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  publisher  test
-    Click Button  Add a book
-    Title Should Be  References
-    Page Should Contain  Total references: 2
-    Click Button    id=delete_book
-    Page Should Contain  Total references: 1
-    Page Should Not Contain  Books:
-    Page Should Contain  Articles:
+    Page Should Contain  Test title
+    Page Should Contain  Test author
 
 After deleting an article, it no longer appears in the references list
-    Go To  ${HOME_URL}/new_article_reference
-    Title Should Be  Create a new article reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  journal  test
-    Input Text  volume  3
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Article From The Dropdown Menu
+    Input Text  article-author  First-name Last-name
+    Input Text  article-title  Test title
+    Input Text  article-journal  Test journal
+    Input Text  article-volume  3
+    Input Text  article-year  2024
     Click Button  Add an article
-    Title Should Be  References
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
     Input Text  year  2024
-    Input Text  publisher  test
+    Input Text  publisher  test publisher
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 2
     Click Button    id=delete_article
     Page Should Contain  Total references: 1
-    Page Should Contain  Books:
-    Page Should Not Contain  Articles:
+    Page Should Contain  Test author
+    Page Should Not Contain  Test title
+
+After deleting a book, it no longer appears in the references list
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Article From The Dropdown Menu
+    Input Text  article-author  First-name Last-name
+    Input Text  article-title  Test title
+    Input Text  article-journal  Test journal
+    Input Text  article-volume  3
+    Input Text  article-year  2024
+    Click Button  Add an article
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
+    Input Text  year  2024
+    Input Text  publisher  test publisher
+    Click Button  Add a book
+    Title Should Be  App
+    Page Should Contain  Total references: 2
+    Click Button    id=delete_book
+    Page Should Contain  Total references: 1
+    Page Should Not Contain  Test author
+    Page Should Contain  Test title
 
 After deleting inproceedings, it no longer appears in the references list
-    Go To  ${HOME_URL}/new_inproceedings_reference
-    Title Should Be  Create new inproceedings reference
-    Input Text  author  Testi
-    Input Text  title  testing
-    Input Text  year  2024
-    Input Text  booktitle  test
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Inproceedings From The Dropdown Menu
+    Input Text  inproceedings-author  Test author
+    Input Text  inproceedings-title  testing title
+    Input Text  inproceedings-year  2024
+    Input Text   inproceedings-booktitle  test booktitle
     Click Button  Add inproceedings
-    Title Should Be  References
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
     Input Text  year  2024
-    Input Text  publisher  test
+    Input Text  publisher  test publisher
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 2
     Click Button    id=delete_inproceedings
     Page Should Contain  Total references: 1
-    Page Should Contain  Books:
-    Page Should Not Contain  Inproceedings:
+    Page Should Contain  Test author
+    Page Should Not Contain  Testi
 
 Editing a reference with valid information
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
     Input Text  year  2024
-    Input Text  publisher  test
+    Input Text  publisher  test publisher
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 1
     Page Should Contain  2024
     Click Button  edit
     Title Should Be  Edit reference
     Input Text  year  2002
     Click Button  Save changes
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 1
     Page Should Contain  2002
 
 Editing a reference with missing author field
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
     Input Text  year  2024
-    Input Text  publisher  test
+    Input Text  publisher  test publisher
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 1
-    Page Should Contain  Testi
+    Page Should Contain  Test author
     Click Button  edit
     Title Should Be  Edit reference
     Clear Element Text  author
@@ -210,19 +182,39 @@ Editing a reference with missing author field
     Page Should Contain  None of the fields can be empty
 
 Editing a reference with invalid year
-    Go To  ${HOME_URL}/new_book_reference
-    Title Should Be  Create a new book reference
-    Input Text  author  Testi
-    Input Text  title  testing
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Book From The Dropdown Menu
+    Input Text  author  Test author
+    Input Text  title  testing title
     Input Text  year  2024
-    Input Text  publisher  test
+    Input Text  publisher  test publisher
     Click Button  Add a book
-    Title Should Be  References
+    Title Should Be  App
     Page Should Contain  Total references: 1
-    Page Should Contain  Testi
+    Page Should Contain  2024
     Click Button  edit
     Title Should Be  Edit reference
     Input Text  year  20
     Click Button  Save changes
     Title Should Be  Edit reference
     Page Should Contain  Year length must be 4
+
+
+*** Keywords ***
+
+Select Book From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-book-form-container
+    Wait Until Element Is Visible  id=new-book-form-container
+
+Select Article From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-article-form-container
+    Wait Until Element Is Visible  id=new-article-form-container
+
+Select Inproceedings From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-inproceedings-form-container
+    Wait Until Element Is Visible  id=new-inproceedings-form-container
+
+Select Misc From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-misc-form-container
+    Wait Until Element Is Visible  id=new-misc-form-container

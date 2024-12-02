@@ -160,12 +160,12 @@ def filter_items(items, reference_type, info_key, search_data):
     if search_data['author']:
         items = [
             item for item in items
-            if search_data['author'].lower() in item[info_key]['author'].lower()
+            if re.search(search_data['author'].lower(), item[info_key]['author'].lower())
         ]
     if search_data['title']:
         items = [
             item for item in items
-            if search_data['title'].lower() in item[info_key]['title'].lower()
+            if re.search(search_data['title'].lower(), item[info_key]['title'].lower())
         ]
     if search_data['year']:
         items = [

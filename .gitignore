@@ -8,3 +8,5 @@ report.html
 *.png
 pytest-cache*
 interactive_console_output.xml
+htmlcov
+.coverage

@@ -9,6 +9,9 @@ class TestSearchTermsValidation(unittest.TestCase):
     def test_valid_search_does_not_raise_error(self):
         search_data = {
                 "author": "TestAuthor",
+                "year_from": "2000",
+                "year_to": "2001",
+                "year": "2002"
         }
         validate_search(search_data)
 
@@ -45,4 +48,25 @@ class TestSearchTermsValidation(unittest.TestCase):
         }
         with self.assertRaises(UserInputError):
             validate_search(search_data2)
+        
+        search_data1 = {
+                "year_from": "2024",
+                "year_to": "2023",   
+        }
+        with self.assertRaises(UserInputError):
+            validate_search(search_data1)
+        
+        search_data3 = {
+                "year_from": "2oo4",  
+                "year_to": "2oo5"
+        }
+        with self.assertRaises(UserInputError):
+            validate_search(search_data3)
+        
+        search_data4 = {
+                "year_from": "204",  
+                "year_to": "205"
+        }
+        with self.assertRaises(UserInputError):
+            validate_search(search_data4)
 

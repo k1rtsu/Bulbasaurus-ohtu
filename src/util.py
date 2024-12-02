@@ -50,10 +50,7 @@ def validate_article(article_data):
                 "The starting page number cannot be greater than the ending page number."
             )
 
-        if not re.fullmatch("[0-9]+", pages_from):
-            raise UserInputError("Pages can only consist of numbers")
-
-        if not re.fullmatch("[0-9]+", pages_to):
+        if not re.fullmatch("[0-9]+", pages_from) or not re.fullmatch("[0-9]+", pages_to):
             raise UserInputError("Pages can only consist of numbers")
 
     number = article_data.get('number')
@@ -62,9 +59,8 @@ def validate_article(article_data):
             raise UserInputError("Number can only consist of numbers")
 
     url = article_data.get('url')
-    if url:
-        if not is_valid_url(url):
-            raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
+    if not is_valid_url(url):
+        raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
 
 
 def validate_misc(author, title, year, note):
@@ -133,25 +129,22 @@ def validate_search(search_data):
                 "Please enter the whole year range."
             )
     if year_from and year_to:
+        if year_from and not re.fullmatch("[0-9]+", year_from) or year_to and not re.fullmatch("[0-9]+", year_to):
+            raise UserInputError("Year can only consist of numbers")
+
+        if len(year_from) != 4 or len(year_to) != 4:
+            raise UserInputError("Year length must be 4")
         if int(year_to) < int(year_from):
             raise UserInputError(
             "The starting year cannot be greater than the ending year."
             )
-        if year_from and not re.fullmatch("[0-9]+", year_from):
-            raise UserInputError("Year can only consist of numbers")
-
-        if year_to and not re.fullmatch("[0-9]+", year_to):
-            raise UserInputError("Year can only consist of numbers")
-        if len(year_from) != 4 or len(year_to) != 4:
-            raise UserInputError("Year length must be 4")
 
     year = search_data.get('year')
 
-    if year:
-        if not re.fullmatch("[0-9]+", year):
-            raise UserInputError("Year can only consist of numbers")
-        if len(year) != 4:
-            raise UserInputError("Year length must be 4")
+    if not re.fullmatch("[0-9]+", year):
+        raise UserInputError("Year can only consist of numbers")
+    if len(year) != 4:
+        raise UserInputError("Year length must be 4")
 
 def filter_items(items, reference_type, info_key, search_data):
     if search_data['reference_type'] != "any" and search_data['reference_type'] != reference_type:

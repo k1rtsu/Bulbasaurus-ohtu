@@ -129,7 +129,10 @@ def validate_search(search_data):
                 "Please enter the whole year range."
             )
     if year_from and year_to:
-        if year_from and not re.fullmatch("[0-9]+", year_from) or year_to and not re.fullmatch("[0-9]+", year_to):
+        if (
+            (year_from and not re.fullmatch(r"[0-9]+", year_from)) or
+            (year_to and not re.fullmatch(r"[0-9]+", year_to))
+        ):
             raise UserInputError("Year can only consist of numbers")
 
         if len(year_from) != 4 or len(year_to) != 4:

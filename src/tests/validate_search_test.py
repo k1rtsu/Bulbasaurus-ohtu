@@ -7,14 +7,18 @@ class TestSearchTermsValidation(unittest.TestCase):
         pass
 
     def test_valid_search_does_not_raise_error(self):
-        search_data = {
+        search_data1 = {
                 "author": "TestAuthor",
                 "year_from": "2000",
                 "year_to": "2001",
                 "year": "2002"
         }
-        validate_search(search_data)
+        validate_search(search_data1)
 
+        search_data2 = {
+                "author": "^Test",
+        }
+        validate_search(search_data2)
 
     def test_invalid_year_raises_error(self):
         search_data1 = {

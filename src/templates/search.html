@@ -7,17 +7,17 @@
 <form id="search-references-form" action="/search" method="post">
     <p class="input-helper-text">
       Author<br />
-      <input type="text" name="author" class="form-field" />
+      <input type="text" id="search-author" name="author" class="form-field" />
     </p>
   
     <p class="input-helper-text">
       Title<br />
-      <input type="text" name="title" class="form-field" />
+      <input type="text" id="search-title" name="title" class="form-field" />
     </p>
   
     <p class="input-helper-text">
       Year<br />
-      <input type="number" min="1000" name="year" class="form-field" />
+      <input type="number" min="1000" id="search-year" name="year" class="form-field" />
     </p>
   
     <p class="input-helper-text">
@@ -25,6 +25,7 @@
       <input
         type="number"
         min="1000"
+        id="search-year_from"
         name="year_from"
         class="form-field"
         style="width: calc(35% - 8px); display: inline-block;" />
@@ -32,6 +33,7 @@
       <input 
         type="number" 
         min="1000" 
+        id="search-year_to"
         name="year_to"
         class="form-field"
         style="width: calc(35% - 8px); display: inline-block;" />

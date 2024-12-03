@@ -92,11 +92,3 @@ Add An Article With Test Values
     Input Text  article-year  2024
     Click Button  Add an article
     Title Should Be  App
-
-Select Book From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-book-form-container
-    Wait Until Element Is Visible  id=new-book-form-container
-
-Select Article From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-article-form-container
-    Wait Until Element Is Visible  id=new-article-form-container

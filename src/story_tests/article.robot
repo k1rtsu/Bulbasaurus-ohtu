@@ -86,10 +86,6 @@ Trying to add article with invalid url input
 *** Keywords ***
 
 
-Select Article From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-article-form-container
-    Wait Until Element Is Visible  id=new-article-form-container
-
 Set Author
     [Arguments]  ${Author}
     Input Text  article-author  ${Author}

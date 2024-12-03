@@ -26,3 +26,19 @@ Open And Configure Browser
 
 Reset References
     Go To  ${RESET_URL}
+
+Select Book From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-book-form-container
+    Wait Until Element Is Visible  id=new-book-form-container
+
+Select Article From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-article-form-container
+    Wait Until Element Is Visible  id=new-article-form-container
+
+Select Inproceedings From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-inproceedings-form-container
+    Wait Until Element Is Visible  id=new-inproceedings-form-container
+
+Select Misc From The Dropdown Menu
+    Select From List By Value  id=new-reference-form-selector  new-misc-form-container
+    Wait Until Element Is Visible  id=new-misc-form-container

@@ -199,22 +199,3 @@ Editing a reference with invalid year
     Click Button  Save changes
     Title Should Be  Edit reference
     Page Should Contain  Year length must be 4
-
-
-*** Keywords ***
-
-Select Book From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-book-form-container
-    Wait Until Element Is Visible  id=new-book-form-container
-
-Select Article From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-article-form-container
-    Wait Until Element Is Visible  id=new-article-form-container
-
-Select Inproceedings From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-inproceedings-form-container
-    Wait Until Element Is Visible  id=new-inproceedings-form-container
-
-Select Misc From The Dropdown Menu
-    Select From List By Value  id=new-reference-form-selector  new-misc-form-container
-    Wait Until Element Is Visible  id=new-misc-form-container

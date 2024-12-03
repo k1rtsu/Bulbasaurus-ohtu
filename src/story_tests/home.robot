@@ -6,26 +6,31 @@ Test Setup       Reset References
 
 
 *** Test Cases ***
-Main page can be opened
+Main Page Can Be Opened
     Go To  ${HOME_URL}
-    Title Should Be  Reference app
+    Title Should Be  App
+    Page Should Contain  References app
 
-Click Create New Book Reference Link
+Select Book From The Dropdown Menu
     Go To  ${HOME_URL}
-    Click Link  Create a new book reference
-    Title Should Be  Create a new book reference
+    Select Book From The Dropdown Menu
+    Page Should Contain Button  add a book
 
-Click Create New Article Reference Link
+Select Article From The Dropdown Menu
     Go To  ${HOME_URL}
-    Click Link  Create a new article reference
-    Title Should Be  Create a new article reference
+    Select Article From The Dropdown Menu
+    Page Should Contain Button  add an article
 
-Click Create New inproceedings Reference Link
+Select Inproceedings From The Dropdown Menu
     Go To  ${HOME_URL}
-    Click Link  Create new inproceedings reference
-    Title Should Be  Create new inproceedings reference
+    Select Inproceedings From The Dropdown Menu
+    Page Should Contain Button  add inproceedings
 
-Click See All References Link
+Select Misc From The Dropdown Menu
     Go To  ${HOME_URL}
-    Click Link  See all references
-    Title Should Be  References
+    Select Misc From The Dropdown Menu
+    Page Should Contain Button  add a misc
+
+Main Page Contains References
+    Go To  ${HOME_URL}
+    Page Should Contain  Total references: 0

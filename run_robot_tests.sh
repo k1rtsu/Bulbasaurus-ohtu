@@ -21,6 +21,7 @@ echo "Flask server is ready"
 
 # suoritetaan testit
 poetry run robot --variable HEADLESS:true src/story_tests/article.robot
+poetry run robot --variable HEADLESS:true src/story_tests/references.robot
 
 status=$?
 

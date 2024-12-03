@@ -59,7 +59,8 @@ def validate_article(article_data):
             raise UserInputError("Number can only consist of numbers")
 
     url = article_data.get('url')
-    if not is_valid_url(url):
+    url_is_not_empty = url != ""
+    if not is_valid_url(url) and url_is_not_empty:
         raise UserInputError("Please enter a valid URL (e.g., 'https://example.com')")
 
 

@@ -32,6 +32,16 @@ Adding a misc without notes is successful
     Page Should Contain  Test Title
     Page Should Contain  2024
 
+Adding a misc without an author is unsuccessful
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Misc From The Dropdown Menu
+    Set Title  Test Title
+    Set Year  2024
+    Set Note  This is a test misc note.
+    Click Button  Add a misc reference
+    Page Should Contain  None of the fields can be empty
+
 Trying to add a misc with all fields empty is unsuccessful
     Go To  ${HOME_URL}
     Title Should Be  App

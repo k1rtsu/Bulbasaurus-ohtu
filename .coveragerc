@@ -1,2 +1,5 @@
 [run]
 source = src/
+
+[report]
+include = src/util.py

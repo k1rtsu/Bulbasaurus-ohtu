@@ -24,6 +24,7 @@ poetry run robot --variable HEADLESS:true src/story_tests/article.robot
 poetry run robot --variable HEADLESS:true src/story_tests/references.robot
 poetry run robot --variable HEADLESS:true src/story_tests/search.robot
 poetry run robot --variable HEADLESS:true src/story_tests/home.robot
+poetry run robot --variable HEADLESS:true src/story_tests/book.robot
 
 status=$?
 

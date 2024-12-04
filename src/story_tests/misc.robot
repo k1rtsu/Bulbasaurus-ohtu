@@ -20,6 +20,18 @@ After a misc is added, it will appear in the list of references.
     Page Should Contain  2024
     Page Should Contain  This is a test misc note.
 
+Adding a misc without notes is successful
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Misc From The Dropdown Menu
+    Set Author  Test Author
+    Set Title  Test Title
+    Set Year  2024
+    Click Button  Add a misc reference
+    Page Should Contain  Test Author
+    Page Should Contain  Test Title
+    Page Should Contain  2024
+
 
 *** Keywords ***
 

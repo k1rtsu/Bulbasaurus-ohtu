@@ -32,6 +32,13 @@ Adding a misc without notes is successful
     Page Should Contain  Test Title
     Page Should Contain  2024
 
+Trying to add a misc with all fields empty is unsuccessful
+    Go To  ${HOME_URL}
+    Title Should Be  App
+    Select Misc From The Dropdown Menu
+    Click Button  Add a misc reference
+    Page Should Contain  None of the fields can be empty
+
 
 *** Keywords ***
 

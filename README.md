@@ -4,9 +4,10 @@ Ohjelmistotuotanto 2024 miniprojekti
 
 [![example workflow](https://github.com/k1rtsu/Bulbasaurus-ohtu/workflows/CI/badge.svg)](https://github.com/k1rtsu/Bulbasaurus-ohtu/actions)
 
+[![codecov](https://codecov.io/gh/k1rtsu/Bulbasaurus-ohtu/graph/badge.svg?token=zzkb53ZKhP)](https://codecov.io/gh/k1rtsu/Bulbasaurus-ohtu)
+
 [Product backlog ja sprint backlogit](https://docs.google.com/spreadsheets/d/1RMMjKq7OOiBKllxChY3m_eDCr9RuxWiq2uwkZbb58no/edit?gid=0#gid=0)
 
-[![codecov](https://codecov.io/gh/k1rtsu/Bulbasaurus-ohtu/graph/badge.svg?token=zzkb53ZKhP)](https://codecov.io/gh/k1rtsu/Bulbasaurus-ohtu)
 ## Asennusohje
 
 Kloona repositorio:

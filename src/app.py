@@ -137,7 +137,7 @@ def handle_add_book():
     try:
         validate_book(author, title, year, publisher)
         refs.add_book(author, title, year, publisher)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 def get_all_references():
@@ -155,7 +155,7 @@ def handle_add_misc():
     try:
         validate_misc(author, title, year, note)
         refs.add_misc(author, title, year, note)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 def handle_add_article():
@@ -184,7 +184,7 @@ def handle_add_article():
     try:
         validate_article(article_data)
         refs.add_article(article_data)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 def handle_add_inproceedings():
@@ -195,7 +195,7 @@ def handle_add_inproceedings():
     try:
         validate_inproceedings(author, title, year, booktitle)
         refs.add_inproceedings(author, title, year, booktitle)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 if test_env:

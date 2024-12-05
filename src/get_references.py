@@ -58,9 +58,6 @@ def reference_exists(reference_id: int | str) -> bool:
     exists = db.session.execute(sql, {"reference_id": reference_id})
     exists = exists.fetchone()
 
-    print()
-    print("exists is", exists)
-    print()
     if exists is None:
         exists = False
     else:

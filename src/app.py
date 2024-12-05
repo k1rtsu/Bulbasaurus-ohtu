@@ -16,6 +16,7 @@ from util import (
     filter_items,
     UserInputError
 )
+import bibtex
 import references as refs
 import get_references
 import edit_references
@@ -203,3 +204,15 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({"message": "db reset"})
+
+
+@app.route("/raw_bibtex", methods=['POST', 'GET'])
+def raw_bibtex():
+    reference_id = request.form["reference_id"]
+    print(reference_id)
+    if not get_references.reference_exists(reference_id):
+        return redirect("/")
+    reference_object = bibtex.create_reference_object(reference_id)
+    bibtex_text = reference_object.write_bibtex_reference()
+
+    return render_template("/raw_bibtex.html", bibtex_text=bibtex_text)

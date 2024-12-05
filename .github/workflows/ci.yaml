@@ -7,9 +7,9 @@ env:
 
 on:
   push:
-    branches: [main, edit-ref]
+    branches: [main, bibtex]
   pull_request:
-    branches: [main, edit-ref]
+    branches: [main, bibtex]
 
 jobs:
   build:

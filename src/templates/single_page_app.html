@@ -204,8 +204,8 @@
           };
 
           document.addEventListener("DOMContentLoaded", () => {
-            const initialType = '{{ selected_option }}';
-            const initialValue = typeToValueMap[initialType]
+            const initialType = '{{ selected_option }}' || 'book';
+            const initialValue = typeToValueMap[initialType];
 
             document.getElementById('new-reference-form-selector').value = initialValue;
 

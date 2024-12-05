@@ -4,6 +4,14 @@ Populate the database with example references.
 Functions:
 
     add_data
+
+    add_book
+
+    add_article
+
+    add_inproceedings
+
+    add_misc
 """
 
 from config import app
@@ -13,6 +21,13 @@ import util
 
 def add_data():
     """Add example data to the database"""
+    add_book()
+    add_article()
+    add_inproceedings()
+    add_misc()
+
+
+def add_book():
     book = {
         "author": "Kalle Kirjailija",
         "title": "Pythonin alkeet",
@@ -22,6 +37,7 @@ def add_data():
     util.validate_book(book["author"], book["title"], book["year"], book["publisher"])
     references.add_book(book["author"], book["title"], book["year"], book["publisher"])
 
+def add_article():
     article = {
         "author": "Ahti Artikkeli",
         "title": "Ketterän ohjelmistotuotannon tulevaisuus",
@@ -31,12 +47,13 @@ def add_data():
         "year": "1999",
         "pages_from": "89",
         "pages_to": "98",
-        "doi": "",
+        "doi": "0987ktrddt6",
         "url": "https://sisu.helsinki.fi",
     }
     util.validate_article(article)
     references.add_article(article)
 
+def add_inproceedings():
     inproceedings = {
         "author": "Tarja Tieteilijä",
         "title": "Ohjelmointi on hauskaa",
@@ -56,6 +73,7 @@ def add_data():
         inproceedings["booktitle"],
     )
 
+def add_misc():
     misc = {
         "author": "Kaija Sukanen",
         "title": "Olioperustainen ohjelmointi",
@@ -64,7 +82,6 @@ def add_data():
     }
     util.validate_misc(misc["author"], misc["title"], misc["year"], misc["note"])
     references.add_misc(misc["author"], misc["title"], misc["year"], misc["note"])
-
 
 if __name__ == "__main__":
     with app.app_context():

@@ -16,6 +16,7 @@ from util import (
     filter_items,
     UserInputError
 )
+import bibtex
 import references as refs
 import get_references
 import edit_references
@@ -137,7 +138,7 @@ def handle_add_book():
     try:
         validate_book(author, title, year, publisher)
         refs.add_book(author, title, year, publisher)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 def get_all_references():
@@ -155,7 +156,7 @@ def handle_add_misc():
     try:
         validate_misc(author, title, year, note)
         refs.add_misc(author, title, year, note)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 def handle_add_article():
@@ -184,7 +185,7 @@ def handle_add_article():
     try:
         validate_article(article_data)
         refs.add_article(article_data)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 def handle_add_inproceedings():
@@ -195,7 +196,7 @@ def handle_add_inproceedings():
     try:
         validate_inproceedings(author, title, year, booktitle)
         refs.add_inproceedings(author, title, year, booktitle)
-    except UserInputError as error: #pylint: disable=broad-exception-caught
+    except UserInputError as error:
         raise error
 
 if test_env:
@@ -203,3 +204,15 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({"message": "db reset"})
+
+
+@app.route("/raw_bibtex", methods=['POST', 'GET'])
+def raw_bibtex():
+    reference_id = request.form["reference_id"]
+    print(reference_id)
+    if not get_references.reference_exists(reference_id):
+        return redirect("/")
+    reference_object = bibtex.create_reference_object(reference_id)
+    bibtex_text = reference_object.write_bibtex_reference()
+
+    return render_template("/raw_bibtex.html", bibtex_text=bibtex_text)

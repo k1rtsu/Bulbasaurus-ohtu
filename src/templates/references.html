@@ -103,6 +103,14 @@
       </form>
       <!-- Open edit modal and set the id, dont do request here -->
       <button name="button" value="edit" onclick="editReference({{data.book_info}}, {{data.reference_id}}, 'book')">Edit</button>
+      <form action="/raw_bibtex" method="post" target="_blank" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" id="raw_bibtex">Raw bibtex</button>
+      </form>
     </div>
   {% endfor %}
 {% endif %}
@@ -126,6 +134,14 @@
       </form>
       <!-- Open edit modal and set the id, dont do request here -->
       <button name="button" value="edit" onclick="editReference({{data.inproceedings_info}}, {{data.reference_id}}, 'inproceedings')">Edit</button>
+      <form action="/raw_bibtex" method="post" target="_blank" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" id="raw_bibtex">Raw bibtex</button>
+      </form>
     </div>
   {% endfor %}
 {% endif %}
@@ -149,6 +165,14 @@
       </form>
       <!-- Open edit modal and set the id, dont do request here -->
       <button name="button" value="edit" onclick="editReference({{data.misc_info}}, {{data.reference_id}}, 'misc')">Edit</button>
+      <form action="/raw_bibtex" method="post" target="_blank" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" id="raw_bibtex">Raw bibtex</button>
+      </form>
     </div>
   {% endfor %}
 {% endif %}
@@ -186,6 +210,14 @@
     </form>
       <!-- Open edit modal and set the id, dont do request here -->
       <button name="button" value="edit" onclick="editReference({{data.article_info}}, {{data.reference_id}}, 'article')">Edit</button>
+    <form action="/raw_bibtex" method="post" target="_blank" style="display: inline">
+      <input
+        type="hidden"
+        name="reference_id"
+        value="{{ data.reference_id }}"
+      />
+      <button type="submit" name="button" id="raw_bibtex">Raw bibtex</button>
+    </form>
   </div>
   {% endfor %}
 </div>

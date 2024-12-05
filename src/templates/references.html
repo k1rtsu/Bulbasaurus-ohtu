@@ -1,6 +1,89 @@
 <div>Total references: {{ total }}</div>
 <br />
 
+<script>
+  // Script for handling the reference edit modal / popover
+
+  function capitalizeFirstLetter(str) {
+    if (str.length === 0) {
+      return str;
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  
+  function editReference(data, referenceId, referenceType) {
+    // Create the modal
+    const modalElement = document.createElement('div');
+    modalElement.classList.add('modal-background');
+
+    // Remove the modal on click background
+    modalElement.addEventListener('mousedown', (event) => {
+      if (event.target.classList.contains('modal-background')) {
+        document.body.removeChild(modalElement);
+      }
+    });
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('paper-div');
+    modalContent.classList.add('modal-content');
+
+    const headingElement = document.createElement('p');
+    headingElement.textContent = 'Edit reference';
+    headingElement.style.marginLeft = '2px';
+    modalContent.appendChild(headingElement);
+
+    const formElement = document.createElement('form');
+    formElement.action = '/edit_reference';
+    formElement.method = 'post';
+    modalContent.appendChild(formElement);
+
+    // Spawn input fields
+    for (const [key, value] of Object.entries(data)) {
+      const pElement = document.createElement('p');
+      pElement.classList.add('input-helper-text');
+      pElement.textContent = capitalizeFirstLetter(key);
+      const breakElement = document.createElement('br');
+      pElement.appendChild(breakElement);
+      const inputElement = document.createElement('input');
+      inputElement.type = 'text';
+      inputElement.name = `edit-${key}`;
+      inputElement.value = value;
+      pElement.appendChild(inputElement);
+      formElement.appendChild(pElement);
+    }
+
+    const submitButtonElement = document.createElement('button');
+    submitButtonElement.type = 'submit';
+    submitButtonElement.textContent = 'Save Changes';
+    submitButtonElement.name = 'button';
+    formElement.appendChild(submitButtonElement);
+
+    const cancelButtonElement = document.createElement('button');
+    cancelButtonElement.textContent = 'Cancel';
+    cancelButtonElement.style.marginLeft = '4px';
+    cancelButtonElement.addEventListener('click', (event) => {
+      event.preventDefault();
+      document.body.removeChild(modalElement);
+    });
+
+    const referenceIdElement = document.createElement('input');
+    referenceIdElement.type = 'hidden';
+    referenceIdElement.value = referenceId;
+    referenceIdElement.name = 'reference_id';
+    formElement.appendChild(referenceIdElement);
+
+    const referenceTypeElement = document.createElement('input');
+    referenceTypeElement.type = 'hidden';
+    referenceTypeElement.value = referenceType;
+    referenceTypeElement.name = 'reference_type';
+    formElement.appendChild(referenceTypeElement);
+
+    formElement.appendChild(cancelButtonElement);
+    modalElement.appendChild(modalContent);
+    document.body.appendChild(modalElement);
+  }
+</script>
+
 <!-- Book references -->
 {% if books|length > 0 %}
   {% for data in books %}
@@ -18,14 +101,8 @@
       >
         <button type="submit" id="delete_book">Delete</button>
       </form>
-      <form action="/edit_reference" method="post" style="display: inline">
-        <input
-          type="hidden"
-          name="reference_id"
-          value="{{ data.reference_id }}"
-        />
-        <button type="submit" name="button" value="edit">Edit</button>
-      </form>
+      <!-- Open edit modal and set the id, dont do request here -->
+      <button name="button" value="edit" onclick="editReference({{data.book_info}}, {{data.reference_id}}, 'book')">Edit</button>
     </div>
   {% endfor %}
 {% endif %}
@@ -47,14 +124,8 @@
       >
         <button type="submit" id="delete_inproceedings">Delete</button>
       </form>
-      <form action="/edit_reference" method="post" style="display: inline">
-        <input
-          type="hidden"
-          name="reference_id"
-          value="{{ data.reference_id }}"
-        />
-        <button type="submit" name="button" value="edit">Edit</button>
-      </form>
+      <!-- Open edit modal and set the id, dont do request here -->
+      <button name="button" value="edit" onclick="editReference({{data.inproceedings_info}}, {{data.reference_id}}, 'inproceedings')">Edit</button>
     </div>
   {% endfor %}
 {% endif %}
@@ -76,14 +147,8 @@
       >
         <button type="submit" id="delete_misc">Delete</button>
       </form>
-      <form action="/edit_reference" method="post" style="display: inline">
-        <input
-          type="hidden"
-          name="reference_id"
-          value="{{ data.reference_id }}"
-        />
-        <button type="submit" name="button" value="edit">Edit</button>
-      </form>
+      <!-- Open edit modal and set the id, dont do request here -->
+      <button name="button" value="edit" onclick="editReference({{data.misc_info}}, {{data.reference_id}}, 'misc')">Edit</button>
     </div>
   {% endfor %}
 {% endif %}
@@ -119,14 +184,8 @@
     >
       <button type="submit" id="delete_article">Delete</button>
     </form>
-    <form action="/edit_reference" method="post" style="display: inline">
-      <input
-        type="hidden"
-        name="reference_id"
-        value="{{ data.reference_id }}"
-      />
-      <button type="submit" name="button" value="edit">Edit</button>
-    </form>
+      <!-- Open edit modal and set the id, dont do request here -->
+      <button name="button" value="edit" onclick="editReference({{data.article_info}}, {{data.reference_id}}, 'article')">Edit</button>
   </div>
   {% endfor %}
 </div>

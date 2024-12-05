@@ -53,36 +53,36 @@ def index(error = None):
 
 @app.route("/edit_reference", methods=["POST"])
 def edit_reference():
-    button_value = request.form.get("button")
     reference_id = request.form.get("reference_id")
     if not get_references.reference_exists(reference_id):
         return redirect("/")
-    error = None
 
-    if button_value == "save_changes":
-        form_data = request.form.to_dict()
-        reference_type = form_data["reference_type"]
-        del form_data["button"]
-        del form_data["reference_id"]
-        del form_data["reference_type"]
-        try:
-            validate_edit(form_data, reference_type)
-            edit_references.update_reference(form_data, reference_id)
-            return redirect("/")
-        except UserInputError as err:
-            error = err
+    form_data = request.form.to_dict()
+    reference_type = form_data["reference_type"]
+    del form_data["button"]
+    del form_data["reference_id"]
+    del form_data["reference_type"]
 
-    reference_info = get_references.get_reference_info_by_id(reference_id)
-    reference_type = reference_info["type"]
-    del reference_info["id"]
-    del reference_info["type"]
-    return render_template(
-        "edit_reference.html",
-        reference_info=reference_info,
-        reference_id=reference_id,
-        reference_type=reference_type,
-        error=error,
-    )
+    cleaned_data = {}
+    for key, value in form_data.items():
+        cleaned_data[key[5:]] = value
+
+    try:
+        validate_edit(cleaned_data, reference_type)
+        edit_references.update_reference(cleaned_data, reference_id)
+        return redirect("/")
+    except UserInputError as err:
+        error = err # should the error be used?
+        books, articles, misc, inproceedings = get_all_references()
+        total = len(books)+len(articles)+len(misc)+len(inproceedings)
+
+        return render_template("single_page_app.html",
+                            error=error,
+                            books=books,
+                            articles=articles,
+                            misc=misc,
+                            inproceedings=inproceedings,
+                            total=total)
 
 @app.route("/remove_reference/<reference_id>", methods=["POST"])
 def remove_reference(reference_id):

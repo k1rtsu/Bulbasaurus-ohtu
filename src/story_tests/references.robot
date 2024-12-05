@@ -155,9 +155,9 @@ Editing a reference with valid information
     Page Should Contain  Total references: 1
     Page Should Contain  2024
     Click Button  edit
-    Title Should Be  Edit reference
-    Input Text  year  2002
-    Click Button  Save changes
+    Title Should Be  App
+    Input Text  edit-year  2002
+    Click Button  Save Changes
     Title Should Be  App
     Page Should Contain  Total references: 1
     Page Should Contain  2002
@@ -175,10 +175,10 @@ Editing a reference with missing author field
     Page Should Contain  Total references: 1
     Page Should Contain  Test author
     Click Button  edit
-    Title Should Be  Edit reference
-    Clear Element Text  author
-    Click Button  Save changes
-    Title Should Be  Edit reference
+    Title Should Be  App
+    Clear Element Text  edit-author
+    Click Button  Save Changes
+    Title Should Be  App
     Page Should Contain  None of the fields can be empty
 
 Editing a reference with invalid year
@@ -194,8 +194,8 @@ Editing a reference with invalid year
     Page Should Contain  Total references: 1
     Page Should Contain  2024
     Click Button  edit
-    Title Should Be  Edit reference
-    Input Text  year  20
-    Click Button  Save changes
-    Title Should Be  Edit reference
+    Title Should Be  App
+    Input Text  edit-year  20
+    Click Button  Save Changes
+    Title Should Be  App
     Page Should Contain  Year length must be 4

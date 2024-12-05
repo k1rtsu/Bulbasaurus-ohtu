@@ -26,6 +26,14 @@
         />
         <button type="submit" name="button" value="edit">Edit</button>
       </form>
+      <form action="/raw_bibtex" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="raw_bibtex">Raw bibtex</button>
+      </form>
     </div>
   {% endfor %}
 {% endif %}
@@ -55,6 +63,14 @@
         />
         <button type="submit" name="button" value="edit">Edit</button>
       </form>
+      <form action="/raw_bibtex" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="raw_bibtex">Raw bibtex</button>
+      </form>
     </div>
   {% endfor %}
 {% endif %}
@@ -83,6 +99,14 @@
           value="{{ data.reference_id }}"
         />
         <button type="submit" name="button" value="edit">Edit</button>
+      </form>
+      <form action="/raw_bibtex" method="post" style="display: inline">
+        <input
+          type="hidden"
+          name="reference_id"
+          value="{{ data.reference_id }}"
+        />
+        <button type="submit" name="button" value="raw_bibtex">Raw bibtex</button>
       </form>
     </div>
   {% endfor %}
@@ -126,6 +150,14 @@
         value="{{ data.reference_id }}"
       />
       <button type="submit" name="button" value="edit">Edit</button>
+    </form>
+    <form action="/raw_bibtex" method="post" style="display: inline">
+      <input
+        type="hidden"
+        name="reference_id"
+        value="{{ data.reference_id }}"
+      />
+      <button type="submit" name="button" value="raw_bibtex">Raw bibtex</button>
     </form>
   </div>
   {% endfor %}

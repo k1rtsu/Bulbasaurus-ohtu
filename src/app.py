@@ -203,3 +203,8 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({"message": "db reset"})
+
+
+@app.route("/raw_bibtex", methods=['POST'])
+def raw_bibtex():
+    return redirect("/")

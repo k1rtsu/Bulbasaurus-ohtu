@@ -48,33 +48,35 @@ class BibTex:
     def year(self):
         return self.reference_info["year"]
 
+
 class Article(BibTex):
 
     def write_bibtex_reference(self) -> str:
-        author = self.author()
-        title = self.title()
-        journal = self.journal()
-        year = self.year()
-        volume = self.volume()
+        first_line = "@article{cite\n"
+        required_info = self.required_info()
+        pages = self.pages()
+        last_line = "}"
 
+        return first_line + required_info + pages + last_line
+
+    def required_info(self):
+        text = ""
+        required_info = ["author", "title", "year", "journal", "volume"]
+        for key, value in self.reference_info.items():
+            if key in required_info:
+                text += "    " + key + "= {" + value + "},\n"
+        return text
+
+    def pages(self):
         pages_from = self.pages_from()
         pages_to = self.pages_to()
-        line1 = "@article{cite" + year + "\n"
-        line2 = "    author = {" + author + "},\n"
-        line3 = "    title = {" + title + "},\n"
-        line4 = "    journal = {" + journal + "},\n"
-        line5 = "    year = {" + year + "},\n"
-        line6 = "    volume = {" + volume + "},\n"
+
+        text = ""
         pages_are_specified = pages_from != "" and pages_to != ""
-        line7 = ""
         if pages_are_specified:
-            line7 = "    pages = {" + pages_from + "--" + pages_to + "}\n"
-        line8 = "}"
+            text = "    pages = {" + pages_from + "--" + pages_to + "}\n"
 
-        return line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8
-
-    def parse_article(self):
-        pass
+        return text
 
     def journal(self):
         return self.reference_info["journal"]

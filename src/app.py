@@ -209,7 +209,6 @@ if test_env:
 @app.route("/raw_bibtex", methods=['POST', 'GET'])
 def raw_bibtex():
     reference_id = request.form["reference_id"]
-    print(reference_id)
     if not get_references.reference_exists(reference_id):
         return redirect("/")
     reference_object = bibtex.create_reference_object(reference_id)

@@ -19,6 +19,7 @@ def create_reference_object(reference_id):
 
 
 class BibTex:
+    """Super class for Article, Book, Inproceedings and Misc"""
     def __init__(self, reference_info: dict):
         self.reference_info = reference_info
         self.reference_type = reference_info["type"]
@@ -30,7 +31,6 @@ class BibTex:
         for the BibTex references"""
         new_dictionary = {}
         for value in self.reference_info:
-            print(value)
             if value not in ("id", "type"):
                 new_dictionary[value] = self.reference_info[value]["field"]
 
@@ -52,7 +52,7 @@ class BibTex:
 class Article(BibTex):
 
     def write_bibtex_reference(self) -> str:
-        first_line = "@article{cite\n"
+        first_line = "@article{citekey\n"
         required_info = self.required_info()
         pages = self.pages()
         last_line = "}"

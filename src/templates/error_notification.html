@@ -1,0 +1,45 @@
+{% if error %}
+<script>
+    document.addEventListener('DOMContentLoaded', registerCallbacks);
+
+    let timeoutId = null;
+    const closeAfterDuration = 8000;
+
+    function removeErrorNotificationElement() {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId);
+        }
+
+        const notificationRoot = document.getElementById('error-notification-bar');
+
+        if (!notificationRoot) {
+            return;
+        }
+
+        document.body.removeChild(notificationRoot);
+    }
+
+    function registerCallbacks() {
+        timeoutId = setTimeout(() => {
+            removeErrorNotificationElement();
+        }, closeAfterDuration);
+
+        const closeButton = document.getElementById('close-error-notification-button');
+
+        closeButton.addEventListener('click', () => {
+            removeErrorNotificationElement();
+        });
+    }
+</script>
+
+<div class="notification" id="error-notification-bar">
+    <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-between; align-items: center;">
+        <p>{{error}}</p>
+        <button id="close-error-notification-button">
+            <div style="display: flex; justify-content: center; align-items: center; padding: 8px;">
+                <i id="hamburger-x-icon" class="fa fa-close hamburger-x-icon"></i>
+            </div>
+        </button>
+    </div>
+</div>
+{% endif %}

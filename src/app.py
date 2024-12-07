@@ -16,7 +16,7 @@ from util import (
     filter_items,
     UserInputError
 )
-import bibtex
+from bibtex import BibTex
 import references as refs
 import get_references
 import edit_references
@@ -211,7 +211,7 @@ def raw_bibtex():
     reference_id = request.form["reference_id"]
     if not get_references.reference_exists(reference_id):
         return redirect("/")
-    reference_object = bibtex.create_reference_object(reference_id)
-    bibtex_text = reference_object.write_bibtex_reference()
+    reference_object = BibTex(reference_id)
+    reference_in_bibtex_form = reference_object.reference_in_bibtex_form()
 
-    return render_template("/raw_bibtex.html", bibtex_text=bibtex_text)
+    return render_template("/raw_bibtex.html", bibtex_text=reference_in_bibtex_form)

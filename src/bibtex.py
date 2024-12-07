@@ -28,6 +28,12 @@ class BibTex:
                 if value == "author":
                     author = self.author_line(field)
                     reference_in_bibtex_form += author
+                elif value == "pages_from":
+                    pages_from = field
+                elif value == "pages_to":
+                    pages_to = field
+                    pages = self.pages_line(pages_from, pages_to)
+                    reference_in_bibtex_form += pages
                 else:
                     line = self.normal_line(value, field)
                     reference_in_bibtex_form += line
@@ -43,6 +49,9 @@ class BibTex:
 
     def author_line(self, author):
         return "    author = {" + author + "},\n"
+
+    def pages_line(self,pages_from, pages_to):
+        return "    pages = {" + pages_from + "--" + pages_to + "}\n"
 
     def last_line(self):
         return "}"

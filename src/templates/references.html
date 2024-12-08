@@ -90,8 +90,8 @@
     <div class="reference-box book">
       <div class="year">{{ data.book_info.year }}</div>
       <div class="content">
-        <strong>{{ data.book_info.author }}</strong><br>
-        <em>{{ data.book_info.title }}</em><br>
+        <strong>{{ data.book_info.title }}</strong><br>
+        <em>{{ data.book_info.author }}</em><br>
         {{ data.book_info.publisher }}
       </div>
       <form
@@ -121,8 +121,8 @@
     <div class="reference-box inproceedings">
       <div class="year">{{ data.inproceedings_info.year }}</div>
       <div class="content">
-        <strong>{{ data.inproceedings_info.author }}</strong><br>
-        <em>{{ data.inproceedings_info.title }}</em><br>
+        <strong>{{ data.inproceedings_info.title }}</strong><br>
+        <em>{{ data.inproceedings_info.author }}</em><br>
         {{ data.inproceedings_info.booktitle }}
       </div>
       <form
@@ -152,8 +152,8 @@
     <div class="reference-box misc">
       <div class="year">{{ data.misc_info.year }}</div>
       <div class="content">
-        <strong>{{ data.misc_info.author }}</strong><br>
-        <em>{{ data.misc_info.title }}</em><br>
+        <strong>{{ data.misc_info.title }}</strong><br>
+        <em>{{ data.misc_info.author }}</em><br>
         <p style="margin: 0;">{{ data.misc_info.note }}</p>
       </div>
       <form
@@ -182,14 +182,15 @@
 <div>
   {% for data in articles %}
   <div class="reference-box article-box">
-    <div class="year">{{ data.article_info.year }}</div>
+    <p><strong><i>{{ data.article_info.title }}</i></strong></p>
     <p><strong>Author(s):</strong> {{ data.article_info.author }}</p>
-    <p><strong>Title:</strong> <i>{{ data.article_info.title }}</i></p>
     <p><strong>Journal:</strong> {{ data.article_info.journal }}</p>
     <p>
       <strong>Volume:</strong> {{ data.article_info.volume }}
       {% if data.article_info.number %} <strong>Number:</strong> {{ data.article_info.number }}{% endif %}
     </p>
+    <p><strong>Year:</strong> {{ data.article_info.year }}</p>
+    <p>
       <strong>Pages:</strong>
       {% if data.article_info.pages_from and data.article_info.pages_to %}
         {{ data.article_info.pages_from }}–{{ data.article_info.pages_to }}
@@ -208,15 +209,13 @@
     >
       <button type="submit" id="delete_article">Delete</button>
     </form>
-      <!-- Open edit modal and set the id, dont do request here -->
-      <button name="button" value="edit" onclick="editReference({{data.article_info}}, {{data.reference_id}}, 'article')">Edit</button>
-    <form action="/raw_bibtex" method="post" target="_blank" style="display: inline">
+    <form action="/edit_reference" method="post" style="display: inline">
       <input
         type="hidden"
         name="reference_id"
         value="{{ data.reference_id }}"
       />
-      <button type="submit" name="button" id="raw_bibtex">Raw bibtex</button>
+      <button type="submit" name="button" value="edit">Edit</button>
     </form>
   </div>
   {% endfor %}

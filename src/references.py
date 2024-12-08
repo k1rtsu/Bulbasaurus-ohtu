@@ -15,21 +15,11 @@ def add_book(author: str, title: str, year: str, publisher: str) -> None:
     sql = text(
         """
             INSERT INTO reference (type)
-            VALUES (:book);
+            VALUES (:book)
+            RETURNING id;
             """
     )
-    db.session.execute(sql, {"book": "book"})
-
-    sql = text(
-        """
-            SELECT id
-            FROM reference
-            ORDER BY id DESC
-            LIMIT 1;
-            """
-    )
-    book_id = db.session.execute(sql)
-    book_id = book_id.fetchone()[0]
+    book_id = db.session.execute(sql, {"book": "book"}).fetchone()[0]
 
     information = {
         "author": author,
@@ -56,22 +46,12 @@ def add_misc(author: str, title: str, year: str, note: str) -> None:
     sql = text(
         """
             INSERT INTO reference (type)
-            VALUES (:misc);
+            VALUES (:misc)
+            RETURNING id;
             """
     )
 
-    db.session.execute(sql, {"misc": "misc"})
-
-    sql = text(
-        """
-        SELECT id 
-        FROM reference
-        ORDER BY id DESC
-        LIMIT 1;
-        """
-    )
-
-    misc_id = db.session.execute(sql).fetchone()[0]
+    misc_id = db.session.execute(sql, {"misc": "misc"}).fetchone()[0]
 
     information = {"author": author, "title": title, "year": year, "note": note}
 
@@ -95,21 +75,11 @@ def add_article(article_data: dict) -> None:
     sql = text(
         """
             INSERT INTO reference (type)
-            VALUES (:article);
+            VALUES (:article)
+            RETURNING id;
             """
     )
-    db.session.execute(sql, {"article": "article"})
-
-    sql = text(
-        """
-            SELECT id
-            FROM reference
-            ORDER BY id DESC
-            LIMIT 1;
-            """
-    )
-    article_id = db.session.execute(sql)
-    article_id = article_id.fetchone()[0]
+    article_id = db.session.execute(sql, {"article": "article"}).fetchone()[0]
 
     for field, value in article_data.items():
         sql = text(
@@ -130,21 +100,11 @@ def add_inproceedings(author, title, year, booktitle) -> None:
     sql = text(
         """
             INSERT INTO reference (type)
-            VALUES (:inproceedings);
+            VALUES (:inproceedings)
+            RETURNING id;
             """
     )
-    db.session.execute(sql, {"inproceedings": "inproceedings"})
-
-    sql = text(
-        """
-            SELECT id
-            FROM reference
-            ORDER BY id DESC
-            LIMIT 1;
-            """
-    )
-    inproceedings_id = db.session.execute(sql)
-    inproceedings_id = inproceedings_id.fetchone()[0]
+    inproceedings_id = db.session.execute(sql, {"inproceedings": "inproceedings"}).fetchone()[0]
 
     information = {
         "author": author,

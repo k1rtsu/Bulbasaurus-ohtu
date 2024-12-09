@@ -155,11 +155,24 @@ def filter_items(items, reference_type, info_key, search_data):
         return []
 
     if search_data['author']:
+        if "AND" in search_data['author']:
+            parts = search_data['author'].split(" AND ")
+            search_data['author'] = "".join(f"(?=.*{part})" for part in parts)
+        if "OR" in search_data['author']:
+            search_data['author'] = search_data['author'].replace(" OR ", "|")
+
         items = [
             item for item in items
             if re.search(search_data['author'].lower(), item[info_key]['author'].lower())
         ]
+
     if search_data['title']:
+        if "AND" in search_data['title']:
+            parts = search_data['title'].split(" AND ")
+            search_data['title'] = "".join(f"(?=.*{part})" for part in parts)
+        if "OR" in search_data['title']:
+            search_data['title'] = search_data['title'].replace(" OR ", "|")
+
         items = [
             item for item in items
             if re.search(search_data['title'].lower(), item[info_key]['title'].lower())

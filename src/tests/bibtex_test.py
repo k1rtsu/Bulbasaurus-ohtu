@@ -49,22 +49,43 @@ class TestBibTex(unittest.TestCase):
     def test_reference_in_bibtex_form(self):
         """Reference is returned in the correct bibtex form"""
         bibtex_form = self.bibtex.reference_in_bibtex_form()
-        correct_form = self.correct_bibtex_form()
+        correct_form = self.correct_bibtex_form_long()
         self.assertEqual(bibtex_form, correct_form)
 
-    def correct_bibtex_form(self):
+    def correct_bibtex_form_long(self):
         text = ""
-        text += '@inproceedings{citekey,\n'
-        text += '    author = {author},\n'
+        text += "@inproceedings{citekey,\n"
+        text += "    author = {author},\n"
         text += '    title = "{title}",\n'
         text += '    booktitle = "{booktitle}",\n'
         text += '    journal = "{journal}",\n'
         text += '    volume = "{4}",\n'
         text += '    number = "{2}",\n'
         text += '    year = "{2021}",\n'
-        text += '    pages = {89--98},\n'
+        text += "    pages = {89--98},\n"
         text += '    doi = "{doi}",\n'
         text += '    url = "{https://sisu.helsinki.fi}",\n'
         text += '    note = "{note}",\n'
-        text += '}'
+        text += "}"
+        return text
+
+    def test_empty_lines_are_left_out(self):
+        reference = {
+            "id": "4",
+            "type": "inproceedings",
+            "author": {"field": "author"},
+            "title": {"field": ""},
+        }
+        repository_mock = Mock()
+        repository_mock.get_reference_info_by_id.return_value = reference
+        bibtex = BibTex(1, repository_mock)
+        bibtex_form = bibtex.reference_in_bibtex_form()
+        correct_form = self.correct_bibtex_form_short()
+        self.assertEqual(bibtex_form, correct_form)
+
+    def correct_bibtex_form_short(self):
+        text = ""
+        text += "@inproceedings{citekey,\n"
+        text += "    author = {author},\n"
+        text += "}"
         return text

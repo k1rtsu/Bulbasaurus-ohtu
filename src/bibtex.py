@@ -1,16 +1,16 @@
-from get_references import get_reference_info_by_id
+import get_references
 
 
 class BibTex:
-    def __init__(self, reference_id):
-        self.reference_info = get_reference_info_by_id(reference_id)
+    def __init__(self, reference_id, repository=get_references):
+        self.reference_info = repository.get_reference_info_by_id(reference_id)
         self.reference_type = self.reference_info["type"]
         self.reference_id = self.reference_info["id"]
         self.clean_reference_info_dictionary()
 
     def clean_reference_info_dictionary(self):
         """Make reference_info dictionary simpler by extractig only the values we need
-        for the BibTex references, i.e. remove id and type."""
+        for the BibTex references"""
         new_dictionary = {}
         for bibtex_field, value in self.reference_info.items():
             if bibtex_field not in ("id", "type"):
@@ -50,7 +50,7 @@ class BibTex:
     def author_line(self, author):
         return "    author = {" + author + "},\n"
 
-    def pages_line(self,pages_from, pages_to):
+    def pages_line(self, pages_from, pages_to):
         return "    pages = {" + pages_from + "--" + pages_to + "}\n"
 
     def last_line(self):

@@ -3,12 +3,18 @@
 <form id="search-references-form" action="/search" method="post">
     <p class="input-helper-text">
       Author<br />
-      <input type="text" id="search-author" name="author" class="form-field" />
+      <div class="input-container">
+        <input type="text" id="search-author" name="author" class="form-field" oninput="checkOverflow('search-author')" onfocus="hideIndicator('search-author')" onblur="checkOverflow('search-author')" />
+        <div class="indicator">...</div>
+      </div>
     </p>
   
     <p class="input-helper-text">
       Title<br />
-      <input type="text" id="search-title" name="title" class="form-field" />
+      <div class="input-container">
+        <input type="text" id="search-title" name="title" class="form-field truncate-input" oninput="checkOverflow('search-title')" onfocus="hideIndicator('search-title')" onblur="checkOverflow('search-title')" />
+        <div class="indicator">...</div>
+      </div>
     </p>
   
     <p class="input-helper-text">
@@ -52,6 +58,48 @@
       </button>
       <button type="submit" name="submit" value="clear">
         Clear
-        </button>
+      </button>
     </p>
-  </form>
+</form>
+
+<style>
+.input-container {
+  position: relative;
+}
+
+.input-container .indicator {
+  display: none;
+  position: absolute;
+  right: 5px;
+  top: 40%;
+  transform: translateY(-50%);
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+</style>
+
+<script>
+function checkOverflow(id) {
+  const input = document.getElementById(id);
+  const indicator = input.nextElementSibling;
+  if (input.scrollWidth > input.clientWidth && !input.matches(':focus')) {
+    indicator.style.display = 'block';
+  } else {
+    indicator.style.display = 'none';
+  }
+}
+
+function hideIndicator(id) {
+  const input = document.getElementById(id);
+  const indicator = input.nextElementSibling;
+  indicator.style.display = 'none';
+}
+
+// Initial check for overflow on page load
+document.addEventListener('DOMContentLoaded', () => {
+  checkOverflow('search-author');
+  checkOverflow('search-title');
+});
+</script>

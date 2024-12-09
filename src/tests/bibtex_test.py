@@ -45,3 +45,26 @@ class TestBibTex(unittest.TestCase):
         """Test that clean_reference_info_dictionary removes id and type and
         other unwanted data from dictionaries"""
         self.assertEqual(self.bibtex.reference_info, self.reference_clean)
+
+    def test_reference_in_bibtex_form(self):
+        """Reference is returned in the correct bibtex form"""
+        bibtex_form = self.bibtex.reference_in_bibtex_form()
+        correct_form = self.correct_bibtex_form()
+        self.assertEqual(bibtex_form, correct_form)
+
+    def correct_bibtex_form(self):
+        text = ""
+        text += '@inproceedings{citekey,\n'
+        text += '    author = {author},\n'
+        text += '    title = "{title}",\n'
+        text += '    booktitle = "{booktitle}",\n'
+        text += '    journal = "{journal}",\n'
+        text += '    volume = "{4}",\n'
+        text += '    number = "{2}",\n'
+        text += '    year = "{2021}",\n'
+        text += '    pages = {89--98},\n'
+        text += '    doi = "{doi}",\n'
+        text += '    url = "{https://sisu.helsinki.fi}",\n'
+        text += '    note = "{note}",\n'
+        text += '}'
+        return text

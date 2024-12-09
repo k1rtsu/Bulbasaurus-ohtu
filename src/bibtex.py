@@ -51,7 +51,7 @@ class BibTex:
         return "    author = {" + author + "},\n"
 
     def pages_line(self, pages_from, pages_to):
-        return "    pages = {" + pages_from + "--" + pages_to + "}\n"
+        return "    pages = {" + pages_from + "--" + pages_to + "},\n"
 
     def last_line(self):
         return "}"

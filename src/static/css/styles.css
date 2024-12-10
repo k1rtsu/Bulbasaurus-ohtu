@@ -112,6 +112,10 @@ select option {
   color: #555;
 }
 
+input {
+  text-overflow: ellipsis;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="email"],

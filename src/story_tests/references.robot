@@ -35,6 +35,15 @@ After adding an article, book, misc and inproceedings, there is four references
     Page Should Contain  misc author
     Page Should Contain  inproceeding author
 
+Title is placed before author in references list
+    Add A Book With Test Values
+    ${book_title}=  Get Text  xpath=//div[contains(@class, 'reference-box book')]//strong
+    ${book_author}=  Get Text  xpath=//div[contains(@class, 'reference-box book')]//em
+    Log  Book Title: ${book_title}
+    Log  Book Author: ${book_author}
+    ${comparison_result}=  Evaluate  '${book_title}' > '${book_author}'
+    Should Be True  ${comparison_result}
+
 After deleting an article, it no longer appears in the references list
     Add An Article With Test Values
     Add A Book With Test Values

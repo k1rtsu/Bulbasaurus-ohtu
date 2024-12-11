@@ -10,16 +10,20 @@ def is_valid_url(url):
     parsed = urlparse(url)
     return all([parsed.scheme, parsed.netloc])
 
-
-def validate_book(author, title, year, publisher):
-    if not author or not title or not year or not publisher:
-        raise UserInputError("None of the fields can be empty")
-
+def validate_year(year):
     if len(year) != 4:
         raise UserInputError("Year length must be 4")
 
     if not re.fullmatch("[0-9]+", year):
         raise UserInputError("Year can only consist of numbers")
+
+
+
+def validate_book(author, title, year, publisher):
+    if not author or not title or not year or not publisher:
+        raise UserInputError("None of the fields can be empty")
+
+    validate_year(year)
 
 
 def validate_article(article_data):
@@ -32,11 +36,7 @@ def validate_article(article_data):
     if missing_fields:
         raise UserInputError(f"Missing required fields: {', '.join(missing_fields)}")
 
-    if len(article_data['year']) != 4:
-        raise UserInputError("Year length must be 4")
-
-    if not re.fullmatch("[0-9]+", article_data['year']):
-        raise UserInputError("Year can only consist of numbers")
+    validate_year(article_data['year'])
 
     if not re.fullmatch("[0-9]+", article_data['volume']):
         raise UserInputError("Volume can only consist of numbers")
@@ -68,11 +68,7 @@ def validate_misc(author, title, year, note):
     if not author or not title or not year:
         raise UserInputError("None of the fields can be empty")
 
-    if len(year) != 4:
-        raise UserInputError("Year length must be 4")
-
-    if not re.fullmatch("[0-9]+", year):
-        raise UserInputError("Year can only consist of numbers")
+    validate_year(year)
 
     if len(note) > 500:
         raise UserInputError("Note length must be less than 500 words")
@@ -82,12 +78,7 @@ def validate_inproceedings(author, title, year, booktitle):
     if not author or not title or not year or not booktitle:
         raise UserInputError("Missing required fields")
 
-    if len(year) != 4:
-        raise UserInputError("Year length must be 4")
-
-    if not re.fullmatch("[0-9]+", year):
-        raise UserInputError("Year can only consist of numbers")
-
+    validate_year(year)
 
 def validate_edit(edited_info: dict, reference_type: str):
     """Validate the edits made by user."""
@@ -130,14 +121,9 @@ def validate_search(search_data):
                 "Please enter the whole year range."
             )
     if year_from and year_to:
-        if (
-            (year_from and not re.fullmatch(r"[0-9]+", year_from)) or
-            (year_to and not re.fullmatch(r"[0-9]+", year_to))
-        ):
-            raise UserInputError("Year can only consist of numbers")
+        validate_year(year_from)
+        validate_year(year_to)
 
-        if len(year_from) != 4 or len(year_to) != 4:
-            raise UserInputError("Year length must be 4")
         if int(year_to) < int(year_from):
             raise UserInputError(
             "The starting year cannot be greater than the ending year."
@@ -145,10 +131,7 @@ def validate_search(search_data):
 
     year = search_data.get('year')
     if year:
-        if not re.fullmatch("[0-9]+", year):
-            raise UserInputError("Year can only consist of numbers")
-        if len(year) != 4:
-            raise UserInputError("Year length must be 4")
+        validate_year(year)
 
 def filter_items(items, reference_type, info_key, search_data):
     if search_data['reference_type'] != "any" and search_data['reference_type'] != reference_type:

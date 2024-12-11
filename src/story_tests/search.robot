@@ -128,6 +128,13 @@ Searching a reference with valid title with AND and OR operations
     Page Should Contain  misc title
     Page Should Not Contain  title article
 
+Searching a reference with long search term
+    Go To  ${HOME_URL}
+    Input Text  search-title  titletitletitletitletitletitletitletitletitletitle
+    Input Text  search-author  author
+    ${computed_style}=  Execute JavaScript  return window.getComputedStyle(document.getElementById('search-title')).getPropertyValue('text-overflow')
+    Should Contain  ${computed_style}  ellipsis
+
 Searching a reference without search terms
     Add A Book With Test Values
     Add An Article With Test Values

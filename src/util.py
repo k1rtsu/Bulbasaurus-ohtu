@@ -144,10 +144,7 @@ def filter_items(items, reference_type, info_key, search_data):
         if "OR" in search_data['author']:
             search_data['author'] = search_data['author'].replace(" OR ", "|")
 
-        items = [
-            item for item in items
-            if re.search(search_data['author'].lower(), item[info_key]['author'].lower())
-        ]
+        items = regex_search(items, search_data, 'author', info_key)
 
     if search_data['title']:
         if "AND" in search_data['title']:
@@ -156,10 +153,8 @@ def filter_items(items, reference_type, info_key, search_data):
         if "OR" in search_data['title']:
             search_data['title'] = search_data['title'].replace(" OR ", "|")
 
-        items = [
-            item for item in items
-            if re.search(search_data['title'].lower(), item[info_key]['title'].lower())
-        ]
+        items = regex_search(items, search_data, 'title', info_key)
+
     if search_data['year']:
         items = [
             item for item in items
@@ -173,3 +168,14 @@ def filter_items(items, reference_type, info_key, search_data):
                 <= int(search_data['year_to'])
         ]
     return items
+
+def regex_search(items, search_data, field, info_key):
+    """Helper function for filter_items"""
+    try:
+        new_list = [
+                item for item in items
+                if re.search(search_data[field].lower(), item[info_key][field].lower())
+            ]
+    except re.error:
+        return items
+    return new_list

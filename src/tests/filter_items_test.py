@@ -96,3 +96,11 @@ class TestFilterItems(unittest.TestCase):
         result = filter_items(self.books, "books", "book_info", self.search_data)
         result += filter_items(self.articles, "articles", "article_info", self.search_data)
         self.assertEqual(len(result), 2)
+
+    def test_incorrect_search_with_asterisk(self):
+        """Test that an asterisk in the beginning of the search does not cause an error
+        and returns everything back unchanged.
+        """
+        self.search_data["author"] = "*Schmidt"
+        search_result = filter_items(self.books, "books", "book_info", self.search_data)
+        self.assertEqual(self.books, search_result)

@@ -10,6 +10,8 @@ Main Page Can Be Opened
     Go To  ${HOME_URL}
     Title Should Be  App
     Page Should Contain  References app
+    Page Should Contain  Search references
+    Page Should Contain  References
 
 Select Book From The Dropdown Menu
     Go To  ${HOME_URL}

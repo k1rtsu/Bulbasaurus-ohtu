@@ -8,18 +8,11 @@ Test Setup       Reset References
 *** Test Cases ***
 
 After inproceedings is added, it will appear in the list of references
-    Go To  ${HOME_URL}
-    Title Should Be  App
-    Select Inproceedings From The Dropdown Menu
-    Set Author  Test author
-    Set Title  Test title
-    Set Year  2024
-    Set Book Title  Test book-tite
-    Click Button  Add inproceedings
-    Page Should Contain  Test author
-    Page Should Contain  Test title
+    Add An Inproceeding With Test Values
+    Page Should Contain  inproceeding author
+    Page Should Contain  inproceeding title
     Page Should Contain  2024
-    Page Should Contain  Test book-tite
+    Page Should Contain  test booktitle
 
 Trying to add inproceedings with no author and failing
     Go To  ${HOME_URL}

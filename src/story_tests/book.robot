@@ -8,19 +8,12 @@ Test Setup       Reset References
 *** Test Cases ***
 
 After a book is added, it will appear in the list of references.
-    Go To  ${HOME_URL}
-    Title Should Be  App
-    Set Author  Test Author
-    Set Title  Test title
-    Set Year  2024
-    Set Publisher  Test publisher
-    Click Button  Add a book
-    Title Should Be  App
+    Add A Book With Test Values
     Page Should Contain  Total references: 1
-    Page Should Contain  Test Author
-    Page Should Contain  Test title
+    Page Should Contain  book author
+    Page Should Contain  book title
     Page Should Contain  2024
-    Page Should Contain  Test publisher
+    Page Should Contain  test publisher
 
 Trying to add book with no author and failing
     Go To  ${HOME_URL}

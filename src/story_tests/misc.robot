@@ -7,17 +7,11 @@ Test Setup       Reset References
 *** Test Cases ***
 
 After a misc is added, it will appear in the list of references.
-    Go To  ${HOME_URL}
-    Title Should Be  App
-    Select Misc From The Dropdown Menu
-    Set Author  Test Author
-    Set Title  Test Title
-    Set Year  2024
-    Set Note  This is a test misc note.
+    Add Misc With Test Values
     Click Button  Add a misc reference
-    Page Should Contain  Test Author
-    Page Should Contain  Test Title
-    Page Should Contain  2024
+    Page Should Contain  misc author
+    Page Should Contain  misc title
+    Page Should Contain  2003
     Page Should Contain  This is a test misc note.
 
 Adding a misc without notes is successful

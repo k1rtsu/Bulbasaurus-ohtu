@@ -226,6 +226,7 @@ button:disabled {
   height: calc(100% - 78px);
   overflow-y: scroll;
   padding: 8px;
+  padding-top: 0px;
 }
 
 .hamburger-icon {

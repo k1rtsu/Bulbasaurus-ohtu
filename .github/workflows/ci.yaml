@@ -7,9 +7,9 @@ env:
 
 on:
   push:
-    branches: [main, robot]
+    branches: [robot]
   pull_request:
-    branches: [main, robot]
+    branches: [robot]
 
 jobs:
   build:

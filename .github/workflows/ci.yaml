@@ -7,9 +7,9 @@ env:
 
 on:
   push:
-    branches: [main, bibtex]
+    branches: [main, robot]
   pull_request:
-    branches: [main, bibtex]
+    branches: [main, robot]
 
 jobs:
   build:

@@ -1,9 +1,5 @@
 """
 Functions to edit references in the database.
-
-Functions:
-
-    edit_reference
 """
 
 from sqlalchemy import text
@@ -14,8 +10,7 @@ def update_reference(form_data: dict, reference_id: str):
     """Update the information of a reference.
 
     Arguments:
-
-    form_data: a dictionary that has the updated information.
+        form_data: a dictionary that has the updated information.
     """
     reference_id = int(reference_id)
 

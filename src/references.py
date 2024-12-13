@@ -1,9 +1,5 @@
 """
 Functions to add and fetch data from the database.
-
-Functions:
-
-        add_book(author: str, title: str, year: str, publisher: str) -> None:
 """
 
 from sqlalchemy import text

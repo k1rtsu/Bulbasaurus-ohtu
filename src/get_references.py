@@ -1,8 +1,4 @@
 """Functions to get data from the database.
-
-Functions:
-
-    get_reference_info_by_id
 """
 
 from sqlalchemy import text

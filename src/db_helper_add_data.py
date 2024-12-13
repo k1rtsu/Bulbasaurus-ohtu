@@ -2,17 +2,10 @@
 Populate the database with example references.
 
 Functions:
-
     add_data
-
-    loop
-    
     add_book
-
     add_article
-
     add_inproceedings
-
     add_misc
 """
 

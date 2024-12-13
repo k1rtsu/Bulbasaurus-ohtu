@@ -8,6 +8,9 @@ Ohjelmistotuotanto 2024 miniprojekti
 
 [Product backlog ja sprint backlogit](https://docs.google.com/spreadsheets/d/1RMMjKq7OOiBKllxChY3m_eDCr9RuxWiq2uwkZbb58no/edit?gid=0#gid=0)
 
+[Projektin loppuraportti](https://helsinkifi-my.sharepoint.com/:w:/g/personal/kkuoppal_ad_helsinki_fi/ERSZ9kPzFp9LlfDrPRuo6wkBXWbB0CdVCKxWLu9WYtuDCw?e=Uxc0OZ)
+
+
 ## Asennusohje
 
 Kloona repositorio:
